@@ -1,0 +1,127 @@
+@charset"utf-8";
+    /*画面全体のレイアウト*/
+    body{
+        user-select:none; 
+        margin:0;
+        background-color: beige;
+    }
+
+    /* 愛言葉をきめてねのテキスト */
+    h1{
+        margin-top: 50px;
+        font-size: 36px;
+        text-align: center;
+        color:cadetblue;
+    }
+
+    /* 名前を教えてのテキスト */
+    .name{
+        margin-top: 50px;
+        font-size: 36px;
+        text-align: center;
+        color:cadetblue;
+    }
+    
+    /*名前テキストボックスのデザイン*/
+    /*https://copypet.jp/692/*/
+    .cp_iptxt {
+        margin: auto;
+        position: relative;
+        width: 500px;
+    }
+    .cp_iptxt input[type='text'] {
+        background: beige;
+        font: 36px/50px sans-serif;
+        box-sizing: border-box;
+        width: 100%;
+        padding: 0.3em;
+        transition: 0.3s;
+        letter-spacing: 1px;
+        color: #000000;
+        border: 1px solid #1b2538;
+        border-radius: 4px;
+    }
+    .ef input[type='text']:focus {
+        border: 1px solid #da3c41;
+        outline: none;
+        box-shadow: 0 0 5px 1px rgba(218,60,65, .5);
+    }
+    input::placeholder {
+        color: rgb(239, 232, 153);
+        font-weight: bold;
+        font-size: 1.2em;
+        font-style: italic;
+    }
+
+    /*２～４人ボタンレイアウト*/
+    .hukusuStart{
+        display: block;
+        margin: auto;
+        background-color: rgb(249, 106, 90); /* 背景色 */
+        color: #fff; /* 文字色 */
+        padding: 10px 20px; /* 上下の余白、左右の余白 */
+        border: none; /* デフォルトで入るリンクの下線を消す */
+        border-radius: 10px; /* 角を丸くする */
+        cursor: pointer;
+    }
+
+    /*透明なパスワード欄の画像のレイアウト*/
+    .usepath{
+        width: 550px;
+        margin-top: 10px;
+        margin-bottom: 30px;
+        margin: auto;
+        background: cadetblue;
+        text-align: center;
+    }
+
+    /*透明なパスワード欄の画像設定*/
+    .usepath img{
+        margin-left:25px;
+        margin-right:25px;
+        width: 70px;
+        height: auto;
+    }
+
+    /*干支のパスワード画像レイアウト*/
+    .path{
+        overflow: hidden;
+        text-align: center;
+    }
+
+    /*干支のパスワード画像設定*/
+    .path img{
+        margin-left: 25px;
+        margin-right: 25px;
+        width: 70px;
+        height: auto;
+    }
+
+    /*パスのdeleteボタンレレイアウト*/
+    .delete{
+        display: block;
+        margin: auto;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        font-size: 20px;
+        background-color: rgb(102, 232, 255); /* 背景色 */
+        color: #000000; /* 文字色 */
+        padding: 10px 20px; /* 上下の余白、左右の余白 */
+        border: none; /* デフォルトで入るリンクの下線を消す */
+        border-radius: 10px; /* 角を丸くする */
+        cursor: pointer;
+    }
+
+    /*1人で遊ぶボタンレイアウト*/
+    .soroStart{
+        display: block;
+        margin: auto;
+        margin-top: 20px;
+        margin-bottom: 30px;
+        background-color: rgb(249, 106, 90); /* 背景色 */
+        color: #fff; /* 文字色 */
+        padding: 10px 20px; /* 上下の余白、左右の余白 */
+        border: none; /* デフォルトで入るリンクの下線を消す */
+        border-radius: 10px; /* 角を丸くする */
+        cursor: pointer;
+    }

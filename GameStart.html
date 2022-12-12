@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/GameStart.css">
+    <link rel="stylesheet" href="css/RoomIn.css">
+    <title>はたあげゲーム</title>
+    <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-messaging.js"></script>
+
+</head>
+<body>
+    
+    <div>
+
+        <!-- 難易度設定用ボタンレイアウト -->
+        <h2>むずかしさをえらんでね</h2>
+
+        <div class="center">
+            <button type="submit" class="Nanido" id="Easy">かんたん</button>
+
+            <button type="submit" class="Nanido" id="Normal">ふつう</button>
+
+            <button type="submit" class="Nanido" id="Hard">むずかしい</button>
+        </div>
+
+        <!-- 一人で遊ぶ用ボタンレイアウト -->
+        <h2>ひとりであそぶ</h2>
+
+        <button type="submit" id="Soroplay">ゲームスタート</button>
+
+        <!-- みんなで遊ぶ用ボタンレイアウト -->
+        <h2>みんなであそぶ</h2>
+
+        <div class="center">
+        <button onclick="location.href='./RoomCreate.html'" class="room">へやをつくる</button>
+        <button onclick="location.href='./RoomIn.html'" class="room">へやにはいる</button>
+        </div>
+
+    </div>
+    <script src="js/GameStart.js"></script>
+
+</body>
+</html>

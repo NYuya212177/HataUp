@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/RoomCreate.css">
+    <title>RoomCreate</title>
+    <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-messaging.js"></script>
+</head>
+<body>
+    <div class="PathEto1">
+
+        <p class="name">おなまえをおしえて</p>
+        <!--名前設定テキストボックス-->
+        <!-- ここのclassコピペなんでわかりずらくてすみません -->
+        <div class="cp_iptxt">
+            <label class="ef">
+            <input type="text" placeholder="おなまえ" id="name">
+            </label>
+        </div>
+
+        <h1>あいことばをきめてね</h1>
+        <!--透明なパスワード欄-->
+        <div class="usepath">
+            <img id="path1" src="./Path干支/Path.png">
+            <img id="path2" src="./Path干支/Path.png">
+            <img id="path3" src="./Path干支/Path.png">
+            <img id="path4" src="./Path干支/Path.png">
+        </div>
+        <!--干支のパスワード画像-->
+        <div class="path">
+            <img id="nezumi" src="./Path干支/Nezumi.png">
+            <img id="ushi" src="./Path干支/Ushi.png">
+            <img id="tora" src="./Path干支/Tora.png">
+            <img id="usagi" src="./Path干支/Usagi.png">
+        </div>
+        <div class="path">
+            <img id="tatu" src="./Path干支/Tatu.png">
+            <img id="hebi" src="./Path干支/Hebi.png">
+            <img id="uma"src="./Path干支/Uma.png">
+            <img id="hithuji" src="./Path干支/Hithuji.png">
+        </div>
+        <div class="path">
+            <img id="saru" src="./Path干支/Saru.png">
+            <img id="tori" src="./Path干支/Tori.png">
+            <img id="inu" src="./Path干支/Inu.png">
+            <img id="inoshishi" src="./Path干支/Inoshishi.png">
+        </div>
+        <!--deleteボタン-->
+        <button type="submit" class="delete" id="DELETE">×</button>
+
+        <button type="submit" class="delete" id="GameStart">へやをつくる</button>
+
+    </div>
+    <script src="js/RoomCreate.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+@charset"utf-8";
+
+    body{
+        user-select:none; 
+        margin:0;
+        background-color: beige;
+    }
+    /* ボタンのcenter付け用 */
+    .center{
+        text-align: center;
+        margin: auto;
+    }
+    /* 難易度ボタン */
+    .Nanido{
+        margin: auto;
+        margin-top: 20px;
+        margin-bottom: 30px;
+        background-color: rgb(249, 106, 90); /* 背景色 */
+        color: #fff; /* 文字色 */
+        padding: 10px 20px; /* 上下の余白、左右の余白 */
+        border: none; /* デフォルトで入るリンクの下線を消す */
+        border-radius: 10px; /* 角を丸くする */
+    }
+    /* 文字の色付け */
+    h2{
+        margin-top: 50px;
+        font-size: 30px;
+        text-align: center;
+        color:cadetblue;
+    }
+    /* 一人で遊ぶボタン */
+    #Soroplay{
+        display: block;
+        margin: auto;
+        margin-top: 20px;
+        margin-bottom: 30px;
+        background-color: rgb(249, 106, 90); /* 背景色 */
+        color: #fff; /* 文字色 */
+        padding: 10px 20px; /* 上下の余白、左右の余白 */
+        border: none; /* デフォルトで入るリンクの下線を消す */
+        border-radius: 10px; /* 角を丸くする */
+        cursor: pointer;
+    }
+    /* 部屋に入る・作るボタンレイアウト */
+    .room{
+        margin: auto;
+        margin-top: 20px;
+        margin-bottom: 30px;
+        background-color: rgb(249, 106, 90); /* 背景色 */
+        color: #fff; /* 文字色 */
+        padding: 10px 20px; /* 上下の余白、左右の余白 */
+        border: none; /* デフォルトで入るリンクの下線を消す */
+        border-radius: 10px; /* 角を丸くする */
+        
+    }
