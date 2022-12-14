@@ -11,6 +11,10 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 var firestore = firebase.firestore();
 
+localStorage.removeItem("password");
+localStorage.removeItem("playernumber");
+localStorage.removeItem("name");
+
 // 透明なパス画像のを指定している
 var Path1 = document.getElementById("path1");
 var Path2 = document.getElementById("path2");
@@ -260,23 +264,31 @@ document.getElementById("DELETE").addEventListener("click", function () {
 
 // 設定したパスをcloud firebaseのドキュメントとして設定しルームを作成する
 document.getElementById("GameStart").addEventListener("click", function () {
-    if (pass4 != null) {
 
-        const level = localStorage.getItem("nanido");
+    if (Path1.src == Path || Path2.src == Path || Path3.src == Path || Path4.src == Path) {
+
+        console.log("pass足りない");
+
+    } else {
+
+        localStorage.setItem('playernumber', "player1");
+
+        const level = localStorage.getItem("level");
         console.log(level);
 
         var password = pass1 + pass2 + pass3 + pass4;
         console.log(password);
 
-        const name = document.getElementById("name").value;
+        localStorage.setItem('password', password);
+        console.log(localStorage);
+        const name1 = document.getElementById("name").value;
         
         firestore.collection(level).doc(password).set({
-            player1: name,
-            state: "CA",
-            country: "USA"
+            player1: name1,
+            player2: null,
+            player3: null,
+            player4: null
         })
-
-    } else {
-        console.log("失敗");
+        
     }
 })

@@ -1,24 +1,15 @@
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/RoomIn.css">
+    <link rel="stylesheet" href="css/StandPage.css">
     <title>RoomCreate</title>
     <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-messaging.js"></script>
 </head>
 <body>
-    <div class="PathEto1">
-
-        <p class="name">おなまえをおしえて</p>
-        <!--名前設定テキストボックス-->
-        <div class="cp_iptxt">
-            <label class="ef">
-            <input type="text" placeholder="おなまえ">
-            </label>
-        </div>
-
-        <h1>あいことばをきめてね</h1>
+    <div>
+        <h1>ともだちをまっています</h1>
         <!--透明なパスワード欄-->
         <div class="usepath">
             <img id="path1" src="./Path干支/Path.png">
@@ -27,28 +18,23 @@
             <img id="path4" src="./Path干支/Path.png">
         </div>
         <!--干支のパスワード画像-->
-        <div class="path">
-            <img id="nezumi" src="./Path干支/Nezumi.png">
-            <img id="ushi" src="./Path干支/Ushi.png">
-            <img id="tora" src="./Path干支/Tora.png">
-            <img id="usagi" src="./Path干支/Usagi.png">
+        <div class="player">
+            <p class="playertext">プレイヤー１　：　</p>
+            <p class="playertext" id="player1"></p>
         </div>
-        <div class="path">
-            <img id="tatu" src="./Path干支/Tatu.png">
-            <img id="hebi" src="./Path干支/Hebi.png">
-            <img id="uma"src="./Path干支/Uma.png">
-            <img id="hithuji" src="./Path干支/Hithuji.png">
+        <div class="player">
+            <p class="playertext">プレイヤー２　：　</p>
+            <p class="playertext" id="player2">ともだちをまってます</p>
         </div>
-        <div class="path">
-            <img id="saru" src="./Path干支/Saru.png">
-            <img id="tori" src="./Path干支/Tori.png">
-            <img id="inu" src="./Path干支/Inu.png">
-            <img id="inoshishi" src="./Path干支/Inoshishi.png">
+        <div class="player">
+            <p class="playertext">プレイヤー３　：　</p>
+            <p class="playertext" id="player3">ともだちをまってます</p>
         </div>
-        <!--deleteボタン-->
-        <button type="submit" class="delete" id="DELETE">×</button>
-
-        <button type="submit" class="delete" id="GameStart">へやにはいる</button>
+        <div class="player">
+            <p class="playertext">プレイヤー４　：　</p>
+            <p class="playertext" id="player4">ともだちをまってます</p>
+        </div>
+        <button type="submit" class="delete" id="GameStart">ゲームスタート</button>
 
     </div>
     <script src="js/RoomIn.js"></script>

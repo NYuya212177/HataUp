@@ -10,6 +10,9 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 var firestore = firebase.firestore();
 
+localStorage.removeItem("password");
+localStorage.removeItem("playernumber");
+localStorage.removeItem("name");
 
 var Path1 = document.getElementById("path1");
 var Path2 = document.getElementById("path2");
@@ -34,6 +37,7 @@ var pass1 = null;
 var pass2 = null;
 var pass3 = null;
 var pass4 = null;
+var setpassword = null;
 
 Nezumi.addEventListener("click", function () {
     if (Path1.src == Path) {
@@ -238,23 +242,52 @@ document.getElementById("DELETE").addEventListener("click", function () {
         Path1.src = "./Path干支/Path.png";
     }
 });
-
 document.getElementById("GameStart").addEventListener("click", function () {
-    if (Path4.src == Path) {
+
+    if (Path1.src == Path || Path2.src == Path || Path3.src == Path || Path4.src == Path) {
         console.log("pass足りない");
+
     }else{
 
-        password = pass1 + pass2 + pass3 + pass4;
-        console.log(password);
+        setpassword = pass1 + pass2 + pass3 + pass4;
+        console.log(setpassword);
 
-        const level = localStorage.getItem("nanido");
+        const level = localStorage.getItem("level");
         console.log(level);
 
-        var docRef = firestore.collection(level).doc(password);
+        const name = document.getElementById("name").value;
+        localStorage.setItem('name', name);
+
+        var docRef = firestore.collection(level).doc(setpassword);
         docRef.get().then((doc) => {
             if (doc.exists) {
+                localStorage.setItem('password', setpassword);
+
+                // var db = firestore.collection(level).doc(setpassword);
+                var player2 = doc.data().player2;
+                var player3 = doc.data().player3;
+                var player4 = doc.data().player4;
+                console.log(player2)
+                if(player2 == null){
+                    console.log(name);
+                    docRef.update({
+                        player2: name
+                    })
+                    localStorage.setItem('playernumber', "player2");
+                } else if(player3 == null){
+                    console.log(name);
+                    docRef.update({
+                        player3: name
+                    })
+                    localStorage.setItem('playernumber', "player3");
+                } else if(player4 == null){
+                    console.log(name);
+                    docRef.update({
+                        player4: name
+                    })
+                    localStorage.setItem('playernumber', "player4");
+            }
                 
-                console.log("Document data:", doc.data());
             } else {
                 // doc.data() will be undefined in this case
                 console.log("ルームなし");
