@@ -10,7 +10,8 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 var firestore = firebase.firestore();
 
-localStorage.removeItem("password");
+localStorage.removeItem("setpassword");
+localStorage.removeItem("craftpassword");
 localStorage.removeItem("playernumber");
 localStorage.removeItem("name");
 
@@ -20,26 +21,15 @@ var Path3 = document.getElementById("path3");
 var Path4 = document.getElementById("path4");
 var Path = Path4.src;
 
-var Nezumi = document.getElementById("nezumi");
-var Ushi = document.getElementById("ushi");
-var Tora = document.getElementById("tora");
-var Usagi = document.getElementById("usagi");
-var Tatu = document.getElementById("tatu");
-var Hebi = document.getElementById("hebi");
-var Uma = document.getElementById("uma");
-var Hithuji = document.getElementById("hithuji");
-var Saru = document.getElementById("saru");
-var Tori = document.getElementById("tori");
-var Inu = document.getElementById("inu");
-var Inoshishi = document.getElementById("inoshishi");
-
 var pass1 = null;
 var pass2 = null;
 var pass3 = null;
 var pass4 = null;
-var setpassword = null;
 
-Nezumi.addEventListener("click", function () {
+var setpassword = null;
+var craftpassword = null;
+
+document.getElementById("nezumi").addEventListener("click", function () {
     if (Path1.src == Path) {
         Path1.src = "./Path干支/Nezumi.png";
         pass1 = "0";
@@ -55,7 +45,7 @@ Nezumi.addEventListener("click", function () {
     }
 })
 
-Ushi.addEventListener("click", function () {
+document.getElementById("ushi").addEventListener("click", function () {
     if (Path1.src == Path) {
         Path1.src = "./Path干支/Ushi.png";
         pass1 = "1";
@@ -71,7 +61,7 @@ Ushi.addEventListener("click", function () {
     }
 })
 
-Tora.addEventListener("click", function () {
+document.getElementById("tora").addEventListener("click", function () {
     if (Path1.src == Path) {
         Path1.src = "./Path干支/Tora.png";
         pass1 = "2";
@@ -87,7 +77,7 @@ Tora.addEventListener("click", function () {
     }
 })
 
-Usagi.addEventListener("click", function () {
+document.getElementById("usagi").addEventListener("click", function () {
     if (Path1.src == Path) {
         Path1.src = "./Path干支/Usagi.png";
         pass1 = "3";
@@ -103,7 +93,7 @@ Usagi.addEventListener("click", function () {
     }
 })
 
-Tatu.addEventListener("click", function () {
+document.getElementById("tatu").addEventListener("click", function () {
     if (Path1.src == Path) {
         Path1.src = "./Path干支/Tatu.png";
         pass1 = "4";
@@ -119,7 +109,7 @@ Tatu.addEventListener("click", function () {
     }
 })
 
-Hebi.addEventListener("click", function () {
+document.getElementById("hebi").addEventListener("click", function () {
     if (Path1.src == Path) {
         Path1.src = "./Path干支/Hebi.png";
         pass1 = "5";
@@ -135,7 +125,7 @@ Hebi.addEventListener("click", function () {
     }
 })
 
-Uma.addEventListener("click", function () {
+document.getElementById("uma").addEventListener("click", function () {
     if (Path1.src == Path) {
         Path1.src = "./Path干支/Uma.png";
         pass1 = "6";
@@ -151,7 +141,7 @@ Uma.addEventListener("click", function () {
     }
 })
 
-Hithuji.addEventListener("click", function () {
+document.getElementById("hithuji").addEventListener("click", function () {
     if (Path1.src == Path) {
         Path1.src = "./Path干支/Hithuji.png";
         pass1 = "7";
@@ -167,7 +157,7 @@ Hithuji.addEventListener("click", function () {
     }
 })
 
-Saru.addEventListener("click", function () {
+document.getElementById("saru").addEventListener("click", function () {
     if (Path1.src == Path) {
         Path1.src = "./Path干支/Saru.png";
         pass1 = "8";
@@ -183,7 +173,7 @@ Saru.addEventListener("click", function () {
     }
 })
 
-Tori.addEventListener("click", function () {
+document.getElementById("tori").addEventListener("click", function () {
     if (Path1.src == Path) {
         Path1.src = "./Path干支/Tori.png";
         pass1 = "9";
@@ -199,7 +189,7 @@ Tori.addEventListener("click", function () {
     }
 })
 
-Inu.addEventListener("click", function () {
+document.getElementById("inu").addEventListener("click", function () {
     if (Path1.src == Path) {
         Path1.src = "./Path干支/Inu.png";
         pass1 = "A";
@@ -215,7 +205,7 @@ Inu.addEventListener("click", function () {
     }
 })
 
-Inoshishi.addEventListener("click", function () {
+document.getElementById("inoshishi").addEventListener("click", function () {
     if (Path1.src == Path) {
         Path1.src = "./Path干支/Inoshishi.png";
         pass1 = "B";
@@ -247,53 +237,71 @@ document.getElementById("GameStart").addEventListener("click", function () {
     if (Path1.src == Path || Path2.src == Path || Path3.src == Path || Path4.src == Path) {
         console.log("pass足りない");
 
-    }else{
+    } else {
 
         setpassword = pass1 + pass2 + pass3 + pass4;
-        console.log(setpassword);
 
         const level = localStorage.getItem("level");
         console.log(level);
 
-        const name = document.getElementById("name").value;
-        localStorage.setItem('name', name);
+        const setname = document.getElementById("name").value;
+        localStorage.setItem('name', setname);
 
         var docRef = firestore.collection(level).doc(setpassword);
         docRef.get().then((doc) => {
+            craftpassword = doc.data().password;
+            player2 = doc.data().player2;
+            player3 = doc.data().player3;
+            player4 = doc.data().player4;
             if (doc.exists) {
-                localStorage.setItem('password', setpassword);
+                localStorage.setItem('setpassword', setpassword);
+                localStorage.setItem('craftpassword', craftpassword);
+                console.log("Document data:", doc.data());
+                if (player2 == null) {
 
-                // var db = firestore.collection(level).doc(setpassword);
-                var player2 = doc.data().player2;
-                var player3 = doc.data().player3;
-                var player4 = doc.data().player4;
-                console.log(player2)
-                if(player2 == null){
-                    console.log(name);
+                    console.log(setname);
+
                     docRef.update({
-                        player2: name
+                        player2: setname
                     })
-                    localStorage.setItem('playernumber', "player2");
-                } else if(player3 == null){
-                    console.log(name);
+                        .then(() => {
+                            window.location.href = 'StandPage.html';
+                            localStorage.setItem('playernumber', "player2");
+                        })
+
+                } else if (player3 == null) {
+                    console.log(setname);
+
                     docRef.update({
-                        player3: name
+                        player3: setname
                     })
-                    localStorage.setItem('playernumber', "player3");
-                } else if(player4 == null){
-                    console.log(name);
+                        .then(() => {
+                            window.location.href = 'StandPage.html';
+                            localStorage.setItem('playernumber', "player3");
+                        })
+
+                } else if (player4 == null) {
+                    console.log(setname);
+
                     docRef.update({
-                        player4: name
+                        player4: setname
                     })
-                    localStorage.setItem('playernumber', "player4");
-            }
-                
+                        .then(() => {
+                            window.location.href = 'StandPage.html';
+                            localStorage.setItem('playernumber', "player4");
+                        })
+
+                } else if (player4 != null) {
+                    console.log("人がいっぱいでルームに入れません");
+                }
             } else {
                 // doc.data() will be undefined in this case
-                console.log("ルームなし");
+                console.log("No such document!");
             }
         }).catch((error) => {
-            console.log("Error getting document:", error);
+            console.log("ルームがありません", error);
+
         });
+
     }
 })

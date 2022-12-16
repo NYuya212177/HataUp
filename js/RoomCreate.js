@@ -11,7 +11,8 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 var firestore = firebase.firestore();
 
-localStorage.removeItem("password");
+localStorage.removeItem("setpassword");
+localStorage.removeItem("craftpassword");
 localStorage.removeItem("playernumber");
 localStorage.removeItem("name");
 
@@ -23,30 +24,16 @@ var Path4 = document.getElementById("path4");
 
 // 透明なパス画像をあとでif文で使いたくて設定している変数
 var Path = Path4.src;
-
-// 干支のパスを指定
-var Nezumi = document.getElementById("nezumi");
-var Ushi = document.getElementById("ushi");
-var Tora = document.getElementById("tora");
-var Usagi = document.getElementById("usagi");
-var Tatu = document.getElementById("tatu");
-var Hebi = document.getElementById("hebi");
-var Uma = document.getElementById("uma");
-var Hithuji = document.getElementById("hithuji");
-var Saru = document.getElementById("saru");
-var Tori = document.getElementById("tori");
-var Inu = document.getElementById("inu");
-var Inoshishi = document.getElementById("inoshishi");
-
 // 最終のパスワードを入れるための変数の初期化
 var pass1 = null;
 var pass2 = null;
 var pass3 = null;
 var pass4 = null;
 
-
+var craftpassword = null;
+var setpassword = null;
 // 干支の画像を押したら透明なパス画像のところに左から順番に入れていくためのif文
-Nezumi.addEventListener("click", function () {
+document.getElementById("nezumi").addEventListener("click", function () {
     if (Path1.src == Path) {
         Path1.src = "./Path干支/Nezumi.png";
         pass1 = "0";
@@ -62,8 +49,7 @@ Nezumi.addEventListener("click", function () {
     }
 })
 
-// 干支の画像を押したら透明なパス画像のところに左から順番に入れていくためのif文
-Ushi.addEventListener("click", function () {
+document.getElementById("ushi").addEventListener("click", function () {
     if (Path1.src == Path) {
         Path1.src = "./Path干支/Ushi.png";
         pass1 = "1";
@@ -79,8 +65,7 @@ Ushi.addEventListener("click", function () {
     }
 })
 
-// 干支の画像を押したら透明なパス画像のところに左から順番に入れていくためのif文
-Tora.addEventListener("click", function () {
+document.getElementById("tora").addEventListener("click", function () {
     if (Path1.src == Path) {
         Path1.src = "./Path干支/Tora.png";
         pass1 = "2";
@@ -96,8 +81,7 @@ Tora.addEventListener("click", function () {
     }
 })
 
-// 干支の画像を押したら透明なパス画像のところに左から順番に入れていくためのif文
-Usagi.addEventListener("click", function () {
+document.getElementById("usagi").addEventListener("click", function () {
     if (Path1.src == Path) {
         Path1.src = "./Path干支/Usagi.png";
         pass1 = "3";
@@ -113,8 +97,7 @@ Usagi.addEventListener("click", function () {
     }
 })
 
-// 干支の画像を押したら透明なパス画像のところに左から順番に入れていくためのif文
-Tatu.addEventListener("click", function () {
+document.getElementById("tatu").addEventListener("click", function () {
     if (Path1.src == Path) {
         Path1.src = "./Path干支/Tatu.png";
         pass1 = "4";
@@ -130,8 +113,7 @@ Tatu.addEventListener("click", function () {
     }
 })
 
-// 干支の画像を押したら透明なパス画像のところに左から順番に入れていくためのif文
-Hebi.addEventListener("click", function () {
+document.getElementById("hebi").addEventListener("click", function () {
     if (Path1.src == Path) {
         Path1.src = "./Path干支/Hebi.png";
         pass1 = "5";
@@ -147,8 +129,7 @@ Hebi.addEventListener("click", function () {
     }
 })
 
-// 干支の画像を押したら透明なパス画像のところに左から順番に入れていくためのif文
-Uma.addEventListener("click", function () {
+document.getElementById("uma").addEventListener("click", function () {
     if (Path1.src == Path) {
         Path1.src = "./Path干支/Uma.png";
         pass1 = "6";
@@ -164,8 +145,7 @@ Uma.addEventListener("click", function () {
     }
 })
 
-// 干支の画像を押したら透明なパス画像のところに左から順番に入れていくためのif文
-Hithuji.addEventListener("click", function () {
+document.getElementById("hithuji").addEventListener("click", function () {
     if (Path1.src == Path) {
         Path1.src = "./Path干支/Hithuji.png";
         pass1 = "7";
@@ -181,8 +161,7 @@ Hithuji.addEventListener("click", function () {
     }
 })
 
-// 干支の画像を押したら透明なパス画像のところに左から順番に入れていくためのif文
-Saru.addEventListener("click", function () {
+document.getElementById("saru").addEventListener("click", function () {
     if (Path1.src == Path) {
         Path1.src = "./Path干支/Saru.png";
         pass1 = "8";
@@ -198,8 +177,7 @@ Saru.addEventListener("click", function () {
     }
 })
 
-// 干支の画像を押したら透明なパス画像のところに左から順番に入れていくためのif文
-Tori.addEventListener("click", function () {
+document.getElementById("tori").addEventListener("click", function () {
     if (Path1.src == Path) {
         Path1.src = "./Path干支/Tori.png";
         pass1 = "9";
@@ -215,8 +193,7 @@ Tori.addEventListener("click", function () {
     }
 })
 
-// 干支の画像を押したら透明なパス画像のところに左から順番に入れていくためのif文
-Inu.addEventListener("click", function () {
+document.getElementById("inu").addEventListener("click", function () {
     if (Path1.src == Path) {
         Path1.src = "./Path干支/Inu.png";
         pass1 = "A";
@@ -232,8 +209,7 @@ Inu.addEventListener("click", function () {
     }
 })
 
-// 干支の画像を押したら透明なパス画像のところに左から順番に入れていくためのif文
-Inoshishi.addEventListener("click", function () {
+document.getElementById("inoshishi").addEventListener("click", function () {
     if (Path1.src == Path) {
         Path1.src = "./Path干支/Inoshishi.png";
         pass1 = "B";
@@ -249,7 +225,6 @@ Inoshishi.addEventListener("click", function () {
     }
 })
 
-// パスワードとして設定して干支の画像を右から順番に消す
 document.getElementById("DELETE").addEventListener("click", function () {
     if (Path4.src != Path) {
         Path4.src = "./Path干支/Path.png";
@@ -271,24 +246,47 @@ document.getElementById("GameStart").addEventListener("click", function () {
 
     } else {
 
-        localStorage.setItem('playernumber', "player1");
-
         const level = localStorage.getItem("level");
         console.log(level);
 
-        var password = pass1 + pass2 + pass3 + pass4;
-        console.log(password);
+        const setname = document.getElementById("name").value;
 
-        localStorage.setItem('password', password);
-        console.log(localStorage);
-        const name1 = document.getElementById("name").value;
-        
-        firestore.collection(level).doc(password).set({
-            player1: name1,
+        localStorage.setItem('name', setname);
+
+        localStorage.setItem('playernumber', "player1");
+
+        var setpassword = pass1 + pass2 + pass3 + pass4;
+        console.log(setpassword);
+
+        firestore.collection("Craft" + level).add({
+            player1: null,
             player2: null,
             player3: null,
             player4: null
         })
-        
+            .then((docRef) => {
+                craftpassword = docRef.id;
+                console.log("Document written with ID: ", craftpassword);
+                localStorage.setItem('craftpassword', craftpassword);
+            })
+            .catch((error) => {
+                console.error("Error adding document: ", error);
+            });
+
+        firestore.collection(level).doc(setpassword).set({
+            player1: setname,
+            player2: null,
+            player3: null,
+            player4: null,
+        })
+            .then(() => {
+                localStorage.setItem('setpassword', setpassword);
+                console.log(localStorage);
+                window.location.href = 'StandPage.html';
+            })
+            .catch((error) => {
+                console.error("Error writing document: ", error);
+            });
+
     }
 })
