@@ -268,25 +268,27 @@ document.getElementById("GameStart").addEventListener("click", function () {
                 craftpassword = docRef.id;
                 console.log("Document written with ID: ", craftpassword);
                 localStorage.setItem('craftpassword', craftpassword);
+                firestore.collection(level).doc(setpassword).set({
+                    password: craftpassword,
+                    player1: setname,
+                    player2: null,
+                    player3: null,
+                    player4: null,
+                })
+                    .then(() => {
+                        localStorage.setItem('setpassword', setpassword);
+                        console.log(localStorage);
+                        window.location.href = 'StandPage.html';
+                    })
+                    .catch((error) => {
+                        console.error("Error writing document: ", error);
+                    });
+
             })
             .catch((error) => {
                 console.error("Error adding document: ", error);
             });
 
-        firestore.collection(level).doc(setpassword).set({
-            player1: setname,
-            player2: null,
-            player3: null,
-            player4: null,
-        })
-            .then(() => {
-                localStorage.setItem('setpassword', setpassword);
-                console.log(localStorage);
-                window.location.href = 'StandPage.html';
-            })
-            .catch((error) => {
-                console.error("Error writing document: ", error);
-            });
 
     }
 })

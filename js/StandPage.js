@@ -37,8 +37,8 @@ var player2 = null;
 var player3 = null;
 var player4 = null;
 
-var gamedata = null;
-var realtimestop = "更新中";
+var realtimestop = 1;
+
 for (var i = 0; i <= 3; i++) {
     var pathnumber = i + 1;
     var password = setpassword.charAt(i);
@@ -87,84 +87,85 @@ if (player2 == null) {
     console.log("非表示");
 }
 
-var docRef = firestore.collection(level).doc(setpassword);
-docRef.onSnapshot((doc) => {
-    if(realtimestop === "更新中"){
-    gamedata = doc.data();
-    player1 = doc.data().player1;
-    player2 = doc.data().player2;
-    player3 = doc.data().player3;
-    player4 = doc.data().player4;
-    }
+// if (realtimestop == 1) {
+    var docRef = firestore.collection(level).doc(setpassword);
+    docRef.onSnapshot((doc) => {
+        player1 = doc.data().player1;
+        player2 = doc.data().player2;
+        player3 = doc.data().player3;
+        player4 = doc.data().player4;
 
-    var setplayer = document.getElementById(playernumber).value;
+        var setplayer = document.getElementById(playernumber).value;
 
-    if (setplayer == null && player1 != null) {
+        if (setplayer == null && player1 != null) {
 
-        document.getElementById("player1").textContent = player1;
+            document.getElementById("player1").textContent = player1;
 
-    }
-    if (setplayer == null && player2 != null) {
+        }
+        if (setplayer == null && player2 != null) {
 
-        document.getElementById("player2").textContent = player2;
+            document.getElementById("player2").textContent = player2;
 
-    }
-    if (setplayer == null && player3 != null) {
+        }
+        if (setplayer == null && player3 != null) {
 
-        document.getElementById("player3").textContent = player3;
+            document.getElementById("player3").textContent = player3;
 
-    }
-    if (setplayer == null && player4 != null) {
+        }
+        if (setplayer == null && player4 != null) {
 
-        document.getElementById("player4").textContent = player4;
+            document.getElementById("player4").textContent = player4;
 
-    }
+        }
 
-    if (player2 != null) {
-        document.getElementById("GameStart").style.display = 'inline'
-        console.log("表示");
-    }
-})
-    document.getElementById("GameStart").addEventListener("click", function () {
-        realtimestop = "ストップ";
-        var docRef = firestore.collection(level).doc(setpassword);
-        docRef.get().then((doc) => {
+        if (player2 != null) {
+            document.getElementById("GameStart").style.display = 'inline'
+            console.log("表示");
+        }
+    });
+// }else if(realtimestop == 0){
+//     console.log("成功");
+// }
 
-            player1 = doc.data().player1;
-            player2 = doc.data().player2;
-            player3 = doc.data().player3;
-            player4 = doc.data().player4;
+document.getElementById("GameStart").addEventListener("click", function () {
+    realtimestop = 0;
+    var docRef = firestore.collection(level).doc(setpassword);
+    docRef.get().then((doc) => {
+        player1 = doc.data().player1;
+        player2 = doc.data().player2;
+        player3 = doc.data().player3;
+        player4 = doc.data().player4;
 
-            if (doc.exists) {
-//setpasswordのドキュメント削除
-                var gamestart = firestore.collection(level).doc(setpassword);
-                gamestart.delete().then(() => {
-                    console.log("Document successfully deleted!");
-                }).catch((error) => {
-                    console.error("Error removing document: ", error);
-                });
-//craftpasswordに値入力
-                firestore.collection("Craft" + level).doc(craftpassword).set({
-                    player1: player1,
-                    player2: player2,
-                    player3: player3,
-                    player4: player4
+        if (doc.exists) {
+            //setpasswordのドキュメント削除
+            var gamestart = firestore.collection(level).doc(setpassword);
+            gamestart.delete().then(() => {
+                console.log("Document successfully deleted!");
+            }).catch((error) => {
+                console.error("Error removing document: ", error);
+            });
+            //craftpasswordに値入力
+            firestore.collection("Craft" + level).doc(craftpassword).set({
+                player1: player1,
+                player2: player2,
+                player3: player3,
+                player4: player4
+            })
+                .then(() => {
+                    localStorage.setItem('setpassword', setpassword);
+                    console.log(localStorage);
+                    // window.location.href = 'StandPage.html';
                 })
-                    .then(() => {
-                        localStorage.setItem('setpassword', setpassword);
-                        console.log(localStorage);
-                        // window.location.href = 'StandPage.html';
-                    })
-                    .catch((error) => {
-                        console.error("Error writing document: ", error);
-                    });
+                .catch((error) => {
+                    console.error("Error writing document: ", error);
+                });
 
-            } else {
-                // doc.data() will be undefined in this case
-                console.log("No such document!");
-            }
-        }).catch((error) => {
-            console.log("Error getting document:", error);
-        });
+        } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+        }
+    }).catch((error) => {
+        console.log("Error getting document:", error);
+    });
 
-    })
+})

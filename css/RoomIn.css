@@ -1,24 +1,35 @@
 @charset"utf-8";
     /*画面全体のレイアウト*/
     body{
-        user-select:none; 
-        margin:0;
-        background-color: beige;
-    }
-    
-    h1{
-        margin-top: 50px;
-        font-size: 36px;
+        background: url(background/78.jpg) center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 100vh;
         text-align: center;
-        color:cadetblue;
     }
 
-    .name{
-        margin-top: 50px;
+    /* 愛言葉をきめてねのテキスト */
+    h1{
+        margin-top: 60px;
+        margin-bottom: 3%;
+        font-weight: 900px;
         font-size: 36px;
         text-align: center;
-        color:cadetblue;
+        color: coral;
+        font-family: “HGP行書体”, “ＭＳ Ｐ明朝”, “MS PMincho”, serif; /* 書体変換 */
     }
+
+    /* 名前を教えてのテキスト */
+    .name{
+        margin-top: 15%;
+        margin-bottom: 4%;
+        font-weight: 900px;
+        font-size: 36px;
+        text-align: center;
+        color: coral;
+        font-family: “HGP行書体”, “ＭＳ Ｐ明朝”, “MS PMincho”, serif; /* 書体変換 */
+    }
+    
     /*名前テキストボックスのデザイン*/
     /*https://copypet.jp/692/*/
     .cp_iptxt {
@@ -27,49 +38,50 @@
         width: 500px;
     }
     .cp_iptxt input[type='text'] {
-        background: beige;
+        background: cadetblue;
         font: 36px/50px sans-serif;
         box-sizing: border-box;
         width: 100%;
         padding: 0.3em;
         transition: 0.3s;
         letter-spacing: 1px;
-        color: #000000;
-        border: 1px solid #1b2538;
-        border-radius: 4px;
+        border-radius: 15px;
+        border: none; /* デフォルトで入るリンクの下線を消す */
     }
     .ef input[type='text']:focus {
-        border: 1px solid #da3c41;
+        border: 20px solid cadetblue;
+        border-radius: 15px;
         outline: none;
-        box-shadow: 0 0 5px 1px rgba(218,60,65, .5);
     }
     input::placeholder {
-        color: rgb(239, 232, 153);
+        color: #fff; 
         font-weight: bold;
-        font-size: 1.2em;
+        font-size: 0.7em;
         font-style: italic;
+        font-family: “HGP行書体”, “ＭＳ Ｐ明朝”, “MS PMincho”, serif; /* 書体変換 */
     }
 
-    /*２～４人ボタンレイアウト*/
-    .hukusuStart{
-        display: block;
-        margin: auto;
-        background-color: rgb(249, 106, 90); /* 背景色 */
-        color: #fff; /* 文字色 */
-        padding: 10px 20px; /* 上下の余白、左右の余白 */
-        border: none; /* デフォルトで入るリンクの下線を消す */
-        border-radius: 10px; /* 角を丸くする */
-        cursor: pointer;
-    }
     /*透明なパスワード欄の画像のレイアウト*/
     .usepath{
         width: 550px;
         margin-top: 10px;
         margin-bottom: 30px;
+        border-radius: 15px;
         margin: auto;
         background: cadetblue;
         text-align: center;
     }
+
+    /*透明なパスワード欄の画像のレイアウト*/
+    .usepath{
+        width: 500px; /*幅*/
+        margin-bottom: 30px;
+        border-radius: 15px;
+        margin: auto;
+        background: cadetblue;
+        text-align: center;
+    }
+
     /*透明なパスワード欄の画像設定*/
     .usepath img{
         margin-left:25px;
@@ -77,42 +89,119 @@
         width: 70px;
         height: auto;
     }
+
     /*干支のパスワード画像レイアウト*/
     .path{
         overflow: hidden;
         text-align: center;
     }
+
     /*干支のパスワード画像設定*/
-    .path img{
-        margin-left: 25px;
-        margin-right: 25px;
-        width: 70px;
+    .path img {
+        margin-top: 10%;
+        margin-left: 20px;
+        margin-right: 20px;
+        width: 8%;
         height: auto;
+        text-align: center;/*中央に配置*/
     }
+    .path1 img {
+        margin-top: 5%;
+        margin-left: 20px;
+        margin-right: 20px;
+        width: 8%;
+        height: auto;
+        text-align: center;/*中央に配置*/
+    }
+
+    .path2 img {
+        margin-top: 5%;
+        margin-left: 20px;
+        margin-right: 20px;
+        width: 8%;
+        height: auto;
+        text-align: center;/*中央に配置*/
+    }
+
     /*パスのdeleteボタンレレイアウト*/
-    .delete{
-        display: block;
-        margin: auto;
-        margin-top: 20px;
-        margin-bottom: 20px;
+    .delete {
+        margin-top: 4%;
+        margin-bottom: 20%;
         font-size: 20px;
-        background-color: rgb(102, 232, 255); /* 背景色 */
-        color: #000000; /* 文字色 */
-        padding: 10px 20px; /* 上下の余白、左右の余白 */
-        border: none; /* デフォルトで入るリンクの下線を消す */
-        border-radius: 10px; /* 角を丸くする */
-        cursor: pointer;
+        text-decoration: none;
+        background: #ff8181;
+        color: #FFF;
+        width: 120px;
+        height: 120px;
+        line-height: 120px;
+        border-radius: 50%;
+        text-align: center;
+        font-weight: bold;
+        overflow: hidden;
+        border: none;/* デフォルトで入るリンクの下線を消す */
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
+        border-bottom: solid 3px #bd6565;
+        transition: .4s;
     }
-    /*1人で遊ぶボタンレイアウト*/
-    .soroStart{
+    .delete:active {
+        -webkit-transform: translateY(2px);
+        transform: translateY(2px);
+        box-shadow: 0 0 1px rgba(0, 0, 0, 0.15);
+        border-bottom: none;
+    }
+
+.delete1 {
         display: block;
+        text-align: center;
+        text-decoration: none;
+        width: 200px;
         margin: auto;
-        margin-top: 20px;
-        margin-bottom: 30px;
-        background-color: rgb(249, 106, 90); /* 背景色 */
-        color: #fff; /* 文字色 */
-        padding: 10px 20px; /* 上下の余白、左右の余白 */
-        border: none; /* デフォルトで入るリンクの下線を消す */
-        border-radius: 10px; /* 角を丸くする */
-        cursor: pointer;
+        padding: 40px 30px;
+        font-weight: bold;
+        border: 2px solid #1abc9c;
+        background: #1abc9c;
+        color: #fff;
+        border-radius: 15px;
+        transition: 0.5s;
+        font-size: 20px;
+        animation: move_a 2s infinite;
+    }
+    @keyframes move_a {
+        0% {transform: translate(0px, 4px);}
+        5% {transform: translate(0px, -4px);}
+        10% {transform: translate(0px, 4px);}
+        15% {transform: translate(0px, -4px);}
+        20% {transform: translate(0px, 4px);}
+        25% {transform: translate(0px, -4px);}
+        30% {transform: translate(0px, 0px);}
+    }
+    .delete1:hover {
+        color: #1abc9c;
+        background: #fff;
+    }
+
+    .back {
+        margin-top: 20%;
+        margin-left: 80%;
+        font-size: 20px;
+        text-decoration: none;
+        background: #ff8181;
+        color: #FFF;
+        width: 120px;
+        height: 120px;
+        line-height: 120px;
+        border-radius: 50%;
+        text-align: center;
+        font-weight: bold;
+        overflow: hidden;
+        border: none;/* デフォルトで入るリンクの下線を消す */
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
+        border-bottom: solid 3px #bd6565;
+        transition: .4s;
+    }
+    .back:active {
+        -webkit-transform: translateY(2px);
+        transform: translateY(2px);
+        box-shadow: 0 0 1px rgba(0, 0, 0, 0.15);
+        border-bottom: none;
     }

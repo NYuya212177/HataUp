@@ -1,23 +1,52 @@
 @charset"utf-8";
     /*画面全体のレイアウト*/
     body{
-        user-select:none; 
-        margin:0;
-        background-color: beige;
+        background: url(background/888.jpg) center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 100vh;
+        text-align: center;
     }
     
     h1{
-        margin-top: 50px;
-        font-size: 36px;
+        margin-top: 60%;
+        margin-bottom: 6%;
+        font-size: 50px;
         text-align: center;
-        color:cadetblue;
+        color: coral;
+        font-family: “HGP行書体”, “ＭＳ Ｐ明朝”, “MS PMincho”, serif; /* 書体変換 */
     }
     .player p {
-
         display: inline-block;
-    
+        font-weight:bold;
+        margin-top: 10%;
+        font-size: 40px;
+        color: cadetblue;
     }
-
+    .player p1 {
+        display: inline-block;
+        font-weight:bold;
+        font-size: 40px;
+        color: #da3c41;
+    }
+    .player p2 {
+        display: inline-block;
+        font-weight:bold;
+        font-size: 40px;
+        color: #FF0461;
+    }
+    .player p3 {
+        display: inline-block;
+        font-weight:bold;
+        font-size: 40px;
+        color: #FFFF00	;
+    }
+    .player p4 {
+        display: inline-block;
+        font-weight:bold;
+        font-size: 40px;
+        color: #005FFF;
+    }
     .name{
         margin-top: 50px;
         font-size: 36px;
@@ -71,10 +100,22 @@
         width: 550px;
         margin-top: 10px;
         margin-bottom: 30px;
+        border-radius: 15px;
         margin: auto;
         background: cadetblue;
         text-align: center;
     }
+
+    /*透明なパスワード欄の画像のレイアウト*/
+    .usepath{
+        width: 500px; /*幅*/
+        margin-bottom: 30px;
+        border-radius: 15px;
+        margin: auto;
+        background: cadetblue;
+        text-align: center;
+    }
+
     /*透明なパスワード欄の画像設定*/
     .usepath img{
         margin-left:25px;
@@ -82,6 +123,7 @@
         width: 70px;
         height: auto;
     }
+
     /*干支のパスワード画像レイアウト*/
     .path{
         overflow: hidden;
@@ -95,19 +137,63 @@
         height: auto;
     }
     /*パスのdeleteボタンレレイアウト*/
-    .delete{
+    .delete {
         display: block;
+        text-align: center;
+        text-decoration: none;
+        width: 260px;
         margin: auto;
-        margin-top: 20px;
-        margin-bottom: 20px;
-        font-size: 20px;
-        background-color: rgb(102, 232, 255); /* 背景色 */
-        color: #000000; /* 文字色 */
-        padding: 10px 20px; /* 上下の余白、左右の余白 */
-        border: none; /* デフォルトで入るリンクの下線を消す */
-        border-radius: 10px; /* 角を丸くする */
-        cursor: pointer;
+        padding: 40px 30px;
+        margin-top: 10%;
+        font-weight: bold;
+        border: 2px solid #FF1493;
+        background: #FF1493;
+        color: #fff;
+        border-radius: 15px;
+        transition: 0.5s;
+        font-size: 28px;
+        animation: move_a 2s infinite;
     }
+    @keyframes move_a {
+        0% {transform: translate(0px, 10px);}
+        5% {transform: translate(0px, -10px);}
+        10% {transform: translate(0px, 10px);}
+        15% {transform: translate(0px, -10px);}
+        20% {transform: translate(0px, 10px);}
+        25% {transform: translate(0px, -10px);}
+        30% {transform: translate(0px, 0px);}
+    }
+    .delete:hover {
+        color: #FF1493;
+        background: #fff;
+    }
+
+    .back {
+        margin-top: 20%;
+        margin-left: 80%;
+        font-size: 20px;
+        text-decoration: none;
+        background: #ff8181;
+        color: #FFF;
+        width: 120px;
+        height: 120px;
+        line-height: 120px;
+        border-radius: 50%;
+        text-align: center;
+        font-weight: bold;
+        overflow: hidden;
+        border: none;/* デフォルトで入るリンクの下線を消す */
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
+        border-bottom: solid 3px #bd6565;
+        transition: .4s;
+    }
+    .back:active {
+        -webkit-transform: translateY(2px);
+        transform: translateY(2px);
+        box-shadow: 0 0 1px rgba(0, 0, 0, 0.15);
+        border-bottom: none;
+    }
+
     /*1人で遊ぶボタンレイアウト*/
     .soroStart{
         display: block;

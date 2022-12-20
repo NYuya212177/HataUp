@@ -1,44 +1,45 @@
 <!DOCTYPE html>
+
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/GameStart.css">
-    <link rel="stylesheet" href="css/RoomIn.css">
     <title>はたあげゲーム</title>
     <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-messaging.js"></script>
-
 </head>
+
 <body>
-    
+    <!-- 難易度設定用ボタンレイアウト -->
     <div>
-
-        <!-- 難易度設定用ボタンレイアウト -->
         <h2>むずかしさをえらんでね</h2>
-
-        <div class="center">
-            <button type="submit" class="Nanido" id="Easy">かんたん</button>
-
-            <button type="submit" class="Nanido" id="Normal">ふつう</button>
-
-            <button type="submit" class="Nanido" id="Hard">むずかしい</button>
-        </div>
+        <form>
+            <div class="center">
+            <diV>
+                <input id="radio1" class="r" name="hoge" type="radio" value="ラジオボタン1"checked />
+                <label for="radio1"checked>かんたん</label>
+                <input id="radio2" class="r" name="hoge" type="radio" value="ラジオボタン2" />
+                <label for="radio2">ふつう</label> 
+                <input id="radio3" class="r" name="hoge" type="radio" value="ラジオボタン3" />
+                <label for="radio3">むずかしい</label>
+            </diV>
+            </div>
+        </form>
 
         <!-- 一人で遊ぶ用ボタンレイアウト -->
-        <h2>ひとりであそぶ</h2>
-
-        <button type="submit" id="Soroplay">ゲームスタート</button>
-
-        <!-- みんなで遊ぶ用ボタンレイアウト -->
-        <h2>みんなであそぶ</h2>
-
+        <h3>ひとりであそぶ</h3>
         <div class="center">
-        <button onclick="location.href='./RoomCreate.html'" class="room">へやをつくる</button>
-        <button onclick="location.href='./RoomIn.html'" class="room">へやにはいる</button>
+            <button type="submit" class="soro">スタート</button>
         </div>
 
-    </div>
-    <script src="js/GameStart.js"></script>
+        <!-- みんなで遊ぶ用ボタンレイアウト -->
+        <h4>みんなであそぶ</h4>
+        <div class="center">
+            <button onclick="location.href='./RoomCreate.html'" class="room">へやをつくる</button>
+            <button onclick="location.href='./RoomIn.html'" class="room">へやにはいる</button>
+        </div>
+        <script src="js/GameStart.js"></script>
 
 </body>
+
 </html>
