@@ -1,3 +1,4 @@
+// firebaseのコンソールとアプリをつないでいる部分
 const firebaseConfig = {
     apiKey: "AIzaSyAJG9nKDU14PwHYSGGzV2EI8hVNDPePgsg",
     authDomain: "hataup-dc173.firebaseapp.com",
@@ -36,8 +37,6 @@ var player1 = null;
 var player2 = null;
 var player3 = null;
 var player4 = null;
-
-var realtimestop = 1;
 
 for (var i = 0; i <= 3; i++) {
     var pathnumber = i + 1;
@@ -88,44 +87,42 @@ if (player2 == null) {
 }
 
 // if (realtimestop == 1) {
-    var docRef = firestore.collection(level).doc(setpassword);
-    docRef.onSnapshot((doc) => {
-        player1 = doc.data().player1;
-        player2 = doc.data().player2;
-        player3 = doc.data().player3;
-        player4 = doc.data().player4;
+var docRef = firestore.collection(level).doc(setpassword);
+docRef.onSnapshot((doc) => {
+    player1 = doc.data().player1;
+    player2 = doc.data().player2;
+    player3 = doc.data().player3;
+    player4 = doc.data().player4;
 
-        var setplayer = document.getElementById(playernumber).value;
+    var setplayer = document.getElementById(playernumber).value;
 
-        if (setplayer == null && player1 != null) {
+    if (setplayer == null && player1 != null) {
 
-            document.getElementById("player1").textContent = player1;
+        document.getElementById("player1").textContent = player1;
 
-        }
-        if (setplayer == null && player2 != null) {
+    }
+    if (setplayer == null && player2 != null) {
 
-            document.getElementById("player2").textContent = player2;
+        document.getElementById("player2").textContent = player2;
 
-        }
-        if (setplayer == null && player3 != null) {
+    }
+    if (setplayer == null && player3 != null) {
 
-            document.getElementById("player3").textContent = player3;
+        document.getElementById("player3").textContent = player3;
 
-        }
-        if (setplayer == null && player4 != null) {
+    }
+    if (setplayer == null && player4 != null) {
 
-            document.getElementById("player4").textContent = player4;
+        document.getElementById("player4").textContent = player4;
 
-        }
-
+    }
+    if (playernumber === "player1") {
         if (player2 != null) {
             document.getElementById("GameStart").style.display = 'inline'
             console.log("表示");
         }
-    });
-// }else if(realtimestop == 0){
-//     console.log("成功");
-// }
+    }
+});
 
 document.getElementById("GameStart").addEventListener("click", function () {
     realtimestop = 0;
@@ -146,6 +143,7 @@ document.getElementById("GameStart").addEventListener("click", function () {
             });
             //craftpasswordに値入力
             firestore.collection("Craft" + level).doc(craftpassword).set({
+                GameStart: "Start",
                 player1: player1,
                 player2: player2,
                 player3: player3,
@@ -169,3 +167,11 @@ document.getElementById("GameStart").addEventListener("click", function () {
     });
 
 })
+
+var docRef = firestore.collection("Craft" + level).doc(craftpassword);
+docRef.onSnapshot((doc) => {
+    var GameStart = doc.data().GameStart;
+    if(GameStart === "Start"){
+        
+    }
+});

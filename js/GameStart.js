@@ -1,25 +1,74 @@
+// localStorageにセットされているすべての値を削除
 localStorage.clear();
 
-document.getElementById("Hard").addEventListener("click", function () {
-    // localStorage.removeItem("nanido");
-    var level = "hard";
-    localStorage.setItem('level', level);
-    console.log(localStorage);
 
+var elements = document.getElementsByName("hoge");
+var len = elements.length;
+var checkValue = null;
+
+// ボタンを押した時の処理
+document.getElementById("RoomCreate").addEventListener("click", function () {
+    // ●ボタンを押されたときに選択されていたラジオボタンのvalueを取得する処理
+    for (var i = 0; i < len; i++) {
+        if (elements.item(i).checked) {
+            checkValue = elements.item(i).value;
+
+            if (checkValue === "easy") {
+
+                var level = "easy";
+                localStorage.setItem('level', level);
+                console.log(localStorage);
+
+            } else if (checkValue === "normal") {
+
+                var level = "normal";
+                localStorage.setItem('level', level);
+                console.log(localStorage);
+
+            } else if (checkValue === "hard") {
+
+                var level = "hard";
+                localStorage.setItem('level', level);
+                console.log(localStorage);
+
+            }
+        }
+    // ●を打っていた処理はここで終わり 
+    // すみません●で指定しているラジオボタンの処理は詳しくはよくわかってないです
+    }
+    // RoomCreate.htmlに画面遷移
+    window.location.href = 'RoomCreate.html';
 })
 
-document.getElementById("Normal").addEventListener("click", function () {
-    // localStorage.removeItem("nanido");
-    var level = "normal";
-    localStorage.setItem('level', level);
-    console.log(localStorage);
+// ボタンを押した時の処理
+document.getElementById("RoomIn").addEventListener("click", function () {
+    // ●ボタンを押されたときに選択されていたラジオボタンのvalueを取得する処理
+    for (var i = 0; i < len; i++) {
+        if (elements.item(i).checked) {
+            checkValue = elements.item(i).value;
 
-})
+            if (checkValue === "easy") {
 
-document.getElementById("Easy").addEventListener("click", function () {
-    // localStorage.removeItem("nanido");
-    var level = "easy";
-    localStorage.setItem('level', level);
-    console.log(localStorage);
+                var level = "easy";
+                localStorage.setItem('level', level);
+                console.log(localStorage);
 
+            } else if (checkValue === "normal") {
+
+                var level = "normal";
+                localStorage.setItem('level', level);
+                console.log(localStorage);
+
+            } else if (checkValue === "hard") {
+
+                var level = "hard";
+                localStorage.setItem('level', level);
+                console.log(localStorage);
+
+            }
+        }
+    // ●を打っていた処理はここで終わり 
+    // すみません●で指定しているラジオボタンの処理は詳しくはよくわかってないです
+    }
+    // RoomCreate.htmlに画面遷移
 })

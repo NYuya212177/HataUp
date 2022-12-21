@@ -1,3 +1,4 @@
+// firebaseのコンソールとアプリをつないでいる部分
 const firebaseConfig = {
     apiKey: "AIzaSyAJG9nKDU14PwHYSGGzV2EI8hVNDPePgsg",
     authDomain: "hataup-dc173.firebaseapp.com",
@@ -10,25 +11,40 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 var firestore = firebase.firestore();
 
+// localStorageに保存したsetpasswordの値をページが開いたときに削除
 localStorage.removeItem("setpassword");
+
+// localStorageに保存したcraftpasswordの値をページが開いたときに削除
 localStorage.removeItem("craftpassword");
+
+// localStorageに保存したplayernumberの値をページが開いたときに削除
 localStorage.removeItem("playernumber");
+
+// localStorageに保存したname"の値をページが開いたときに削除
 localStorage.removeItem("name");
 
+// 透明なパス画像のを指定している
 var Path1 = document.getElementById("path1");
 var Path2 = document.getElementById("path2");
 var Path3 = document.getElementById("path3");
 var Path4 = document.getElementById("path4");
+
+// 透明なパス画像をあとで出てくるif文で使いたくて設定している変数
 var Path = Path4.src;
 
+// setpassword変数の初期化
+var setpassword = null;
+
+// craftpassword変数の初期化
+var craftpassword = null;
+
+// setpasswordのパスワードを入れるための変数の初期化
 var pass1 = null;
 var pass2 = null;
 var pass3 = null;
 var pass4 = null;
 
-var setpassword = null;
-var craftpassword = null;
-
+// 干支の画像を押したら透明なパス画像のところに左から順番に入れていくためのif文
 document.getElementById("nezumi").addEventListener("click", function () {
     if (Path1.src == Path) {
         Path1.src = "./Path干支/Nezumi.png";
@@ -232,72 +248,116 @@ document.getElementById("DELETE").addEventListener("click", function () {
         Path1.src = "./Path干支/Path.png";
     }
 });
-document.getElementById("GameStart").addEventListener("click", function () {
 
+// ゲームスタートボタンを押した際の処理
+document.getElementById("GameStart").addEventListener("click", function () {
+    // 透明なパスのところに動物が四つ入っていないときにルームに入れなくする処理
     if (Path1.src == Path || Path2.src == Path || Path3.src == Path || Path4.src == Path) {
         console.log("pass足りない");
-
     } else {
 
+        // 画像でパスワードを設定したものを12進数で表記した値を合わせてsetpasswordとする
         setpassword = pass1 + pass2 + pass3 + pass4;
 
+        // GameStartで設定した難易度をlevelとする
         const level = localStorage.getItem("level");
         console.log(level);
 
+        // 設定した名前をsetnameとする
         const setname = document.getElementById("name").value;
+
+        // 上で設定した名前をlocalStorageに保存
         localStorage.setItem('name', setname);
 
+        // 難易度の変数が格納されているlevelと12進数表記のsetpasswordでfirebaseを指定
         var docRef = firestore.collection(level).doc(setpassword);
+
+        // 指定したfirebaseから値を取得
         docRef.get().then((doc) => {
+
+            // 取得してきたfirebaseのデータからホストが作成したcraftpasswordのを取得
             craftpassword = doc.data().password;
+
+            // 取得してきたfirebaseのデータからplayer2,3,4の名前を取得
             player2 = doc.data().player2;
             player3 = doc.data().player3;
             player4 = doc.data().player4;
+
+            // firebaseから値を取得を完了した際の処理
             if (doc.exists) {
+
+                // 12進数表記で作ったsetpasswordをlocalStorageに保存
                 localStorage.setItem('setpassword', setpassword);
+
+                // ホストがaddセットで作成したcraftpasswordをlocalStorageに保存
                 localStorage.setItem('craftpassword', craftpassword);
                 console.log("Document data:", doc.data());
+                // player2がいなかった際の処理
                 if (player2 == null) {
-
                     console.log(setname);
 
+                    // 指定したfirebaseにuppdate
                     docRef.update({
+                        // setnameに格納した名前の変数をplayer2とする
                         player2: setname
                     })
+                    // player2のupdateが成功した際の処理
                         .then(() => {
-                            window.location.href = 'StandPage.html';
+                            // player2(ゲスト)であるということでlocalStorageにplayer2を保存
                             localStorage.setItem('playernumber', "player2");
+                            // StandPage.htmlに画面遷移
+                            window.location.href = 'StandPage.html';
                         })
 
+                    // player3がいなかった際の処理
                 } else if (player3 == null) {
                     console.log(setname);
 
+                    // 指定したfirebaseにuppdate
                     docRef.update({
+
+                        // setnameに格納した名前の変数をplayer3とする
                         player3: setname
                     })
+                    // player3のupdateが成功した際の処理
                         .then(() => {
-                            window.location.href = 'StandPage.html';
+
+                            // player3(ゲスト)であるということでlocalStorageにplayer3を保存
                             localStorage.setItem('playernumber', "player3");
+
+                            // StandPage.htmlに画面遷移
+                            window.location.href = 'StandPage.html';
                         })
 
+                    // player4がいなかった際の処理
                 } else if (player4 == null) {
                     console.log(setname);
 
+                    // 指定したfirebaseにuppdate
                     docRef.update({
+
+                        // setnameに格納した名前の変数をplayer4とする
                         player4: setname
                     })
+                    // player4のupdateが成功した際の処理
                         .then(() => {
-                            window.location.href = 'StandPage.html';
-                            localStorage.setItem('playernumber', "player4");
-                        })
 
-                } else if (player4 != null) {
+                            // player4(ゲスト)であるということでlocalStorageにplayer4を保存
+                            localStorage.setItem('playernumber', "player4");
+
+                            // StandPage.htmlに画面遷移
+                            window.location.href = 'StandPage.html';
+                        })
+                // player4がいた際の処理
+                } else {
                     console.log("人がいっぱいでルームに入れません");
                 }
+                // documentがなかったなどエラーが起こった際の処理
             } else {
                 // doc.data() will be undefined in this case
                 console.log("No such document!");
             }
+            // firebaseからデータをとってきた際のエラー処理
         }).catch((error) => {
             console.log("ルームがありません", error);
 

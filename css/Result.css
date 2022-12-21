@@ -1,0 +1,51 @@
+/*背景*/
+body {
+    background: url(background/zz.jpg) center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    text-align: center;
+}
+
+    /* ボタンのcenter付け用 */
+    .center{
+        text-align: center;
+        margin: auto;
+    }
+    /* 難易度ボタン */
+    .Nanido{
+        margin: auto;
+        margin-top: 20px;
+        margin-bottom: 30px;
+        background-color: rgb(249, 106, 90); /* 背景色 */
+        color: #fff; /* 文字色 */
+        padding: 10px 20px; /* 上下の余白、左右の余白 */
+        border: none; /* デフォルトで入るリンクの下線を消す */
+        border-radius: 10px; /* 角を丸くする */
+    }
+        /* 文字の色付け */
+    h1{
+        margin-top: 30%;
+        margin-bottom: 30%;
+        font-size: 30px;
+        text-align: center;
+        color:cadetblue;
+    }
+    /* 文字の色付け */
+    h2{
+        margin-top: 50px;
+        margin-bottom: 30%;
+        font-size: 30px;
+        text-align: center;
+        color:cadetblue;
+    }
+    .delete {
+        margin: auto;
+        margin-top: 20px;
+        margin-bottom: 30px;
+        background-color: rgb(249, 106, 90); /* 背景色 */
+        color: #fff; /* 文字色 */
+        padding: 10px 20px; /* 上下の余白、左右の余白 */
+        border: none; /* デフォルトで入るリンクの下線を消す */
+        border-radius: 10px; /* 角を丸くする */
+    }
