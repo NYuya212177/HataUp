@@ -12,165 +12,263 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 var firestore = firebase.firestore();
 
+// RoomCreate Or RoomInで設定したplayernumberをplayernumberとする
 var playernumber = localStorage.getItem("playernumber");
 console.log(playernumber);
 
+// RoomCreate Or RoomInで設定したnameをsetnameとする
 var setname = localStorage.getItem("name");
 console.log(setname);
 
+// RoomCreate Or RoomInで設定したsetpasswordをsetpasswordとする
 var setpassword = localStorage.getItem("setpassword");
 console.log(setpassword);
 
+// RoomCreate Or RoomInで設定したcraftpasswordをcraftpasswordとする
 var craftpassword = localStorage.getItem("craftpassword");
 console.log(craftpassword);
 
+// GameStartで設定したlevelをlevelとする
 var level = localStorage.getItem("level");
 console.log(level);
+
+// setnameを自分のプレイヤーナンバーのところに格納
 document.getElementById(playernumber).textContent = setname;
 
-var password1 = setpassword.charAt(0);
-var password2 = setpassword.charAt(1);
-var password3 = setpassword.charAt(2);
-var password4 = setpassword.charAt(3);
-
+// RoomCreate Or RoomInでそれぞれ設定した名前を格納する変数の初期化
 var player1 = null;
 var player2 = null;
 var player3 = null;
 var player4 = null;
 
-for (var i = 0; i <= 3; i++) {
-    var pathnumber = i + 1;
+// プレイヤーの待機画面に映す干支画像のパスワードの処理
+for (var i = 1; i <= 4; i++) {
+
+    // i番目の文字をpasswordとする
     var password = setpassword.charAt(i);
+
+    // i番目のpathナンバーのIDの場所をimgとする
+    let img = document.getElementById("path" + i);
+
+    // i番目のパスワードがネズミ[0]の時
     if (password == 0) {
-        let img = document.getElementById("path" + pathnumber);
+
+        // ネズミの画像をi番目のpathにセット
         img.src = "./Path干支/Nezumi.png";
+
+        // i番目のパスワードがウシ[1]の時
     } else if (password == 1) {
-        let img = document.getElementById("path" + pathnumber);
+
+        // ウシの画像をi番目のpathにセット
         img.src = "./Path干支/Ushi.png";
+
+        // i番目のパスワードがトラ[2]の時
     } else if (password == 2) {
-        let img = document.getElementById("path" + pathnumber);
+
+        // トラの画像をi番目のpathにセット
         img.src = "./Path干支/Tora.png";
+
+        // i番目のパスワードがウサギ[3]の時
     } else if (password == 3) {
-        let img = document.getElementById("path" + pathnumber);
+
+        // ウサギの画像をi番目のpathにセット
         img.src = "./Path干支/Usagi.png";
+
+        // i番目のパスワードがタツ[4]の時
     } else if (password == 4) {
-        let img = document.getElementById("path" + pathnumber);
+
+        // タツの画像をi番目のpathにセット
         img.src = "./Path干支/Tatu.png";
+
+        // i番目のパスワードがヘビ[5]の時
     } else if (password == 5) {
-        let img = document.getElementById("path" + pathnumber);
+
+        // ヘビの画像をi番目のpathにセット
         img.src = "./Path干支/Hebi.png";
+
+        // i番目のパスワードがウマ[6]の時
     } else if (password == 6) {
-        let img = document.getElementById("path" + pathnumber);
+
+        // ウマの画像をi番目のpathにセット
         img.src = "./Path干支/Uma.png";
+
+        // i番目のパスワードがヒツジ[7]の時
     } else if (password == 7) {
-        let img = document.getElementById("path" + pathnumber);
+
+        // ヒツジの画像をi番目のpathにセット
         img.src = "./Path干支/Hithuji.png";
+
+        // i番目のパスワードがサル[8]の時
     } else if (password == 8) {
-        let img = document.getElementById("path" + pathnumber);
+
+        // サルの画像をi番目のpathにセット
         img.src = "./Path干支/Saru.png";
+
+        // i番目のパスワードがトリ[9]の時
     } else if (password == 9) {
-        let img = document.getElementById("path" + pathnumber);
+
+        // トラの画像をi番目のpathにセット
         img.src = "./Path干支/Tori.png";
+
+        // i番目のパスワードがイヌ[A]の時
     } else if (password == "A") {
-        let img = document.getElementById("path" + pathnumber);
+        
+        // イヌの画像をi番目のpathにセット
         img.src = "./Path干支/Inu.png";
+
+        // i番目のパスワードがイノシシ[B]の時
     } else if (password == "B") {
-        let img = document.getElementById("path" + pathnumber);
+
+        // イノシシの画像をi番目のpathにセット
         img.src = "./Path干支/Inoshishi.png";
     }
 }
 
-
-if (player2 == null) {
+// GameStartボタンを存在しない状態とする
     document.getElementById("GameStart").style.display = 'none'
     console.log("非表示");
-}
 
-// if (realtimestop == 1) {
+// GameStartで設定した難易度とRoomCreate Or RoomInで設定したsetpasswordでfirebaseのリファレンス指定
 var docRef = firestore.collection(level).doc(setpassword);
+
+// 指定したリファレンスのデータが更新される毎に処理する
 docRef.onSnapshot((doc) => {
+
+    // player1,2,3,4の名前を取得
     player1 = doc.data().player1;
     player2 = doc.data().player2;
     player3 = doc.data().player3;
     player4 = doc.data().player4;
 
-    var setplayer = document.getElementById(playernumber).value;
+    // player1のテキストにある値をsetplayer1とする。
+    var setplayer1 = document.getElementById("player1").value;
 
-    if (setplayer == null && player1 != null) {
+    // player2のテキストにある値をsetplayer2とする。
+    var setplayer2 = document.getElementById("player2").value;
+
+    // player3のテキストにある値をsetplayer3とする。
+    var setplayer3 = document.getElementById("player3").value;
+
+    // player4のテキストにある値をsetplayer4とする。
+    var setplayer4 = document.getElementById("player4").value;
+    
+    // player1テキストレイアウトがnullかつfirebaseのフィールドのplayer1がnull出ない場合の処理
+    if (setplayer1 == null && player1 != null) {
 
         document.getElementById("player1").textContent = player1;
 
     }
-    if (setplayer == null && player2 != null) {
+
+    // player2テキストレイアウトがnullかつfirebaseのフィールドのplayer2がnull出ない場合の処理
+    if (setplayer2 == null && player2 != null) {
 
         document.getElementById("player2").textContent = player2;
 
     }
-    if (setplayer == null && player3 != null) {
+
+    // player3テキストレイアウトがnullかつfirebaseのフィールドのplayer3がnull出ない場合の処理
+    if (setplayer3 == null && player3 != null) {
 
         document.getElementById("player3").textContent = player3;
 
     }
-    if (setplayer == null && player4 != null) {
+
+    // player4テキストレイアウトがnullかつfirebaseのフィールドのplayer4がnull出ない場合の処理
+    if (setplayer4 == null && player4 != null) {
 
         document.getElementById("player4").textContent = player4;
 
     }
+
+    // player1(ホスト)がこの画面を操作する際の処理
     if (playernumber === "player1") {
+
+        // player2(二人目)以降が入ってきた際
         if (player2 != null) {
+
+            // GameStartボタンの表示
             document.getElementById("GameStart").style.display = 'inline'
             console.log("表示");
         }
     }
 });
 
+// GameStartボタンを押した際の処理
 document.getElementById("GameStart").addEventListener("click", function () {
-    realtimestop = 0;
+
+    // 難易度の変数が格納されているlevelと12進数表記のsetpasswordでfirebaseを指定
     var docRef = firestore.collection(level).doc(setpassword);
+
+    // 指定したfirebaseから値を取得
     docRef.get().then((doc) => {
+
+        // firebaseに上がっているそれぞれのプレイヤー名をプレイヤーナンバーの変数に格納
         player1 = doc.data().player1;
         player2 = doc.data().player2;
         player3 = doc.data().player3;
         player4 = doc.data().player4;
 
+        // 指定したfirebaseから値を取得してこれた際の処理
         if (doc.exists) {
-            //setpasswordのドキュメント削除
+            
+            // 難易度の変数が格納されているlevelと12進数表記のsetpasswordでfirebaseを指定
             var gamestart = firestore.collection(level).doc(setpassword);
+
+            //指定したfirebaseのドキュメント削除
             gamestart.delete().then(() => {
+
+                // 指定したfirebaseのDelete成功
                 console.log("Document successfully deleted!");
+
+                // 指定したfirebaseのDelete失敗(エラー)
             }).catch((error) => {
                 console.error("Error removing document: ", error);
             });
-            //craftpasswordに値入力
+
+            //難易度の変数が格納されているlevelとゲームをする際のルームID、craftpasswordでfirebaseを指定
             firestore.collection("Craft" + level).doc(craftpassword).set({
+                // ここのGameStartの値で他の画面がゲームをスタートするためにセットする
                 GameStart: "Start",
+
+                // それぞれのプレイヤー名をfirebaseのプレイヤーナンバーのところに格納
                 player1: player1,
                 player2: player2,
                 player3: player3,
                 player4: player4
             })
+            // 値の格納が成功した際の処理
                 .then(() => {
-                    localStorage.setItem('setpassword', setpassword);
-                    console.log(localStorage);
-                    // window.location.href = 'StandPage.html';
+
+                    // に画面遷移
+                    window.location.href = 'StandPage.html';
                 })
+                // エラー処理
                 .catch((error) => {
                     console.error("Error writing document: ", error);
                 });
 
+                // documentがないなどのエラー処理
         } else {
             // doc.data() will be undefined in this case
             console.log("No such document!");
         }
+        // エラー処理
     }).catch((error) => {
         console.log("Error getting document:", error);
     });
 
 })
 
+//難易度の変数が格納されているlevelとゲームをする際のルームID、craftpasswordでfirebaseを指定
 var docRef = firestore.collection("Craft" + level).doc(craftpassword);
+
+// 指定したfirebaseからリアルタイムでデータを取得したとき毎に処理をする
 docRef.onSnapshot((doc) => {
+
+    // firabaseのGamaStartから取得してきた値をGameStartとして格納
     var GameStart = doc.data().GameStart;
+
+    // 変数GameStartに"Start"という値が入った際に行う処理
     if(GameStart === "Start"){
         
     }

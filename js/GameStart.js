@@ -71,4 +71,5 @@ document.getElementById("RoomIn").addEventListener("click", function () {
     // すみません●で指定しているラジオボタンの処理は詳しくはよくわかってないです
     }
     // RoomCreate.htmlに画面遷移
+    window.location.href = 'RoomIn.html';
 })
