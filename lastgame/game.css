@@ -1,0 +1,64 @@
+body{
+    background-color:#ffff;
+    widows: 500px;
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#countdown{
+    color:black;
+    text-align: center;
+}
+
+#onoff{
+    text-align: center;
+}
+
+ul{
+    list-style-type: none;
+}
+li{
+    display: inline-block;
+}
+
+#white{
+    opacity: 0;
+    text-align: center
+    
+}
+#red{
+    opacity: 0;
+    text-align: center
+    
+  
+}
+
+#redbutton {
+    display: inline-block;
+    background-color: red;
+    text-align: center;
+    font-weight:bold;
+    opacity: 0.7;
+    font-size:25px;
+    padding: 10px 40px;
+    margin-left: 20px;
+}
+
+#whitebutton {
+    display: inline-block;
+    background-color: #ffff;
+    text-align: center;
+    font-weight:bold;
+    opacity: 0.7;
+    font-size:25px;
+    padding: 10px 40px;
+    margin-right: 20px;
+}
+
+#looseover-Area{
+    text-align: center;
+}
+
+
+    
