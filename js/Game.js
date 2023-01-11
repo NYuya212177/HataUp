@@ -73,12 +73,12 @@ docRef.get().then((doc) => {
 
         if (player2 == null) {
             life = "2";
-        }else if (player3 == null) {
+        } else if (player3 == null) {
             life = "4";
-        }else if (player4 == null) {
+        } else if (player4 == null) {
             life = "6";
-        }else {
-            life = "8"; 
+        } else {
+            life = "8";
         }
 
         //残り残機を表示
@@ -119,24 +119,6 @@ var flagAll = true;
 var flagNo = true;
 var flagRise = true;
 
-docRef.onSnapshot((doc) => {
-    
-        var point1 = doc.data().Score1;
-        var point2 = doc.data().Score2;
-        var point3 = doc.data().Score3;
-        var point4 = doc.data().Score4;
-
-        
-        if(player1 == null){
-            console.log("error");
-        }else if(player2 == null){
-            document.getElementById("score").innerHTML = point1 + point2;
-        }else if(player3 == null){
-            document.getElementById("score").innerHTML = point1 + point2 + point3;
-        }else if(player4 == null){
-            document.getElementById("score").innerHTML = point1 + point2 + point3 + point4;
-        }
-    });
 //開始前のカウントダウン
 function countdown() {
     if (counttime > 0) {
@@ -234,7 +216,7 @@ function over() {
             gamenav.innerText = ('残念！ゲームオーバー');
             location.href = "./Result.html";
         }
-        
+
     };
 };
 
@@ -273,6 +255,27 @@ function adjustScore(isCorrect) {
                     console.error(error);
                 });
         }
+            docRef.get().then((doc) => {
+                if (doc.exists) {
+                    var point1 = doc.data().Score1;
+                    var point2 = doc.data().Score2;
+                    var point3 = doc.data().Score3;
+                    var point4 = doc.data().Score4;
+            
+            
+                    if (player1 == null) {
+                        console.log("error");
+                    } else if (player2 == null) {
+                        document.getElementById("score").innerHTML = point1 + point2;
+                    } else if (player3 == null) {
+                        document.getElementById("score").innerHTML = point1 + point2 + point3;
+                    } else if (player4 == null) {
+                        document.getElementById("score").innerHTML = point1 + point2 + point3 + point4;
+                    }
+                }
+            }).catch((error) => {
+                console.log("Error getting document:", error);
+            });
 
     } else {
 
