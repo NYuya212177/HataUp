@@ -33,8 +33,10 @@ document.getElementById("RoomCreate").addEventListener("click", function () {
 
             }
         }
+        
     // ●を打っていた処理はここで終わり 
     // すみません●で指定しているラジオボタンの処理は詳しくはよくわかってないです
+
     }
     // RoomCreate.htmlに画面遷移
     window.location.href = 'RoomCreate.html';

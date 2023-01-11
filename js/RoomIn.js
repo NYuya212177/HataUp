@@ -301,6 +301,7 @@ document.getElementById("GameStart").addEventListener("click", function () {
                         // setnameに格納した名前の変数をplayer2とする
                         player2: setname
                     })
+                    
                     // player2のupdateが成功した際の処理
                         .then(() => {
                             // player2(ゲスト)であるということでlocalStorageにplayer2を保存

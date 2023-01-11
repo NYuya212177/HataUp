@@ -1,30 +1,3 @@
-// firebaseのコンソールとアプリをつないでいる部分
-const firebaseConfig = {
-    apiKey: "AIzaSyAJG9nKDU14PwHYSGGzV2EI8hVNDPePgsg",
-    authDomain: "hataup-dc173.firebaseapp.com",
-    projectId: "hataup-dc173",
-    storageBucket: "hataup-dc173.appspot.com",
-    messagingSenderId: "819131453401",
-    appId: "1:819131453401:web:45f88cf4fa35b4580593c8",
-    measurementId: "G-BG0VK3RC6V"
-};
-
-firebase.initializeApp(firebaseConfig);
-var firestore = firebase.firestore();
-
-// RoomCreate Or RoomInで設定したplayernumberをplayernumberとする
-var playernumber = localStorage.getItem("playernumber");
-console.log(playernumber);
-
-// RoomCreate Or RoomInで設定したcraftpasswordをcraftpasswordとする
-var craftpassword = localStorage.getItem("craftpassword");
-console.log(craftpassword);
-
-// GameStartで設定したlevelをlevelとする
-var level = localStorage.getItem("level");
-console.log(level);
-
-var docRef = firestore.collection("Craft" + level).doc(craftpassword);
 // More API functions here:
 // その他のAPI関数は次のとおりです:
 // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/pose
@@ -46,50 +19,16 @@ const redflagImage = document.getElementById("red");
 const gamenav = document.getElementById("gamenav");
 
 //指示の一覧
-var DownDown = ['赤上げて', '赤上げて', '赤上げて', '白上げて', '白上げて', '白上げて'];
-var whiteRise = ['赤上げて', '赤上げて', '赤上げて', '白下げて', '白下げて', '白下げて'];
-var RedRise = ['白上げて', '白上げて', '白上げて', '白上げて', '赤下げて', '赤下げて', '赤下げて', '赤下げて'];
-var RiseRise = ['赤下げて', '赤下げて', '赤下げて', '赤下げて', '白下げて', '白下げて', '白下げて', '白下げて'];
+var DownDown = ['あかあげて', 'あかあげて', 'あかあげて', 'しろあげて', 'しろあげて', 'しろあげて'];
+var whiteRise = ['あかあげて', 'あかあげて', 'あかあげて', 'しろさげて', 'しろさげて', 'しろさげて'];
+var RedRise = ['しろあげて', 'しろあげて', 'しろあげて', 'しろあげて', 'あかさげて', 'あかさげて', 'あかさげて', 'あかさげて'];
+var RiseRise = ['あかさげて', 'あかさげて', 'あかさげて', 'あかさげて', 'しろさげて', 'しろさげて', 'しろさげて', 'しろさげて'];
 
 //回答と正解を格納
 var answers, CorrectAnswer;
 
-var player1 = null;
-var player2 = null;
-var player3 = null;
-var player4 = null;
-
-var life = null;
-
-// 指定したfirebaseから値を取得
-docRef.get().then((doc) => {
-
-    // firebaseに上がっているそれぞれのプレイヤー名をプレイヤーナンバーの変数に格納
-    player1 = doc.data().player1;
-    player2 = doc.data().player2;
-    player3 = doc.data().player3;
-    player4 = doc.data().player4;
-    
-    // 指定したfirebaseから値を取得してこれた際の処理
-    if (doc.exists) {
-
-        if (player2 == null) {
-            life = "2";
-        } else if (player3 == null) {
-            life = "4";
-        } else if (player4 == null) {
-            life = "6";
-        } else {
-            life = "8";
-        }
-
-        //残り残機を表示
-        document.getElementById("life").innerHTML = life;
-    }
-}).catch((error) => {
-    console.error("Error removing document: ", error);
-});
 //残り残機
+var life = 3;
 
 //正解数
 var currentScore = 0;
@@ -115,6 +54,7 @@ var questionONON;
 
 //今手が上がっているかどうか
 var isRisehand = false;
+
 var flagRight = true;
 var flagLeft = true;
 var flagAll = true;
@@ -136,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     Webcamera();
 });
 
-//webカメラのアクセス許可 コード探し中
+//webカメラのアクセス許可　コード探し中
 async function accesscam() {
 
 }
@@ -184,7 +124,7 @@ async function Webcamera() {
 
     //SetSomebodyQuestion()に移動する
     SetSomebodyQuestion();
-};
+}
 
 //現在のプレイヤーの状態から問題の振り分け
 function judgeQuestion() {
@@ -212,14 +152,14 @@ function over() {
         if (life > 0) {
             life--;
             console.log("残りライフは", life);
-            document.getElementById("life").innerHTML = life;
         }
         if (life === 0) {
             //間違えたりタイムオーバー時にライフが無い場合リザルト画面に移動
             gamenav.innerText = ('残念！ゲームオーバー');
-            location.href = "./Result.html";
+            // location.href = "gameend.html";
         }
-
+        //残り残機を表示
+        document.getElementById("life").innerHTML = life;
     };
 };
 
@@ -227,76 +167,20 @@ function over() {
 function adjustScore(isCorrect) {
     if (isCorrect) {
         currentScore++;
-
-        // Add a new document in collection "cities"
-        if (playernumber == "player1") {
-            docRef.update({
-                Score1: currentScore
-            })
-                .catch((error) => {
-                    console.error(error);
-                });
-        } else if (playernumber == "player2") {
-            docRef.update({
-                Score2: currentScore
-            })
-                .catch((error) => {
-                    console.error(error);
-                });
-        } else if (playernumber == "player3") {
-            docRef.update({
-                Score3: currentScore
-            })
-                .catch((error) => {
-                    console.error(error);
-                });
-        } else if (playernumber == "player4") {
-            docRef.update({
-                Score4: currentScore
-            })
-                .catch((error) => {
-                    console.error(error);
-                });
-        }
-            docRef.get().then((doc) => {
-                if (doc.exists) {
-                    var point1 = doc.data().Score1;
-                    var point2 = doc.data().Score2;
-                    var point3 = doc.data().Score3;
-                    var point4 = doc.data().Score4;
-            
-            
-                    if (player1 == null) {
-                        console.log("error");
-                    } else if (player2 == null) {
-                        document.getElementById("score").innerHTML = point1 + point2;
-                    } else if (player3 == null) {
-                        document.getElementById("score").innerHTML = point1 + point2 + point3;
-                    } else if (player4 == null) {
-                        document.getElementById("score").innerHTML = point1 + point2 + point3 + point4;
-                    }
-                }
-            }).catch((error) => {
-                console.log("Error getting document:", error);
-            });
-
     } else {
-
         if (life > 0) {
-
             life--;
             console.log(life);
-            document.getElementById("life").innerHTML = life;
             if (life === 0) {
                 alert("残念！お前の負け");
                 console.log(life);
-                location.href = "./Result.html";
             }
         }
     }
     clearTimeout(over, timeOverSeconds);
     //スコアと残りのライフを表示
-    // document.getElementById("life").innerHTML = life;
+    document.getElementById("score").innerHTML = currentScore;
+    document.getElementById("life").innerHTML = life;
 }
 
 //正誤判定する
@@ -305,13 +189,13 @@ function checkAnswer(answer) {
     console.log("CorrectAnswer", CorrectAnswer);
     if (answers === CorrectAnswer) {
         console.log("正解");
-        gamenav.innerText = ('正解！');
+        gamenav.innerText = ('せいかい！');
         adjustScore(true);
         //timeOverSecondsをクリア
         clearTimeout(over, timeOverSeconds);
     } else {
         console.log("残念");
-        gamenav.innerText = ('不正解！');
+        gamenav.innerText = ('ふせいかい！');
         if (life === 0) {
             console.log("残りライフ", life);
             //間違えたりタイムオーバー時にゲームオーバー画面に移動
@@ -353,9 +237,9 @@ function noFlag() {
     question.innerText = questionFirst;
     console.log("問題は", questionFirst);
 
-    if ('赤上げて' == questionFirst) { //赤をあげる問題だった場合・右手が上がっている
+    if ('あかあげて' == questionFirst) { //赤をあげる問題だった場合・右手が上がっている
         CorrectAnswer = "右手あげてる";
-    } else if ('白上げて' == questionFirst) {//白をあげる問題だった場合・左手が上がっている
+    } else if ('しろあげて' == questionFirst) {//白をあげる問題だった場合・左手が上がっている
         CorrectAnswer = "左手あげてる";
     };
 
@@ -388,9 +272,9 @@ function whiteRiseredDownFlag() {
     question.innerText = questionwhiteON;
     console.log("問題は", questionwhiteON);
 
-    if ('赤上げて' == questionwhiteON) {//赤をあげる問題だった場合・両手が上がっている
+    if ('あかあげて' == questionwhiteON) {//赤をあげる問題だった場合・両手が上がっている
         CorrectAnswer = "両手上げてる";
-    } else if ('白下げて' == questionwhiteON) {//白を下げる問題だった場合・両手が下がっている
+    } else if ('しろあげて' == questionwhiteON) {//白を下げる問題だった場合・両手が下がっている
         flagNo = true;
         CorrectAnswer = "両手下げてる";
     };
@@ -424,10 +308,10 @@ function redRisewhiteDownFlag() {
     console.log("問題は", questionRedON);
     flagRise = true;
 
-    if ('赤下げて' == questionRedON) {//赤を下げる問題だった場合・両手が下がっている
+    if ('あかさげて' == questionRedON) {//赤を下げる問題だった場合・両手が下がっている
         flagNo = true;
         CorrectAnswer = "両手下げてる";
-    } else if ('白上げて' == questionRedON) {//白をあげる問題だった場合・両手が上がっている
+    } else if ('しろさげて' == questionRedON) {//白をあげる問題だった場合・両手が上がっている
         CorrectAnswer = "両手上げてる";
     };
     //setTimeout…一定時間後に一度だけ特定の処理をおこなう
@@ -457,9 +341,9 @@ function whiteRiseredRiseFlag() {
     console.log("問題は", questionONON);
     flagRise = true;
 
-    if ('赤下げて' == questionONON) {//赤を下げる問題だった場合・左手が上がっている
+    if ('あかあげて' == questionONON) {//赤を下げる問題だった場合・左手が上がっている
         CorrectAnswer = "左手あげてる";
-    } else if ('白下げて' == questionONON) {//白を下げる問題だった場合・右手が上がっている
+    } else if ('しろあげて' == questionONON) {//白を下げる問題だった場合・右手が上がっている
         CorrectAnswer = "右手あげてる";
     };
     //setTimeout…一定時間後に一度だけ特定の処理をおこなう
@@ -510,12 +394,12 @@ async function predict() {
         const value = prediction[i].probability.toFixed(2);
 
         //判定結果を随時表示する
-        labelContainer.childNodes[i].innerHTML = `${name}: ${value}`;
+        // labelContainer.childNodes[i].innerHTML = `${name}: ${value}`;
 
         //判定した結果をコンソールログに表示
         //右手が上げられた場合
         if (name == "右") {
-            if (value >= 0.9) {
+            if (value >= 1) {
                 console.log("右手あげてる");
                 //赤い旗の表示
                 redflagImage.style.opacity = 1;
@@ -534,7 +418,7 @@ async function predict() {
 
         //左手が上げられた場合
         if (name == "左") {
-            if (value >= 0.9) {
+            if (value >= 1) {
                 console.log("左手あげてる");
                 //白い旗の表示
                 whiteflagImage.style.opacity = 1;
@@ -564,7 +448,7 @@ async function predict() {
                 isRisehand = true;
                 if (flagNo = true) {
                     flagRise = false;
-                    answer = "両手下げてる";
+                    answers = "両手下げてる";
                     var answerC = "両手下げてる";
                     checkAnswer(answerC);
                 }
@@ -575,7 +459,7 @@ async function predict() {
 
         //両手が上がっている場合
         if (name == "両手") {
-            if (value >= 0.9) {
+            if (value >= 1) {
                 console.log("両手上げてる");
                 //白い旗の表示
                 whiteflagImage.style.opacity = 1;
@@ -585,8 +469,8 @@ async function predict() {
                 op.redOP = true;
                 isRisehand = true;
                 flagRise = false;
-                if ('白上げて' == questionRedON || '赤上げて' == questionwhiteON) {
-                    answer = "両手上げてる";
+                if ('しろあげて' == questionRedON || 'あかあげて' == questionwhiteON) {
+                    answers = "両手上げてる";
                     var answerD = "両手上げてる";
                     checkAnswer(answerD);
                 }
@@ -597,7 +481,7 @@ async function predict() {
     }
     // 最後にポーズを書く
     // ここ消すとカメラが表示されなくなる
-    drawPose(pose);
+    // drawPose(pose);
 }
 
 function drawPose(pose) {

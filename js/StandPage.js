@@ -221,6 +221,7 @@ document.getElementById("GameStart").addEventListener("click", function () {
                     }).catch((error) => {
                         console.error("Error removing document: ", error);
                     })
+                    
                     // に画面遷移
                     window.location.href = 'Game.html';
                 })

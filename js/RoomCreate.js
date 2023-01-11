@@ -279,6 +279,7 @@ document.getElementById("GameStart").addEventListener("click", function () {
             player3: null,
             player4: null
         })
+        
         // addセットでルームをつくれた時にする処理
             .then((docRef) => {
                 // addセットで作成したルームのdocument名を取得しcraftpasswordに入れる
