@@ -147,7 +147,7 @@ document.getElementById("uma").addEventListener("click", function () {
         pass1 = "6";
     } else if (Path2.src == Path) {
         Path2.src = "img/Uma.png";
-        pass2 = "2";
+        pass2 = "6";
     } else if (Path3.src == Path) {
         Path3.src = "img/Uma.png";
         pass3 = "6";

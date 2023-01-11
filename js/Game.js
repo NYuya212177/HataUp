@@ -59,6 +59,8 @@ var player2 = null;
 var player3 = null;
 var player4 = null;
 
+var life = null;
+
 // 指定したfirebaseから値を取得
 docRef.get().then((doc) => {
 
@@ -67,7 +69,7 @@ docRef.get().then((doc) => {
     player2 = doc.data().player2;
     player3 = doc.data().player3;
     player4 = doc.data().player4;
-    var life = null;
+    
     // 指定したfirebaseから値を取得してこれた際の処理
     if (doc.exists) {
 
@@ -134,7 +136,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     Webcamera();
 });
 
-//webカメラのアクセス許可　コード探し中
+//webカメラのアクセス許可 コード探し中
 async function accesscam() {
 
 }
@@ -210,6 +212,7 @@ function over() {
         if (life > 0) {
             life--;
             console.log("残りライフは", life);
+            document.getElementById("life").innerHTML = life;
         }
         if (life === 0) {
             //間違えたりタイムオーバー時にライフが無い場合リザルト画面に移動
@@ -283,7 +286,7 @@ function adjustScore(isCorrect) {
 
             life--;
             console.log(life);
-
+            document.getElementById("life").innerHTML = life;
             if (life === 0) {
                 alert("残念！お前の負け");
                 console.log(life);
