@@ -42,6 +42,26 @@ h1 {
     color: red;
 }
 
+.player p2 {
+    display: inline-block;
+    font-size: 30px;
+    font-family: 'HGP行書体';
+    color:blue;
+}
+
+.player p3 {
+    display: inline-block;
+    font-size: 30px;
+    font-family: 'HGP行書体';
+    color: yellow;
+}
+
+.player p4 {
+    display: inline-block;
+    font-size: 30px;
+    font-family: 'HGP行書体';
+    color: green;
+}
 /*名前テキストボックスのデザイン*/
 /*https://copypet.jp/692/*/
 .cp_iptxt {
