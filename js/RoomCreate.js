@@ -47,205 +47,205 @@ var pass4 = null;
 // 干支の画像を押したら透明なパス画像のところに左から順番に入れていくためのif文
 document.getElementById("nezumi").addEventListener("click", function () {
     if (Path1.src == Path) {
-        Path1.src = "./Path干支/Nezumi.png";
+        Path1.src = "img/Nezumi.png";
         pass1 = "0";
     } else if (Path2.src == Path) {
-        Path2.src = "Path干支/Nezumi.png";
+        Path2.src = "img/Nezumi.png";
         pass2 = "0";
     } else if (Path3.src == Path) {
-        Path3.src = "Path干支/Nezumi.png";
+        Path3.src = "img/Nezumi.png";
         pass3 = "0";
     } else if (Path4.src == Path) {
-        Path4.src = "Path干支/Nezumi.png";
+        Path4.src = "img/Nezumi.png";
         pass4 = "0";
     }
 })
 
 document.getElementById("ushi").addEventListener("click", function () {
     if (Path1.src == Path) {
-        Path1.src = "./Path干支/Ushi.png";
+        Path1.src = "img/Ushi.png";
         pass1 = "1";
     } else if (Path2.src == Path) {
-        Path2.src = "./Path干支/Ushi.png";
+        Path2.src = "img/Ushi.png";
         pass2 = "1";
     } else if (Path3.src == Path) {
-        Path3.src = "./Path干支/Ushi.png";
+        Path3.src = "img/Ushi.png";
         pass3 = "1";
     } else if (Path4.src == Path) {
-        Path4.src = "./Path干支/Ushi.png";
+        Path4.src = "img/Ushi.png";
         pass4 = "1";
     }
 })
 
 document.getElementById("tora").addEventListener("click", function () {
     if (Path1.src == Path) {
-        Path1.src = "./Path干支/Tora.png";
+        Path1.src = "img/Tora.png";
         pass1 = "2";
     } else if (Path2.src == Path) {
-        Path2.src = "./Path干支/Tora.png";
+        Path2.src = "img/Tora.png";
         pass2 = "2";
     } else if (Path3.src == Path) {
-        Path3.src = "./Path干支/Tora.png";
+        Path3.src = "img/Tora.png";
         pass3 = "2";
     } else if (Path4.src == Path) {
-        Path4.src = "./Path干支/Tora.png";
+        Path4.src = "img/Tora.png";
         pass4 = "2";
     }
 })
 
 document.getElementById("usagi").addEventListener("click", function () {
     if (Path1.src == Path) {
-        Path1.src = "./Path干支/Usagi.png";
+        Path1.src = "img/Usagi.png";
         pass1 = "3";
     } else if (Path2.src == Path) {
-        Path2.src = "./Path干支/Usagi.png";
+        Path2.src = "img/Usagi.png";
         pass2 = "3";
     } else if (Path3.src == Path) {
-        Path3.src = "./Path干支/Usagi.png";
+        Path3.src = "img/Usagi.png";
         pass3 = "3";
     } else if (Path4.src == Path) {
-        Path4.src = "./Path干支/Usagi.png";
+        Path4.src = "img/Usagi.png";
         pass4 = "3";
     }
 })
 
 document.getElementById("tatu").addEventListener("click", function () {
     if (Path1.src == Path) {
-        Path1.src = "./Path干支/Tatu.png";
+        Path1.src = "img/Tatu.png";
         pass1 = "4";
     } else if (Path2.src == Path) {
-        Path2.src = "./Path干支/Tatu.png";
+        Path2.src = "img/Tatu.png";
         pass2 = "4";
     } else if (Path3.src == Path) {
-        Path3.src = "./Path干支/Tatu.png";
+        Path3.src = "img/Tatu.png";
         pass3 = "4";
     } else if (Path4.src == Path) {
-        Path4.src = "./Path干支/Tatu.png";
+        Path4.src = "img/Tatu.png";
         pass4 = "4";
     }
 })
 
 document.getElementById("hebi").addEventListener("click", function () {
     if (Path1.src == Path) {
-        Path1.src = "./Path干支/Hebi.png";
+        Path1.src = "img/Hebi.png";
         pass1 = "5";
     } else if (Path2.src == Path) {
-        Path2.src = "./Path干支/Hebi.png";
+        Path2.src = "img/Hebi.png";
         pass2 = "5";
     } else if (Path3.src == Path) {
-        Path3.src = "./Path干支/Hebi.png";
+        Path3.src = "img/Hebi.png";
         pass3 = "5";
     } else if (Path4.src == Path) {
-        Path4.src = "./Path干支/Hebi.png";
+        Path4.src = "img/Hebi.png";
         pass4 = "5";
     }
 })
 
 document.getElementById("uma").addEventListener("click", function () {
     if (Path1.src == Path) {
-        Path1.src = "./Path干支/Uma.png";
+        Path1.src = "img/Uma.png";
         pass1 = "6";
     } else if (Path2.src == Path) {
-        Path2.src = "./Path干支/Uma.png";
+        Path2.src = "img/Uma.png";
         pass2 = "2";
     } else if (Path3.src == Path) {
-        Path3.src = "./Path干支/Uma.png";
+        Path3.src = "img/Uma.png";
         pass3 = "6";
     } else if (Path4.src == Path) {
-        Path4.src = "./Path干支/Uma.png";
+        Path4.src = "img/Uma.png";
         pass4 = "6";
     }
 })
 
 document.getElementById("hithuji").addEventListener("click", function () {
     if (Path1.src == Path) {
-        Path1.src = "./Path干支/Hithuji.png";
+        Path1.src = "img/Hithuji.png";
         pass1 = "7";
     } else if (Path2.src == Path) {
-        Path2.src = "./Path干支/Hithuji.png";
+        Path2.src = "img/Hithuji.png";
         pass2 = "7";
     } else if (Path3.src == Path) {
-        Path3.src = "./Path干支/Hithuji.png";
+        Path3.src = "img/Hithuji.png";
         pass3 = "7";
     } else if (Path4.src == Path) {
-        Path4.src = "./Path干支/Hithuji.png";
+        Path4.src = "img/Hithuji.png";
         pass4 = "7";
     }
 })
 
 document.getElementById("saru").addEventListener("click", function () {
     if (Path1.src == Path) {
-        Path1.src = "./Path干支/Saru.png";
+        Path1.src = "img/Saru.png";
         pass1 = "8";
     } else if (Path2.src == Path) {
-        Path2.src = "./Path干支/Saru.png";
+        Path2.src = "img/Saru.png";
         pass2 = "8";
     } else if (Path3.src == Path) {
-        Path3.src = "./Path干支/Saru.png";
+        Path3.src = "img/Saru.png";
         pass3 = "8";
     } else if (Path4.src == Path) {
-        Path4.src = "./Path干支/Saru.png";
+        Path4.src = "img/Saru.png";
         pass4 = "8";
     }
 })
 
 document.getElementById("tori").addEventListener("click", function () {
     if (Path1.src == Path) {
-        Path1.src = "./Path干支/Tori.png";
+        Path1.src = "img/Tori.png";
         pass1 = "9";
     } else if (Path2.src == Path) {
-        Path2.src = "./Path干支/Tori.png";
+        Path2.src = "img/Tori.png";
         pass2 = "9";
     } else if (Path3.src == Path) {
-        Path3.src = "./Path干支/Tori.png";
+        Path3.src = "img/Tori.png";
         pass3 = "9";
     } else if (Path4.src == Path) {
-        Path4.src = "./Path干支/Tori.png";
+        Path4.src = "img/Tori.png";
         pass4 = "9";
     }
 })
 
 document.getElementById("inu").addEventListener("click", function () {
     if (Path1.src == Path) {
-        Path1.src = "./Path干支/Inu.png";
+        Path1.src = "img/Inu.png";
         pass1 = "A";
     } else if (Path2.src == Path) {
-        Path2.src = "./Path干支/Inu.png";
+        Path2.src = "img/Inu.png";
         pass2 = "A";
     } else if (Path3.src == Path) {
-        Path3.src = "./Path干支/Inu.png";
+        Path3.src = "img/Inu.png";
         pass3 = "A";
     } else if (Path4.src == Path) {
-        Path4.src = "./Path干支/Inu.png";
+        Path4.src = "img/Inu.png";
         pass4 = "A";
     }
 })
 
 document.getElementById("inoshishi").addEventListener("click", function () {
     if (Path1.src == Path) {
-        Path1.src = "./Path干支/Inoshishi.png";
+        Path1.src = "img/Inoshishi.png";
         pass1 = "B";
     } else if (Path2.src == Path) {
-        Path2.src = "./Path干支/Inoshishi.png";
+        Path2.src = "img/Inoshishi.png";
         pass2 = "B";
     } else if (Path3.src == Path) {
-        Path3.src = "./Path干支/Inoshishi.png";
+        Path3.src = "img/Inoshishi.png";
         pass3 = "B";
     } else if (Path4.src == Path) {
-        Path4.src = "./Path干支/Inoshishi.png";
+        Path4.src = "img/Inoshishi.png";
         pass4 = "B";
     }
 })
 
 document.getElementById("DELETE").addEventListener("click", function () {
     if (Path4.src != Path) {
-        Path4.src = "./Path干支/Path.png";
+        Path4.src = "img/Path.png";
     } else if (Path3.src != Path) {
-        Path3.src = "./Path干支/Path.png";
+        Path3.src = "img/Path.png";
     } else if (Path2.src != Path) {
-        Path2.src = "./Path干支/Path.png";
+        Path2.src = "img/Path.png";
     } else if (Path1.src != Path) {
-        Path1.src = "./Path干支/Path.png";
+        Path1.src = "img/Path.png";
     }
 });
 
