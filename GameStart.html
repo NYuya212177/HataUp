@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<meta name="robots" content="noindex" />
+<html>
+
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/GameStart.css">
+    <link rel="stylesheet" media="screen and (max-width: 480px)">
     <title>はたあげゲーム</title>
     <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-firestore.js"></script>
@@ -10,36 +12,35 @@
 </head>
 
 <body>
+    <img src="picture/zxc.png" align="top">
     <!-- 難易度設定用ボタンレイアウト -->
-    <div>
-        <h2>むずかしさをえらんでね</h2>
-        <form>
-            <div class="center">
+    <h1>むずかしさをえらんでね</h1>
+    <form>
+        <div class="center">
             <diV>
-                <input id="easy" class="r" name="hoge" type="radio" value="easy"checked />
-                <label for="easy"checked>かんたん</label>
+                <input id="easy" class="r" name="hoge" type="radio" value="easy" checked />
+                <label for="easy" checked>かんたん</label>
                 <input id="normal" class="r" name="hoge" type="radio" value="normal" />
-                <label for="normal">ふつう</label> 
+                <label for="normal">ふつう</label>
                 <input id="hard" class="r" name="hoge" type="radio" value="hard" />
                 <label for="hard">むずかしい</label>
             </diV>
-            </div>
-        </form>
-
-        <!-- 一人で遊ぶ用ボタンレイアウト -->
-        <h3>ひとりであそぶ</h3>
-        <div class="center">
-            <button type="submit" class="soro">スタート</button>
         </div>
+    </form>
 
-        <!-- みんなで遊ぶ用ボタンレイアウト -->
-        <h4>みんなであそぶ</h4>
-        <div class="center">
-            <button type="submit" id="RoomCreate" class="room">へやをつくる</button>
-            <button type="submit" id="RoomIn" class="room">へやにはいる</button>
-        </div>
-        <script src="js/GameStart.js"></script>
+    <!-- 一人で遊ぶ用ボタンレイアウト -->
+    <h2>ひとりであそぶ</h2>
+    <div class="center">
+        <button onclick="location.href='lastgame/Game.html'" type="submit" class="soro">スタート</button>
+    </div>
 
+    <!-- みんなで遊ぶ用ボタンレイアウト -->
+    <h3>みんなであそぶ</h3>
+    <div class="center">
+        <button type="submit" id="RoomCreate" class="room">へやをつくる</button>
+        <button type="submit" id="RoomIn" class="room">へやにはいる</button>
+    </div>
+    <script src="js/GameStart.js"></script>
 </body>
 
 </html>

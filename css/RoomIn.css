@@ -1,148 +1,337 @@
 @charset"utf-8";
+
+/*画面全体のレイアウト*/
+body {
+    background: url(background/Haikei.jpg) center;
+    /*背景画像指定*/
+    background-repeat: no-repeat;
+    /*画像複製阻止*/
+    background-size: cover;
+    /*画面領域*/
+    height: 100vh;
+    /*高さ設定*/
+    text-align: center;
+    /*中央配置*/
+    touch-action: manipulation;
+}
+
+html,
+body {
+    overflow: hidden
+}
+
+/* 名前を教えてのテキスト */
+.name {
+    margin-top: -40px;
+    font-size: 30px;
+    font-family: 'HGP行書体';
+    text-align: center;
+    color: red;
+}
+
+/* 愛言葉をきめてねのテキスト */
+h1 {
+    font-size: 30px;
+    font-family: 'HGP行書体';
+    text-align: center;
+    color: red;
+}
+
+/*名前テキストボックスのデザイン*/
+/*https://copypet.jp/692/*/
+.cp_iptxt {
+    margin: auto;
+    text-align: center;
+    position: relative;
+}
+
+.cp_iptxt input[type='text'] {
+    background: cadetblue;
+    font: 50px/50px sans-serif;
+    box-sizing: border-box;
+    width: 400px;
+    padding: 10px 10px;
+    border-radius: 15px;
+    border: none;
+}
+
+.ef input[type='text']:focus {
+    border: 10px solid blueviolet;
+    border-radius: 15px;
+    outline: none;
+}
+
+input::placeholder {
+    color: #fff;
+    font-family: 'HGP行書体';
+    font-size: 30px;
+    text-align: center;
+}
+
+/*透明なパスワード欄の画像のレイアウト*/
+.usepath {
+    width: 400px;
+    /*ボタンの幅*/
+    border-radius: 15px;
+    /*ボタンの角削除*/
+    margin: auto;
+    /*中央配置*/
+    background: cadetblue;
+    text-align: center;
+}
+
+/*透明なパスワード欄の画像設定*/
+.usepath img {
+    margin-top: 10px;
+    width: 60px;
+    height: auto;
+}
+
+/*干支のパスワード画像レイアウト*/
+.path {
+    overflow: hidden;
+    text-align: center;
+}
+
+/*干支のパスワード画像設定*/
+.path img {
+    margin-top: 10px;
+    margin-left: 25px;
+    margin-right: 25px;
+    width: 50px;
+    height: auto;
+    text-align: center;
+}
+
+.path1 img {
+    margin-top: 10px;
+    margin-left: 25px;
+    margin-right: 25px;
+    width: 50px;
+    height: auto;
+    text-align: center;
+}
+
+.path2 img {
+    margin-bottom: 10px;
+    margin-left: 25px;
+    margin-right: 25px;
+    width: 50px;
+    height: auto;
+    text-align: center;
+}
+
+/*パスのdeleteボタンレレイアウト*/
+.delete {
+    margin-bottom: 20px;
+    font-size: 30px;
+    background: #ff8181;
+    color: #FFF;
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+    border: none;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.29);
+    transition: .5s;
+}
+
+.delete:active {
+    -webkit-transform: translateY(2px);
+    transform: translateY(2px);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.15);
+    border-bottom: none;
+}
+
+/*部屋を作るボタンデザイン*/
+.roommake {
+    font-size: 20px;
+    font-family: 'HGP行書体';
+    padding: 20px 20px;
+    color: #fff;
+    background-color: tomato;
+    border-radius: 20px;
+    border: none;
+    /* デフォルトで入るリンクの下線を消す */
+    box-shadow: 0 3px 0 tomato;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
+}
+
+.roommake:hover {
+    background-color: tomato;
+    box-shadow: 0 3px 0 tomato;
+}
+
+/*ボタンアクション*/
+.roommake:active {
+    box-shadow: none;
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);
+}
+
+/*前の画面に画面遷移ボタンデザイン*/
+.back {
+    margin-left: -80%;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    background: mediumpurple;
+    color: #FFF;
+    width: 60px;
+    height: 60px;
+    line-height: 50px;
+    border-radius: 10px;
+    text-align: center;
+    overflow: hidden;
+    border: none;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
+    border-bottom: solid 3px mediumpurple;
+    transition: .4s;
+}
+
+.back:active {
+    -webkit-transform: translateY(2px);
+    transform: translateY(2px);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.15);
+    border-bottom: none;
+}
+
+/* @mediaルールを使ったレスポンシブなCSSの記述例 */
+@media screen and (max-width: 1000px) {
+    /* 画面の横幅が480px以下のときに適用されるCSSはすべてここに記述する */
+
     /*画面全体のレイアウト*/
-    body{
-        background: url(background/78.jpg) center;
+    body {
+        background: url(background/Haikei.jpg) center;
         background-repeat: no-repeat;
         background-size: cover;
-        height: 100vh;
         text-align: center;
+        touch-action: manipulation;
     }
 
-    /* 愛言葉をきめてねのテキスト */
-    h1{
-        margin-top: 60px;
-        margin-bottom: 3%;
-        font-weight: 900px;
-        font-size: 36px;
-        text-align: center;
-        color: coral;
-        font-family: “HGP行書体”, “ＭＳ Ｐ明朝”, “MS PMincho”, serif; /* 書体変換 */
+    html,
+    body {
+        overflow: hidden
     }
 
     /* 名前を教えてのテキスト */
-    .name{
-        margin-top: 15%;
+    .name {
+        margin-top: 30px;
         margin-bottom: 4%;
         font-weight: 900px;
-        font-size: 36px;
+        font-family: 'HGP行書体';
+        font-size: 90px;
         text-align: center;
-        color: coral;
-        font-family: “HGP行書体”, “ＭＳ Ｐ明朝”, “MS PMincho”, serif; /* 書体変換 */
+        color: red;
     }
-    
+
+    /* 愛言葉をきめてねのテキスト */
+    h1 {
+        margin-top: 60px;
+        margin-bottom: 3%;
+        font-weight: 900px;
+        font-family: 'HGP行書体';
+        font-size: 90px;
+        text-align: center;
+        color: red;
+    }
+
     /*名前テキストボックスのデザイン*/
     /*https://copypet.jp/692/*/
     .cp_iptxt {
         margin: auto;
+        text-align: center;
         position: relative;
-        width: 500px;
     }
+
     .cp_iptxt input[type='text'] {
         background: cadetblue;
-        font: 36px/50px sans-serif;
+        font: 50px/50px sans-serif;
         box-sizing: border-box;
-        width: 100%;
-        padding: 0.3em;
-        transition: 0.3s;
-        letter-spacing: 1px;
+        width: 700px;
+        padding: 30px 30px;
         border-radius: 15px;
-        border: none; /* デフォルトで入るリンクの下線を消す */
+        border: none;
     }
+
     .ef input[type='text']:focus {
-        border: 20px solid cadetblue;
+        border: 20px solid blueviolet;
         border-radius: 15px;
         outline: none;
     }
+
     input::placeholder {
-        color: #fff; 
-        font-weight: bold;
-        font-size: 0.7em;
+        color: #fff;
+        font-size: 60px;
         font-style: italic;
-        font-family: “HGP行書体”, “ＭＳ Ｐ明朝”, “MS PMincho”, serif; /* 書体変換 */
     }
 
     /*透明なパスワード欄の画像のレイアウト*/
-    .usepath{
-        width: 550px;
-        margin-top: 10px;
-        margin-bottom: 30px;
+    .usepath {
+        padding-bottom: 10px;
+        width: 70%;
+        /*ボタンの幅*/
         border-radius: 15px;
+        /*ボタンの角削除*/
         margin: auto;
-        background: cadetblue;
-        text-align: center;
-    }
-
-    /*透明なパスワード欄の画像のレイアウト*/
-    .usepath{
-        width: 500px; /*幅*/
-        margin-bottom: 30px;
-        border-radius: 15px;
-        margin: auto;
+        /*中央配置*/
         background: cadetblue;
         text-align: center;
     }
 
     /*透明なパスワード欄の画像設定*/
-    .usepath img{
-        margin-left:25px;
-        margin-right:25px;
-        width: 70px;
+    .usepath img {
+        margin-top: 50px;
+        width: 100px;
         height: auto;
     }
 
     /*干支のパスワード画像レイアウト*/
-    .path{
+    .path {
         overflow: hidden;
         text-align: center;
     }
 
     /*干支のパスワード画像設定*/
     .path img {
-        margin-top: 10%;
-        margin-left: 20px;
-        margin-right: 20px;
-        width: 8%;
+        margin-top: 60px;
+        margin-left: 25px;
+        margin-right: 25px;
+        width: 12%;
         height: auto;
-        text-align: center;/*中央に配置*/
+        text-align: center;
     }
+
     .path1 img {
-        margin-top: 5%;
-        margin-left: 20px;
-        margin-right: 20px;
-        width: 8%;
+        margin-top: 60px;
+        margin-left: 25px;
+        margin-right: 25px;
+        width: 12%;
         height: auto;
-        text-align: center;/*中央に配置*/
+        text-align: center;
     }
 
     .path2 img {
-        margin-top: 5%;
-        margin-left: 20px;
-        margin-right: 20px;
-        width: 8%;
+        margin-top: 60px;
+        margin-left: 25px;
+        margin-right: 25px;
+        width: 12%;
         height: auto;
-        text-align: center;/*中央に配置*/
+        text-align: center;
     }
 
     /*パスのdeleteボタンレレイアウト*/
     .delete {
-        margin-top: 4%;
-        margin-bottom: 20%;
-        font-size: 20px;
-        text-decoration: none;
+        font-size: 100px;
         background: #ff8181;
         color: #FFF;
-        width: 120px;
-        height: 120px;
-        line-height: 120px;
-        border-radius: 50%;
-        text-align: center;
-        font-weight: bold;
-        overflow: hidden;
-        border: none;/* デフォルトで入るリンクの下線を消す */
-        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
-        border-bottom: solid 3px #bd6565;
-        transition: .4s;
+        width: 130px;
+        height: 130px;
+        border-radius: 100%;
+        border: none;
+        box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.29);
+        transition: .5s;
     }
+
     .delete:active {
         -webkit-transform: translateY(2px);
         transform: translateY(2px);
@@ -150,58 +339,57 @@
         border-bottom: none;
     }
 
-.delete1 {
-        display: block;
-        text-align: center;
-        text-decoration: none;
-        width: 200px;
-        margin: auto;
-        padding: 40px 30px;
-        font-weight: bold;
-        border: 2px solid #1abc9c;
-        background: #1abc9c;
+    /*部屋を作るボタンデザイン*/
+    .roommake {
+        margin-top: 60px;
+        font-size: 60px;
+        font-family: 'HGP行書体';
+        padding: 40px 40px;
         color: #fff;
-        border-radius: 15px;
-        transition: 0.5s;
-        font-size: 20px;
-        animation: move_a 2s infinite;
-    }
-    @keyframes move_a {
-        0% {transform: translate(0px, 4px);}
-        5% {transform: translate(0px, -4px);}
-        10% {transform: translate(0px, 4px);}
-        15% {transform: translate(0px, -4px);}
-        20% {transform: translate(0px, 4px);}
-        25% {transform: translate(0px, -4px);}
-        30% {transform: translate(0px, 0px);}
-    }
-    .delete1:hover {
-        color: #1abc9c;
-        background: #fff;
+        background-color: tomato;
+        border-radius: 20px;
+        border: none;
+        /* デフォルトで入るリンクの下線を消す */
+        box-shadow: 0 3px 0 tomato;
+        text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
     }
 
+    .roommake:hover {
+        background-color: tomato;
+        box-shadow: 0 3px 0 tomato;
+    }
+
+    /*ボタンアクション*/
+    .roommake:active {
+        box-shadow: none;
+        -webkit-transform: translateY(4px);
+        transform: translateY(4px);
+    }
+
+    /*前の画面に画面遷移ボタンデザイン*/
     .back {
-        margin-top: 20%;
-        margin-left: 80%;
-        font-size: 20px;
+        margin-left: -80%;
+        font-size: 80px;
         text-decoration: none;
-        background: #ff8181;
+        background: mediumpurple;
         color: #FFF;
         width: 120px;
         height: 120px;
         line-height: 120px;
-        border-radius: 50%;
+        border-radius: 30px;
         text-align: center;
-        font-weight: bold;
         overflow: hidden;
-        border: none;/* デフォルトで入るリンクの下線を消す */
+        border: none;
         box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
-        border-bottom: solid 3px #bd6565;
+        border-bottom: solid 3px mediumpurple;
         transition: .4s;
     }
+
     .back:active {
         -webkit-transform: translateY(2px);
         transform: translateY(2px);
         box-shadow: 0 0 1px rgba(0, 0, 0, 0.15);
         border-bottom: none;
     }
+
+}

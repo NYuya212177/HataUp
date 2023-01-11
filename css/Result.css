@@ -1,51 +1,126 @@
+@charset"utf-8";
+
 /*背景*/
 body {
-    background: url(background/zz.jpg) center;
+    background: url(background/Haikei.jpg) center;
+    /*背景画像指定*/
     background-repeat: no-repeat;
+    /*画像複製阻止*/
     background-size: cover;
+    /*画面領域*/
     height: 100vh;
+    /*高さ設定*/
     text-align: center;
+    /*中央配置*/
+    touch-action: manipulation;
+    /*画面二回タップで拡大を阻止*/
 }
 
+/*スクロール停止*/
+html,
+body {
+    overflow: hidden
+}
+
+/* ボタンのcenter付け用 */
+.center {
+    text-align: center;
+    margin: auto;
+}
+
+/* 文字の色付け */
+h1 {
+    font-size: 40px;
+    font-family: 'HGP行書体';
+    text-align: center;
+    color: red;
+}
+
+/* 文字の色付け */
+h2 {
+    margin-top: 15%;
+    margin-bottom: 15%;
+    font-size: 40px;
+    font-family: 'HGP行書体';
+    text-align: center;
+    color: red;
+}
+
+.button {
+    font-size: 20px;
+    font-family: 'HGP行書体';
+    background-color: rgb(249, 106, 90);
+    color: #fff;
+    padding: 20px 20px;
+    /* 上下の余白、左右の余白 */
+    border: none;
+    /* デフォルトで入るリンクの下線を消す */
+    border-radius: 20px;
+    /* 角を丸くする */
+}
+
+/* @mediaルールを使ったレスポンシブなCSSの記述例 */
+@media screen and (max-width: 1000px) {
+    /* 画面の横幅が480px以下のときに適用されるCSSはすべてここに記述する */
+
+    /*画面のレイアウト*/
+    body {
+        background: url(background/Haikei.jpg) center;
+        /*背景画像指定*/
+        background-repeat: no-repeat;
+        /*画像複製阻止*/
+        background-size: cover;
+        /*画面領域*/
+        height: 100vh;
+        /*高さ設定*/
+        text-align: center;
+        /*中央配置*/
+        touch-action: manipulation;
+        /*画面二回タップで拡大を阻止*/
+    }
+
+    /*スクロール停止*/
+    html,
+    body {
+        overflow: hidden
+    }
+
     /* ボタンのcenter付け用 */
-    .center{
+    .center {
         text-align: center;
         margin: auto;
     }
-    /* 難易度ボタン */
-    .Nanido{
-        margin: auto;
-        margin-top: 20px;
-        margin-bottom: 30px;
-        background-color: rgb(249, 106, 90); /* 背景色 */
-        color: #fff; /* 文字色 */
-        padding: 10px 20px; /* 上下の余白、左右の余白 */
-        border: none; /* デフォルトで入るリンクの下線を消す */
-        border-radius: 10px; /* 角を丸くする */
-    }
-        /* 文字の色付け */
-    h1{
-        margin-top: 30%;
-        margin-bottom: 30%;
-        font-size: 30px;
+
+    /* 文字の色付け 1*/
+    h1 {
+        margin-top: 40%;
+        margin-bottom: 40%;
+        font-size: 90px;
+        font-family: 'HGP行書体';
         text-align: center;
-        color:cadetblue;
+        color: red;
     }
-    /* 文字の色付け */
-    h2{
-        margin-top: 50px;
-        margin-bottom: 30%;
-        font-size: 30px;
+
+    /* 文字の色付け 2*/
+    h2 {
+        margin-bottom: 40%;
+        font-size: 90px;
+        font-family: 'HGP行書体';
         text-align: center;
-        color:cadetblue;
+        color: red;
     }
-    .delete {
-        margin: auto;
-        margin-top: 20px;
-        margin-bottom: 30px;
-        background-color: rgb(249, 106, 90); /* 背景色 */
-        color: #fff; /* 文字色 */
-        padding: 10px 20px; /* 上下の余白、左右の余白 */
-        border: none; /* デフォルトで入るリンクの下線を消す */
-        border-radius: 10px; /* 角を丸くする */
+
+    .button {
+        font-size: 60px;
+        font-family: 'HGP行書体';
+        background-color: rgb(249, 106, 90);
+        color: #fff;
+        padding: 40px 40px;
+        /* 上下の余白、左右の余白 */
+        border: none;
+        /* デフォルトで入るリンクの下線を消す */
+        border-radius: 20px;
+        /* 角を丸くする */
     }
+
+}

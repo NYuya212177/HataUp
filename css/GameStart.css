@@ -1,123 +1,259 @@
 @charset"utf-8";
 
-/*背景*/
+/*画面全体のレイアウト*/
 body {
-    background: url(background/tt.jpg) center;
+    background: url(background/Haikei.jpg) center;
+    /*背景画像指定*/
     background-repeat: no-repeat;
+    /*画像複製阻止*/
     background-size: cover;
+    /*画面領域*/
     height: 100vh;
+    /*高さ設定*/
     text-align: center;
-}
-/* ボタンのcenter付け用 */
-.center {
-    text-align: center;/*中央に配置*/
-    margin: auto;
+    /*中央配置*/
+    touch-action: manipulation;
+    /*画面二回タップで拡大を阻止*/
 }
 
+/*title.png*/
+img {
+    height: 150px;
+}
+
+/*スクロール停止*/
+html,
+body {
+    overflow: hidden
+}
+
+/*ラジオボタン*/
 .r {
     display: none;
-    }
+    box-shadow: 0 3px 0 #66CCCC;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
+}
+
 label {
-    border-radius: 20px;/*角削*/
-    background-color: skyblue;
-    padding: 20px 30px;
-    font-size: 40px;
+    border-radius: 20px;
+    padding: 20px 20px;
+    font-size: 20px;
+    font-family: 'HGP行書体';
     color: #fff;
-    font-family: “HGP行書体”, “ＭＳ Ｐ明朝”, “MS PMincho”, serif; /* 書体変換 */
-    }
-.r:checked + label {
-    background-color: pink;
-    }
+    background-color: #66CCCC;
+    box-shadow: 0 3px 0 #66CCCC;
+}
+
+.r:checked+label {
+    box-shadow: none;
+    background-color: #f08080;
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);
+}
 
 /* 文字の色付け １*/
+h1 {
+    margin-bottom: 50px;
+    font-size: 30px;
+    color: red;
+    font-family: 'HGP行書体';
+}
+
+/* 文字の色付け 2*/
 h2 {
-    margin-bottom: 40px;
-    margin-top: 120%;
-    font-size: 70px;
-    color: coral;
-    font-weight:bold;
-    font-family: “HGP行書体”, “ＭＳ Ｐ明朝”, “MS PMincho”, serif; /* 書体変換 */
+    margin-top: 50px;
+    font-size: 30px;
+    color: red;
+    font-family: 'HGP行書体';
 }
 
-/* 文字の色付け ２*/
+/* 文字の色付け 3*/
 h3 {
-    margin-bottom: 40px;
-    margin-top: 10%;
-    font-size: 70px;
-    color: coral;
-    font-weight:bold;
-    font-family: “HGP行書体”, “ＭＳ Ｐ明朝”, “MS PMincho”, serif; /* 書体変換 */
-}
-
-/* 文字の色付け ３*/
-h4 {
-    margin-bottom: 40px;
-    margin-top: 10%;
-    font-size: 70px;
-    color: coral;
-    font-weight:bold;
-    font-family: “HGP行書体”, “ＭＳ Ｐ明朝”, “MS PMincho”, serif; /* 書体変換 */
+    font-size: 30px;
+    color: red;
+    font-family: 'HGP行書体';
 }
 
 /* 一人で遊ぶボタン */
 .soro {
-    padding: 20px 30px;/* ボタンの幅 */
+    font-size: 20px;
+    font-family: 'HGP行書体';
+    padding: 20px 20px;
+    /*幅、高さ*/
+    border-radius: 20px;
+    /*角を丸くする*/
+    border: none;
+    /* デフォルトで入るリンクの下線を消す */
     color: #fff;
-    background-color: #9900FF;
-    border-radius: 20px;/*角削*/
-    border: none; /* デフォルトで入るリンクの下線を消す*/
-    font-size: 48px; /*文字の大きさ*/
-    font-weight:bold;
-    font-family: “HGP行書体”, “ＭＳ Ｐ明朝”, “MS PMincho”, serif; /* 書体変換 */
-    box-shadow: 0 3px 0 #9900FF;
+    background-color: #f08080;
+    box-shadow: 0 3px 0 #f08080;
     text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
 }
 
-/*ボタンデザイン*/
-.soro:hover { 
-    background-color: #9900FF;
-    box-shadow: 0 3px 0 #9900FF;
+.soro:hover {
+    background-color: #f08080;
+    box-shadow: 0 3px 0 #f08080;
 }
 
+/*ボタンアクション*/
 .soro:active {
     box-shadow: none;
-    -webkit-transform: translateY(4px);/*ボタンアクション*/
+    -webkit-transform: translateY(4px);
     transform: translateY(4px);
 }
 
 /* 部屋に入る・作るボタンレイアウト */
 .room {
-    font-size: 48px;/*ボタンの大きさ*/
-    padding: 20px 30px;
-    color: #fff;
-    background-color: #66CC33;
+    font-size: 20px;
+    font-family: 'HGP行書体';
+    padding: 20px 20px;
+    /*幅、高さ*/
     border-radius: 20px;
-    border: none; /* デフォルトで入るリンクの下線を消す */
-    font-weight:bold;
-    font-family: “HGP行書体”, “ＭＳ Ｐ明朝”, “MS PMincho”, serif; /* 書体変換 */
-    box-shadow: 0 3px 0 #66CC33;
+    /*角を丸くする*/
+    border: none;
+    /* デフォルトで入るリンクの下線を消す */
+    color: #fff;
+    background-color: #f08080;
+    box-shadow: 0 3px 0 #f08080;
     text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
 }
 
 .room:hover {
-    background-color: #66CC33;
-    box-shadow: 0 3px 0 #66CC33;
+    background-color: #f08080;
+    box-shadow: 0 3px 0 #f08080;
 }
 
+/*ボタンアクション*/
 .room:active {
     box-shadow: none;
-    -webkit-transform: translateY(4px);/*ボタンアクション*/
+    -webkit-transform: translateY(4px);
     transform: translateY(4px);
 }
 
-    /* 難易度ボタン */
-    .Nanido{
-        margin: auto;
-        margin-top: 20px;
-        margin-bottom: 30px;
-        background-color: rgb(249, 106, 90); /* 背景色 */
-        color: #fff; /* 文字色 */
-        padding: 10px 20px; /* 上下の余白、左右の余白 */
-        border: none; /* デフォルトで入るリンクの下線を消す */
-        border-radius: 10px; /* 角を丸くする */
+/* @mediaルールを使ったレスポンシブなCSSの記述例 */
+@media screen and (max-width: 1000px) {
+    /* 画面の横幅が1000px以下のときに適用されるCSSはすべてここに記述する */
+
+    /*画面全体のレイアウト*/
+    body {
+        background: url(background/Haikei.jpg) center;
+        /*背景画像指定*/
+        background-repeat: no-repeat;
+        /*画像複製阻止*/
+        background-size: cover;
+        /*画面領域*/
+        text-align: center;
+        /*中央配置*/
+        touch-action: manipulation;
+        /*画面二回タップで拡大を阻止*/
     }
+
+    /*スクロール停止*/
+    html,
+    body {
+        overflow: hidden
+    }
+
+    /*title.png*/
+    img {
+        height: 450px;
+    }
+
+    /*ラジオボタンデザイン*/
+    .r {
+        display: none;
+    }
+
+    label {
+        border-radius: 20px;
+        background-color: #66CCCC;
+        padding: 40px 40px;
+        font-size: 50px;
+        font-family: 'HGP行書体';
+        color: #fff;
+    }
+
+    .r:checked+label {
+        background-color: #f08080;
+    }
+
+    /* 文字の色付け １*/
+    h1 {
+        margin-bottom: 100px;
+        font-size: 80px;
+        font-family: 'HGP行書体';
+        /*書体*/
+        color: red;
+    }
+
+    /* 文字の色付け ２*/
+    h2 {
+        margin-top: 100px;
+        margin-bottom: 50px;
+        font-size: 80px;
+        font-family: 'HGP行書体';
+        color: red;
+    }
+
+    /* 文字の色付け ３*/
+    h3 {
+        margin-top: 5%;
+        margin-bottom: 40px;
+        font-size: 80px;
+        font-family: 'HGP行書体';
+        color: red;
+    }
+
+    /* 一人で遊ぶボタン */
+    .soro {
+        font-size: 50px;
+        font-family: 'HGP行書体';
+        padding: 40px 40px;
+        border-radius: 20px;
+        border: none;
+        /* デフォルトで入るリンクの下線を消す*/
+        color: #fff;
+        background-color: #f08080;
+        box-shadow: 0 3px 0 #f08080;
+        text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
+    }
+
+    .soro:hover {
+        background-color: #f08080;
+        box-shadow: 0 3px 0 #f08080;
+    }
+
+    /*ボタンアクション*/
+    .soro:active {
+        box-shadow: none;
+        -webkit-transform: translateY(4px);
+        transform: translateY(4px);
+    }
+
+    /* 部屋に入る・作るボタンレイアウト */
+    .room {
+        font-size: 50px;
+        font-family: 'HGP行書体';
+        padding: 40px 40px;
+        border-radius: 20px;
+        border: none;
+        /* デフォルトで入るリンクの下線を消す */
+        color: #fff;
+        background-color: #f08080;
+        box-shadow: 0 3px 0 #f08080;
+        text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
+    }
+
+    .room:hover {
+        background-color: #f08080;
+        box-shadow: 0 3px 0 #f08080;
+    }
+
+    /*ボタンアクション*/
+    .room:active {
+        box-shadow: none;
+        -webkit-transform: translateY(4px);
+        transform: translateY(4px);
+    }
+
+}

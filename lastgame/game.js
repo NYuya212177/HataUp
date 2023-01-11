@@ -18,34 +18,23 @@ const whiteflagImage = document.getElementById("white");
 const redflagImage = document.getElementById("red");
 const gamenav = document.getElementById("gamenav");
 
-//回答
-var redRiseQuestion = ['赤上げて', '赤下げて'];
-var whiteRiseQuestion = ['白上げて', '白下げて'];
-var notRise = ['赤上げないで', '白上げないで'];
-
 //指示の一覧
-var DownDown = ['赤上げて', '赤上げて', '赤上げて', '白上げて', '白上げて', '白上げて'];
-var whiteRise = ['赤上げて', '赤上げて', '赤上げて', '白下げて', '白下げて', '白下げて'];
-var RedRise = ['白上げて', '白上げて', '白上げて', '白上げて', '赤下げて', '赤下げて', '赤下げて', '赤下げて'];
-var RiseRise = ['赤下げて', '赤下げて', '赤下げて', '赤下げて', '白下げて', '白下げて', '白下げて', '白下げて'];
+var DownDown = ['あかあげて', 'あかあげて', 'あかあげて', 'しろあげて', 'しろあげて', 'しろあげて'];
+var whiteRise = ['あかあげて', 'あかあげて', 'あかあげて', 'しろさげて', 'しろさげて', 'しろさげて'];
+var RedRise = ['しろあげて', 'しろあげて', 'しろあげて', 'しろあげて', 'あかさげて', 'あかさげて', 'あかさげて', 'あかさげて'];
+var RiseRise = ['あかさげて', 'あかさげて', 'あかさげて', 'あかさげて', 'しろさげて', 'しろさげて', 'しろさげて', 'しろさげて'];
 
-//回答を格納
-var answers;
-//正解を格納
-var CorrectAnswer;
-
-//ゲームの速度
-var seconds = 5000;
-//指示の切れ目、非表示になるまでの秒数
-var crackSeconds = seconds - 500;
-//指示が出た後タイムオーバーまでの時間  
-var timeOverSeconds = seconds - 400;
+//回答と正解を格納
+var answers, CorrectAnswer;
 
 //残り残機
 var life = 3;
 
 //正解数
 var currentScore = 0;
+
+//指示が出た後タイムオーバーまでの時間  
+var timeOverSeconds = 10000;
 
 //旗が上がっている場合をtrue,下がっている場合はfalse
 var op = {
@@ -63,7 +52,14 @@ var questionwhiteON;
 var questionRedON;
 var questionONON;
 
+//今手が上がっているかどうか
 var isRisehand = false;
+
+var flagRight = true;
+var flagLeft = true;
+var flagAll = true;
+var flagNo = true;
+var flagRise = true;
 
 //開始前のカウントダウン
 function countdown() {
@@ -80,16 +76,17 @@ document.addEventListener("DOMContentLoaded", function (event) {
     Webcamera();
 });
 
+//webカメラのアクセス許可　コード探し中
+async function accesscam() {
+
+}
+
 // 画像モデルを読み込み、ウェブカメラをセットアップする
 async function Webcamera() {
-    console.log("-----Webcamera-----");
     const modelURL = URL + "model.json";
     const metadataURL = URL + "metadata.json";
 
-    // load the model and metadata
-    // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
-    // Note: the pose library adds a tmPose object to your window (window.tmPose)
-    // モデルとメタデータをロードする
+    // モデルとメタデータを読み込み
     // file pickerからのファイルをサポートするには、APIのtmImage.loadFromFiles()を参照する。
     // またはローカルハードドライブのファイルから
     // 注: ポーズライブラリは、「tmImage」オブジェクトをウィンドウに追加する (window.tmPose)
@@ -97,21 +94,22 @@ async function Webcamera() {
     model = await tmPose.load(modelURL, metadataURL);
     maxPredictions = model.getTotalClasses();
 
-    // Convenience function to setup a webcam
+    //Webカメラの起動準備
+    // ウェブカメラを反転するかどうか
+    const flip = true;
     // ウェブカメラをセットアップするための機能
     const size = window.parent.screen.width / 2;
-    const flip = true; // whether to flip the webcam // ウェブカメラを反転するかどうか
-
-    //Webカメラの起動準備
-    webcam = new tmPose.Webcam(size, size, flip); // width, height, flip // 幅、高さ、反転
-    await webcam.setup(); // request access to the webcam // ウェブカメラへのアクセスをリクエストする
-    webcam.webcam.playsInline = true;//iphoneで動かすコード
+    // 幅、高さ、反転
+    webcam = new tmPose.Webcam(size, size, flip);
+    // ウェブカメラへのアクセスをリクエストする
+    await webcam.setup();
+    //iphoneで動かすコード
+    webcam.webcam.playsInline = true;
+    //カメラの起動
     await webcam.play();
-
     //判定の処理を止める
     window.cancelAnimationFrame(loop);
-    
-    // append/get elements to the DOM
+
     // DOMに要素を追加する
     const canvas = document.getElementById("canvas");
     canvas.width = size; canvas.height = size;
@@ -119,54 +117,108 @@ async function Webcamera() {
     labelContainer = document.getElementById("label-container");
 
     //モデルにあるすべてのクラス要素にdivタグをつける
-    for (let i = 0; i < maxPredictions; i++) { // and class labels // およびクラス ラベル
+    // およびクラス ラベル
+    for (let i = 0; i < maxPredictions; i++) {
         labelContainer.appendChild(document.createElement("div"));
     }
 
-    //btnProvideQuestion()に移動する
-    btnProvideQuestion();
+    //SetSomebodyQuestion()に移動する
+    SetSomebodyQuestion();
 }
 
-//指示の切れ目を作る関数
-function cut() {
-    console.log("-----cut-----");
-    question.style.opacity = 0;
-};
-
-//間違えたりタイムオーバー時にゲームオーバー画面に移動
-function gameOver() {
-    gamenav.innerText = ('残念！ゲームオーバー');
-    // location.href = "gameend.html";
-};
-
-//タイムオーバーのとき
-function Timeover() {
-    console.log("-----Timeover-----");
-    console.log("時間切れ");
-    gamenav.innerText = ('残念！タイムオーバー');
-    if (life > 0) {
-        life--;
-        console.log("残りライフは", life);
-    }
-    if (life == 0) {
-        gameOver();
-    }
-    document.getElementById("life").innerHTML = life;
-};
-
-//ゲームクリアのとき
-function clearGame() {
-    // location.href = "clear1.html"
+//現在のプレイヤーの状態から問題の振り分け
+function judgeQuestion() {
+    isRisehand = false;
+    if ((op.whiteOP === true) && (op.redOP === true)) {//赤い旗と白い旗の両方が上がっている
+        console.log("両手が上がっているときの問題");
+        whiteRiseredRiseFlag();
+    } else if ((op.whiteOP === true) && (op.redOP === false)) { //白い旗だけ上がっている
+        console.log("白だけが上がっているときの問題");
+        whiteRiseredDownFlag();
+    } else if ((op.whiteOP === false) && (op.redOP === true)) { //赤い旗だけ上がっている
+        console.log("赤だけが上がっているときの問題");
+        redRisewhiteDownFlag();
+    } else {//旗が上がっていない
+        console.log("なにも上がっていない時の問題");
+        noFlag();
+    };
 };
 
 //問題が出ている間何もしていない場合タイムオーバー
 function over() {
     if (isRisehand === false) {
-        Timeover();
+        console.log("時間切れ");
+        gamenav.innerText = ('残念！タイムオーバー');
+        if (life > 0) {
+            life--;
+            console.log("残りライフは", life);
+        }
+        if (life === 0) {
+            //間違えたりタイムオーバー時にライフが無い場合リザルト画面に移動
+            gamenav.innerText = ('残念！ゲームオーバー');
+            // location.href = "gameend.html";
+        }
+        //残り残機を表示
+        document.getElementById("life").innerHTML = life;
     };
 };
 
-//旗がついていない状態からスタートした場合
+//正解数と残り残機を表示する
+function adjustScore(isCorrect) {
+    if (isCorrect) {
+        currentScore++;
+    } else {
+        if (life > 0) {
+            life--;
+            console.log(life);
+            if (life === 0) {
+                alert("残念！お前の負け");
+                console.log(life);
+            }
+        }
+    }
+    clearTimeout(over, timeOverSeconds);
+    //スコアと残りのライフを表示
+    document.getElementById("score").innerHTML = currentScore;
+    document.getElementById("life").innerHTML = life;
+}
+
+//正誤判定する
+function checkAnswer(answer) {
+    console.log("Youranswers", answers);
+    console.log("CorrectAnswer", CorrectAnswer);
+    if (answers === CorrectAnswer) {
+        console.log("正解");
+        gamenav.innerText = ('せいかい！');
+        adjustScore(true);
+        //timeOverSecondsをクリア
+        clearTimeout(over, timeOverSeconds);
+    } else {
+        console.log("残念");
+        gamenav.innerText = ('ふせいかい！');
+        if (life === 0) {
+            console.log("残りライフ", life);
+            //間違えたりタイムオーバー時にゲームオーバー画面に移動
+            gamenav.innerText = ('残念！ゲームオーバー');
+            // location.href = "gameend.html";
+        }
+        adjustScore(false);
+        //timeOverSecondsをクリア
+        clearTimeout(over, timeOverSeconds);
+    }
+    //setTimeout…一定時間後に一度だけ特定の処理をおこなう
+    //judgeQuestionの処理に行く
+    setTimeout(judgeQuestion, 10000);
+}
+
+//モデル予測の繰り返しを実行
+function loopflag() {
+    console.log("判定開始！")
+    flagRise = true;
+    window.requestAnimationFrame(loop);
+}
+
+//旗がついていない状態からスタートした場合 出題問題(赤上げて, 白上げて)
 function noFlag() {
     //1つ前の問題と今の問題が被らないようにする
     do {
@@ -181,32 +233,28 @@ function noFlag() {
         }
         //trueでdo{ 再抽選
     } while (lotFlgg);
-
-    question.style.opacity = 1;
+    //問題を表示
     question.innerText = questionFirst;
     console.log("問題は", questionFirst);
-    window.setTimeout(predict, 5000);
-    //モデル予測の繰り返し実行
-    window.requestAnimationFrame(loop);
-    //setTimeout…一定時間後に一度だけ特定の処理をおこなう
-    //cutの処理に行く
-    setTimeout(cut, crackSeconds);
 
-    if (redRiseQuestion.indexOf(questionFirst) >= 0) { //赤をあげる問題だった場合・右手が上がっている
+    if ('あかあげて' == questionFirst) { //赤をあげる問題だった場合・右手が上がっている
         CorrectAnswer = "右手あげてる";
-        //setTimeout…一定時間後に一度だけ特定の処理をおこなう
-        //overの処理に行く
-        setTimeout(over, timeOverSeconds);
-    } else if (whiteRiseQuestion.indexOf(questionFirst) >= 0) {//白をあげる問題だった場合・左手が上がっている
+    } else if ('しろあげて' == questionFirst) {//白をあげる問題だった場合・左手が上がっている
         CorrectAnswer = "左手あげてる";
-        //setTimeout…一定時間後に一度だけ特定の処理をおこなう
-        //overの処理に行く
-        setTimeout(over, timeOverSeconds);
     };
+
+    //setTimeout…一定時間後に一度だけ特定の処理をおこなう
+    //5秒後にモデル予測の繰り返しを実行
+    setTimeout(loopflag, 5000);
+    //overの処理に行く
+    setTimeout(over, timeOverSeconds);
 };
 
-//白い旗だけ上がっている状態からスタートした場合
+//白い旗だけ上がっている状態からスタートした場合 出題問題(赤上げて, 白下げて)
 function whiteRiseredDownFlag() {
+    //左手が上がっていると判定しないようにする
+    flagLeft = false;
+
     //1つ前の問題と今の問題が被らないようにする
     do {
         lotFlgg = true;
@@ -220,29 +268,28 @@ function whiteRiseredDownFlag() {
         }
         //trueでdo{ 再抽選
     } while (lotFlgg);
-
-    question.style.opacity = 1;
+    //問題を表示
     question.innerText = questionwhiteON;
     console.log("問題は", questionwhiteON);
-    //setTimeout…一定時間後に一度だけ特定の処理をおこなう
-    //cutの処理に行く
-    setTimeout(cut, crackSeconds);
 
-    if (redRiseQuestion.indexOf(questionwhiteON) >= 0) {//赤をあげる問題だった場合・両手が上がっている
+    if ('あかあげて' == questionwhiteON) {//赤をあげる問題だった場合・両手が上がっている
         CorrectAnswer = "両手上げてる";
-        //setTimeout…一定時間後に一度だけ特定の処理をおこなう
-        //overの処理に行く
-        setTimeout(over, timeOverSeconds);
-    } else if (whiteRiseQuestion.indexOf(questionwhiteON) >= 0) {//白を下げる問題だった場合・両手が下がっている
+    } else if ('しろあげて' == questionwhiteON) {//白を下げる問題だった場合・両手が下がっている
+        flagNo = true;
         CorrectAnswer = "両手下げてる";
-        //setTimeout…一定時間後に一度だけ特定の処理をおこなう
-        //overの処理に行く
-        setTimeout(over, timeOverSeconds);
     };
+    //setTimeout…一定時間後に一度だけ特定の処理をおこなう
+    //5秒後にモデル予測の繰り返しを実行
+    setTimeout(loopflag, 5000);
+    //overの処理に行く
+    setTimeout(over, timeOverSeconds);
 };
 
-//赤い旗だけ上がっている状態からスタートした場合
+//赤い旗だけ上がっている状態からスタートした場合 出題問題(赤下げて, 白上げて)
 function redRisewhiteDownFlag() {
+    //右手が上がっていると判定しないようにする
+    flagRight = false;
+
     //1つ前の問題と今の問題が被らないようにする
     do {
         lotFlgg = true;
@@ -256,28 +303,25 @@ function redRisewhiteDownFlag() {
         }
         //trueでdo{ 再抽選
     } while (lotFlgg);
-
-    question.style.opacity = 1;
+    //問題を表示
     question.innerText = questionRedON;
     console.log("問題は", questionRedON);
-    //setTimeout…一定時間後に一度だけ特定の処理をおこなう
-    //cutの処理に行く
-    setTimeout(cut, crackSeconds);
+    flagRise = true;
 
-    if (redRiseQuestion.indexOf(questionRedON) >= 0) {//赤を下げる問題だった場合・両手が下がっている
+    if ('あかさげて' == questionRedON) {//赤を下げる問題だった場合・両手が下がっている
+        flagNo = true;
         CorrectAnswer = "両手下げてる";
-        //setTimeout…一定時間後に一度だけ特定の処理をおこなう
-        //overの処理に行く
-        setTimeout(over, timeOverSeconds);
-    } else if (whiteRiseQuestion.indexOf(questionRedON) >= 0) {//白をあげる問題だった場合・両手が上がっている
+    } else if ('しろさげて' == questionRedON) {//白をあげる問題だった場合・両手が上がっている
         CorrectAnswer = "両手上げてる";
-        //setTimeout…一定時間後に一度だけ特定の処理をおこなう
-        //overの処理に行く
-        setTimeout(over, timeOverSeconds);
     };
+    //setTimeout…一定時間後に一度だけ特定の処理をおこなう
+    //5秒後にモデル予測の繰り返しを実行
+    setTimeout(loopflag, 5000);
+    //overの処理に行く
+    setTimeout(over, timeOverSeconds);
 };
 
-//両方上がっている状態からスタートした場合
+//両方上がっている状態からスタートした場合 出題問題(赤下げて, 白下げて)
 function whiteRiseredRiseFlag() {
     //1つ前の問題と今の問題が被らないようにする
     do {
@@ -292,117 +336,124 @@ function whiteRiseredRiseFlag() {
         }
         //trueでdo{ 再抽選
     } while (lotFlgg);
-
-    question.style.opacity = 1;
+    //問題を表示
     question.innerText = questionONON;
     console.log("問題は", questionONON);
-    //setTimeout…一定時間後に一度だけ特定の処理をおこなう
-    //cutの処理に行く
-    setTimeout(cut, crackSeconds);
+    flagRise = true;
 
-    if (redRiseQuestion.indexOf(questionONON) >= 0) {//赤を下げる問題だった場合・左手が上がっている
+    if ('あかあげて' == questionONON) {//赤を下げる問題だった場合・左手が上がっている
         CorrectAnswer = "左手あげてる";
-        //setTimeout…一定時間後に一度だけ特定の処理をおこなう
-        //overの処理に行く
-        setTimeout(over, timeOverSeconds);
-    } else if (whiteRiseQuestion.indexOf(questionONON) >= 0) {//白を下げる問題だった場合・右手が上がっている
+    } else if ('しろあげて' == questionONON) {//白を下げる問題だった場合・右手が上がっている
         CorrectAnswer = "右手あげてる";
-        //setTimeout…一定時間後に一度だけ特定の処理をおこなう
-        //overの処理に行く
-        setTimeout(over, timeOverSeconds);
     };
+    //setTimeout…一定時間後に一度だけ特定の処理をおこなう
+    //5秒後にモデル予測の繰り返しを実行
+    setTimeout(loopflag, 5000);
+    //overの処理に行く
+    setTimeout(over, timeOverSeconds);
 };
 
 //ゲームの開始
-function btnProvideQuestion() {
-
+function SetSomebodyQuestion() {
+    flagNo = false;
     //カウントダウンの開始
     //setInterval…一定時間ごとに特定の処理を繰り返す
     setInterval(countdown, 1000);
-
     //旗が上がっていない状態からのスタート
-    //setTimeout…一定時間後に一度だけ特定の処理をおこなう
-    setTimeout(noFlag, 8000);
+    setTimeout(noFlag, 5000);
 
     for (var i = 0; i < 15; i++) {
-        loopFlg = true;
-        gamenav.innerText = ('');
+        // gamenav.innerText = ('');
         //出す問題の判定
-        function judgeQuestion() {
-            if ((op.whiteOP === true) && (op.redOP === true)) {//赤い旗と白い旗の両方が上がっている
-                console.log("両手が上がっているときの問題");
-                whiteRiseredRiseFlag();
-            } else if ((op.whiteOP === true) && (op.redOP === false)) { //白い旗だけ上がっている
-                console.log("白だけが上がっているときの問題");
-                whiteRiseredDownFlag();
-            } else if ((op.whiteOP === false) && (op.redOP === true)) { //赤い旗だけ上がっている
-                console.log("赤だけが上がっているときの問題");
-                redRisewhiteDownFlag();
-            } else {//旗が上がっていない
-                console.log("なにも上がっていない時の問題");
-                noFlag();
-            };
-        };
-        var ID1 = setTimeout(judgeQuestion, (seconds * i) + 7000);
+        //judgeQuestion();
+        // var aaaaa = setTimeout(judgeQuestion, (5000 * i) + 7000);
     };
-    clearGame();
-    //setTimeout(clearGame, (seconds * i) + 9000);
 };
 
 //モデル予測を繰り返し実行する
 async function loop(timestamp) {
-    webcam.update(); // update the webcam frame // ウェブカメラフレームを更新する
-    await predict();
-    window.requestAnimationFrame(loop);
+    if (flagRise == true) {
+        webcam.update(); // update the webcam frame // ウェブカメラフレームを更新する
+        await predict();
+        window.requestAnimationFrame(loop);
+    };
 }
 
 //モデル予測処理
 async function predict() {
-    // Prediction #1: run input through posenet
     // 予測 1: ポーズネットを介して入力を実行する
-    // estimatePose can take in an image, video or canvas html element
     // estimatePoseは、画像、ビデオ、またはキャンバスのhtml要素を受け取ることが出来る
     const { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
-    // Prediction 2: run input through teachable machine classification model
     // 予測 2: 教示可能な機械分類モデルを通じて入力を実行する
     const prediction = await model.predict(posenetOutput);
 
     for (let i = 0; i < maxPredictions; i++) {
-        const name = prediction[i].className;  //クラス名の取得
-        const value = prediction[i].probability.toFixed(2);//認識率の取得
+        //クラス名の取得
+        const name = prediction[i].className;
+        //認識率の取得
+        const value = prediction[i].probability.toFixed(2);
 
         //判定結果を随時表示する
-        labelContainer.childNodes[i].innerHTML = `${name}: ${value}`;
+        // labelContainer.childNodes[i].innerHTML = `${name}: ${value}`;
 
         //判定した結果をコンソールログに表示
         //右手が上げられた場合
         if (name == "右") {
             if (value >= 1) {
-                answers = "右手あげてる";
                 console.log("右手あげてる");
-                var answerA = "右手あげてる";
-                loopFlg = false;
-                checkAnswer(answerA);
+                //赤い旗の表示
+                redflagImage.style.opacity = 1;
+                op.redOP = true;
+                isRisehand = true;
+                flagRise = false;
+                if (flagRight = true) {
+                    answers = "右手あげてる";
+                    var answerA = "右手あげてる";
+                    checkAnswer(answerA);
+                }
+                //判定の処理を止める
+                window.cancelAnimationFrame(loop);
             }
         }
 
         //左手が上げられた場合
         if (name == "左") {
             if (value >= 1) {
-                answers = "左手あげてる";
                 console.log("左手あげてる");
-                var answerB = "左手あげてる";
-                loopFlg = false;
-                checkAnswer(answerB);
+                //白い旗の表示
+                whiteflagImage.style.opacity = 1;
+                op.whiteOP = true;
+                isRisehand = true;
+                flagRise = false;
+                if (flagLeft = true) {
+                    answers = "左手あげてる";
+                    var answerB = "左手あげてる";
+                    checkAnswer(answerB);
+                }
+                //判定の処理を止める
+                window.cancelAnimationFrame(loop);
             }
         }
 
-        //何もしていない場合
+        //何も上げていない場合
         if (name == "無") {
             if (value >= 0.9) {
                 console.log("両手下げてる");
-                var answerC = "両手下げてる";
-                //checkAnswer(answerC);
+                //白い旗の非表示
+                whiteflagImage.style.opacity = 0;
+                op.whiteOP = false;
+                //赤い旗の非表示
+                redflagImage.style.opacity = 0;
+                op.redOP = false;
+                isRisehand = true;
+                if (flagNo = true) {
+                    flagRise = false;
+                    answers = "両手下げてる";
+                    var answerC = "両手下げてる";
+                    checkAnswer(answerC);
+                }
+                //判定の処理を止める
+                window.cancelAnimationFrame(loop);
             }
         }
 
@@ -410,68 +461,32 @@ async function predict() {
         if (name == "両手") {
             if (value >= 1) {
                 console.log("両手上げてる");
-                var answerD = "両手上げてる";
-                loopFlg = false;
-                checkAnswer(answerD);
+                //白い旗の表示
+                whiteflagImage.style.opacity = 1;
+                op.whiteOP = false;
+                //赤い旗の表示
+                redflagImage.style.opacity = 1;
+                op.redOP = true;
+                isRisehand = true;
+                flagRise = false;
+                if ('しろあげて' == questionRedON || 'あかあげて' == questionwhiteON) {
+                    answers = "両手上げてる";
+                    var answerD = "両手上げてる";
+                    checkAnswer(answerD);
+                }
+                //判定の処理を止める
+                window.cancelAnimationFrame(loop);
             }
         }
     }
-
-    // finally draw the poses
     // 最後にポーズを書く
     // ここ消すとカメラが表示されなくなる
-    drawPose(pose);
-}
-
-//正解数と残り残機を表示する
-function adjustScore(isCorrect) {
-    if (isCorrect) {
-        currentScore++;
-    } else {
-        if (life > 0) {
-            life--;
-            console.log(life);
-            if (life == 0) {
-                alert("残念！お前の負け");
-                console.log(life);
-            }
-        }
-    }
-    //スコアと残りのライフを表示
-    document.getElementById("score").innerHTML = currentScore;
-    document.getElementById("life").innerHTML = life;
-}
-
-//正誤判定する
-function checkAnswer(answer) {
-    console.log("-----answers-----");
-    //手が上げられたらtrueになる
-    var isRisehand = false;
-
-    console.log("answers", answers);
-    console.log("CorrectAnswer", CorrectAnswer);
-    if (answers === CorrectAnswer) {
-        console.log("正解");
-        gamenav.innerText = ('正解！');
-        adjustScore(true);
-        clearTimeout(timeOverSeconds);
-    } else {
-        console.log("残念");
-        gamenav.innerText = ('不正解！');
-        if (life == 0) {
-            console.log("残りライフ", life);
-            gameOver();
-        }
-        adjustScore(false);
-        clearTimeout(timeOverSeconds);
-        btnProvideQuestion();
-    }
+    // drawPose(pose);
 }
 
 function drawPose(pose) {
     if (webcam.canvas) {
         ctx.drawImage(webcam.canvas, 0, 0);
-        // draw the keypoints and skeleton
         // キーポイントとスケルトンをかく
         //ここを消すと顔と体に表示する点が消える
         // if (pose) {
