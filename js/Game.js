@@ -349,7 +349,6 @@ async function PREDICT() {
     for (let i = 0; i < MaxPredictions; i++) {
         const Name = Prediction[i].className;//クラス名の取得
         const Value = Prediction[i].probability.toFixed(2); //認識率の取得
-        LabelContainer.childNodes[i].innerHTML = `${Name}: ${Value}`;//判定結果を随時表示する
         //FlagRiseがtrueの間判定をする
         if (FlagRise == true) {
             if (MovementjudgmentStop == true) {
@@ -383,7 +382,7 @@ async function PREDICT() {
         };
     }
     //画面にカメラの表示をする
-    DROWPOSE(pose);//ここ消すとカメラが表示されなくなる
+    //DROWPOSE(pose);//ここ消すとカメラが表示されなくなる
 }
 
 //画面にカメラを表示する
@@ -478,7 +477,6 @@ function CHECKANSWER() {
                 Score4: CurrentScore
             })
         }
-
     } else {
         FalseSound.play();
         console.log("残念");
