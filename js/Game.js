@@ -36,10 +36,7 @@ let Model, Webcam, Ctx, LabelContainer, MaxPredictions;
 
 //getElementById...HTML要素の取得を行う
 const CountStart = document.getElementById("countdown");
-const QCountStart = document.getElementById("Qcountdown");
 const Question = document.getElementById("question");
-const WhiteFlagImage = document.getElementById("white");
-const RedFlagImage = document.getElementById("red");
 const GameNav = document.getElementById("GameNav");
 
 var CountTime = 3;//始まる前のカウントダウンの時間
