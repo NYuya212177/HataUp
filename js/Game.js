@@ -427,9 +427,6 @@ function Movementjudgment() {
         FlagRise = false;//判定を止める
         Answers = "左手あげてる";//自分の回答を格納
         CHECKANSWER();//CHECKANSWER(正誤判定)の処理に移動する
-        if (RightDown = true) {
-            RedFlagImage.style.opacity = 0;//赤い旗の非表示
-        }
     }
     if (ModeStr == "無") {
         console.log("両手下げてる");
@@ -437,7 +434,6 @@ function Movementjudgment() {
         let NoFlagImg = document.getElementById("Hatahuman");
         NoFlagImg.src = "img/nohand.png";
         op.WhiteOP = false;//falseにして白の旗を下がっている状態にする
-        RedFlagImage.style.opacity = 0;//赤い旗の非表示
         op.RedOP = false;//falseにして赤の旗を下がっている状態にする
         FlagRise = false;//判定を止める
         Answers = "両手下げてる";//自分の回答を格納
@@ -448,9 +444,7 @@ function Movementjudgment() {
         //両手の表示
         let ALLFlagImg = document.document.getElementById("Hatahuman");
         ALLFlagImg.src = "img/Allhand.png";
-
         op.WhiteOP = true;//trueにして白の旗を上がっている状態にする
-        RedFlagImage.style.opacity = 1;//赤い旗の表示
         op.RedOP = true;//trueにして赤の旗を上がっている状態にする
         FlagRise = false;//判定を止める
         Answers = "両手上げてる";//自分の回答を格納
@@ -537,7 +531,6 @@ function judgeQuestion() {
         WhiteRiseredDownFlag();//WhiteRiseredDownFlag(白だけが上がっているときの問題)に行く
     } else if ((op.WhiteOP === false) && (op.RedOP === true)) {//赤い旗だけ上がっている
         console.log("赤だけが上がっているときの問題");
-        WhiteFlagImage.style.opacity = 0; //白い旗の非表示
         RedRisewhiteDownFlag();//RedRisewhiteDownFlag(赤だけが上がっているときの問題)に行く
     } else {//旗が上がっていない
         console.log("なにも上がっていない時の問題");
