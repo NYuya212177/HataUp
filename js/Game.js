@@ -52,10 +52,9 @@ var RiseRise = ['赤下げて', '赤下げて', '赤下げて', '赤下げて', 
 var QuestionFirst, QuestionWhiteON, QuestionRedON, QuestionONON;//NOFLAG(旗が上がっていない)問題,WhiteRiseredDownFlag(白い旗が上がっている)の問題,redRisewhiteDownFlag(赤い旗が上がっている)の問題,WhiteRiseredRiseFlag(両方上がっている)の問題を格納
 var Answers, CorrectAnswer;//回答と正解を格納
 var AnswerArray = ['無'];//判定した回答を配列に格納(空だと何もしていないときに最頻値を計算するとNullになるので無を入れておく)
-var QuestionCountTime = 3;//問題のタイムオーバーまでのカウントダウンの時間
-
 var CurrentScore = 0;//正解数を格納
-
+const TrueSound = new Audio('mp3/true_sound.mp3');//正解した時の音声を設定
+const FalseSound = new Audio('mp3/false_sound.mp3');//不正解した時の音声を設定
 var FlagRise = false;//判定のONOFF
 var FlagRight = true;//右が上がっている判定のONOFF
 var FlagLeft = true;//左が上がっている判定のONOFF
@@ -83,16 +82,13 @@ var point = 0;
 
 // 指定したfirebaseから値を取得
 docRef.get().then((doc) => {
-
     // firebaseに上がっているそれぞれのプレイヤー名をプレイヤーナンバーの変数に格納
     player1 = doc.data().player1;
     player2 = doc.data().player2;
     player3 = doc.data().player3;
     player4 = doc.data().player4;
-
     // 指定したfirebaseから値を取得してこれた際の処理
     if (doc.exists) {
-
         if (player2 == null) {
             Life = "2";
         } else if (player3 == null) {
@@ -115,7 +111,6 @@ docRef.onSnapshot((doc) => {
     var life2 = doc.data().life2;
     var life3 = doc.data().life3;
     var life4 = doc.data().life4;
-
     if (player1 == null) {
         console.log("error");
     } else if (player2 == null) {
@@ -127,11 +122,9 @@ docRef.onSnapshot((doc) => {
     }
     HP = hp - Heartpoint;
     document.getElementById("life").innerHTML = HP;
-
     if (HP === 0) {
-        //alert("残念！お前の負け");
         //間違えたりタイムオーバー時にライフが無い場合リザルト画面に移動
-        GameNav.innerText = ('残念！ゲームオーバー');
+        GameNav.innerText = ('残念！ゲームオーバー');//残念！ゲームオーバーと表示する
         docRef.update({
             GameStart: "false",
         })
@@ -158,9 +151,6 @@ docRef.onSnapshot((doc) => {
     document.getElementById("score").innerHTML = point;
 
 });
-
-var RightDown = false;
-var LeftDown = false;
 
 //DOM要素を読み込む
 document.addEventListener("DOMContentLoaded", function (event) {
@@ -214,15 +204,13 @@ function COUNTDOWN() {
     };
 };
 
-//回答までのカウントダウン
-function questioncountdown() {
-    if (QuestionCountTime > 0) {
-        QCountStart.innerText = QuestionCountTime;
-        QuestionCountTime--;
-    } else if (QuestionCountTime === 0) {
-        QCountStart.style.opacity = 0;
-    };
-};
+//プログレスバーで判定までのカウントダウン
+function ProgressBar() {
+    if (document.getElementById('Qcountdown').value < 100) {
+        document.getElementById('Qcountdown').value++;
+        setTimeout(ProgressBar, 20);//20でバーが最大までいく
+    }
+}
 
 //旗が上がっていない状態からスタートした場合 出題問題(赤上げて, 白上げて)
 function NOFLAG() {
@@ -232,9 +220,6 @@ function NOFLAG() {
     //問題を表示
     Question.innerText = QuestionFirst;
     console.log("問題は", QuestionFirst);
-    //回答までのカウントダウンを設定
-    QuestionCountTime = 3;
-    QCountStart.style.opacity = 1;
     //問題の読み上げ
     if ('speechSynthesis' in window) {//ブラウザにWeb Speech API Speech Synthesis機能があるか判定
         console.log("音声の読み上げをしている")
@@ -252,8 +237,6 @@ function NOFLAG() {
     } else if ('白上げて' == QuestionFirst) {//白をあげる問題だった場合 A.左手が上がっている
         CorrectAnswer = "左手あげてる";
     };
-    //カウントダウンの開始
-    //setInterval(questioncountdown, 1000);
     setTimeout(LOOPFLAG, 1000);//1秒後にLOOPFLAG(判定の開始)の処理に移動する
 };
 
@@ -266,9 +249,6 @@ function WhiteRiseredDownFlag() {
     //問題を表示
     Question.innerText = QuestionWhiteON;
     console.log("問題は", QuestionWhiteON);
-    //回答までのカウントダウンを設定
-    QuestionCountTime = 3;
-    QCountStart.style.opacity = 1;
     //問題の読み上げ
     if ('speechSynthesis' in window) {//ブラウザにWeb Speech API Speech Synthesis機能があるか判定
         console.log("音声の読み上げをしている")
@@ -287,8 +267,6 @@ function WhiteRiseredDownFlag() {
         FlagNo = true;//両手が下がっている判定が出来るようにする
         CorrectAnswer = "両手下げてる";
     };
-    //カウントダウンの開始
-    //setInterval(questioncountdown, 1000);
     setTimeout(LOOPFLAG, 500); //0.5秒後にLOOPFLAG(判定の開始)の処理に移動する
 };
 
@@ -301,9 +279,6 @@ function RedRisewhiteDownFlag() {
     //問題を表示
     Question.innerText = QuestionRedON;
     console.log("問題は", QuestionRedON);
-    //回答までのカウントダウンを設定
-    QuestionCountTime = 3;
-    QCountStart.style.opacity = 1;
     //問題の読み上げ
     if ('speechSynthesis' in window) {//ブラウザにWeb Speech API Speech Synthesis機能があるか判定
         console.log("音声の読み上げをしている")
@@ -322,8 +297,6 @@ function RedRisewhiteDownFlag() {
     } else if ('白上げて' == QuestionRedON) {//白をあげる問題だった場合 A.両手が上がっている
         CorrectAnswer = "両手上げてる";
     };
-    //カウントダウンの開始
-    //setInterval(questioncountdown, 1000);
     setTimeout(LOOPFLAG, 500);//0.5秒後にLOOPFLAG(判定の開始)の処理に移動する
 };
 
@@ -334,9 +307,6 @@ function WhiteRiseredRiseFlag() {
     //問題を表示
     Question.innerText = QuestionONON;
     console.log("問題は", QuestionONON);
-    //回答までのカウントダウンを設定
-    QuestionCountTime = 3;
-    QCountStart.style.opacity = 1;
     //問題の読み上げ
     if ('speechSynthesis' in window) {//ブラウザにWeb Speech API Speech Synthesis機能があるか判定
         console.log("音声の読み上げをしている")
@@ -351,19 +321,16 @@ function WhiteRiseredRiseFlag() {
     //問題の正解を格納
     if ('赤下げて' == QuestionONON) {//赤を下げる問題だった場合 A.左手が上がっている
         CorrectAnswer = "左手あげてる";
-        RightDown = true;
     } else if ('白下げて' == QuestionONON) {//白を下げる問題だった場合 A.右手が上がっている
         CorrectAnswer = "右手あげてる";
-        LeftDown = true;
     };
-    //カウントダウンの開始
-    //setInterval(questioncountdown, 1000);
     setTimeout(LOOPFLAG, 500);//0.5秒後にLOOPFLAG(判定の開始)の処理に移動する
 };
 
 //モデルの判定を繰り返し実行
 function LOOPFLAG() {
     console.log("判定開始！")
+    ProgressBar();//ProgressBar(カウントダウンの開始)の処理に移動する
     FlagRise = true;//判定が出来るようにFlagRiseをtrueにする
     MovementjudgmentStop = true;//最頻値の判定の繰り返しを動かす
 }
@@ -499,6 +466,7 @@ function CHECKANSWER() {
     console.log("YourAnswers", Answers);
     console.log("CorrectAnswer", CorrectAnswer);
     if (Answers === CorrectAnswer) {//回答が正解だった場合の処理
+        TrueSound.play();//正解の音声を再生
         console.log("正解");
         GameNav.innerText = ('正解！');//正解と表示する
         CurrentScore++;//正解数に1を足す
@@ -521,11 +489,13 @@ function CHECKANSWER() {
         }
 
     } else {
+        FalseSound.play();
         console.log("残念");
         GameNav.innerText = ('不正解！');//不正解と表示する
         ADJUSTSCORE();///ADJUSTSCORE(ミスした時の処理)移動する
     }
     Answers = "";//Answersの初期化
+    document.getElementById('Qcountdown').value = 0;//プログレスバーの初期化
     setTimeout(judgeQuestion, 2000);//judgeQuestion(問題の振り分けの処理)に行く
     //スコアを表示
     document.getElementById("score").innerHTML = CurrentScore;
@@ -564,16 +534,16 @@ function ADJUSTSCORE() {
 function judgeQuestion() {
     if ((op.WhiteOP === true) && (op.RedOP === true)) {//赤い旗と白い旗の両方が上がっている
         console.log("両手が上がっているときの問題");
-        WhiteRiseredRiseFlag();
+        WhiteRiseredRiseFlag();//WhiteRiseredRiseFlag(両手が上がっているときの問題)に行く
     } else if ((op.WhiteOP === true) && (op.RedOP === false)) {//白い旗だけ上がっている
         console.log("白だけが上がっているときの問題");
-        WhiteRiseredDownFlag();
+        WhiteRiseredDownFlag();//WhiteRiseredDownFlag(白だけが上がっているときの問題)に行く
     } else if ((op.WhiteOP === false) && (op.RedOP === true)) {//赤い旗だけ上がっている
         console.log("赤だけが上がっているときの問題");
         WhiteFlagImage.style.opacity = 0; //白い旗の非表示
-        RedRisewhiteDownFlag();
+        RedRisewhiteDownFlag();//RedRisewhiteDownFlag(赤だけが上がっているときの問題)に行く
     } else {//旗が上がっていない
         console.log("なにも上がっていない時の問題");
-        NOFLAG();
+        NOFLAG();//NOFLAG(なにも上がっていない時の問題)に行く
     };
 };
