@@ -5,7 +5,7 @@ localStorage.clear();
 var elements = document.getElementsByName("hoge");
 var len = elements.length;
 var checkValue = null;
-
+var level = null;
 // ボタンを押した時の処理
 document.getElementById("RoomCreate").addEventListener("click", function () {
     // ●ボタンを押されたときに選択されていたラジオボタンのvalueを取得する処理
@@ -15,28 +15,26 @@ document.getElementById("RoomCreate").addEventListener("click", function () {
 
             if (checkValue === "easy") {
 
-                var level = "easy";
+                level = "easy";
                 localStorage.setItem('level', level);
                 console.log(localStorage);
 
             } else if (checkValue === "normal") {
 
-                var level = "normal";
+                level = "normal";
                 localStorage.setItem('level', level);
                 console.log(localStorage);
 
             } else if (checkValue === "hard") {
 
-                var level = "hard";
+                level = "hard";
                 localStorage.setItem('level', level);
                 console.log(localStorage);
 
             }
         }
-        
     // ●を打っていた処理はここで終わり 
     // すみません●で指定しているラジオボタンの処理は詳しくはよくわかってないです
-
     }
     // RoomCreate.htmlに画面遷移
     window.location.href = 'RoomCreate.html';
@@ -51,19 +49,19 @@ document.getElementById("RoomIn").addEventListener("click", function () {
 
             if (checkValue === "easy") {
 
-                var level = "easy";
+                level = "easy";
                 localStorage.setItem('level', level);
                 console.log(localStorage);
 
             } else if (checkValue === "normal") {
 
-                var level = "normal";
+                level = "normal";
                 localStorage.setItem('level', level);
                 console.log(localStorage);
 
             } else if (checkValue === "hard") {
 
-                var level = "hard";
+                level = "hard";
                 localStorage.setItem('level', level);
                 console.log(localStorage);
 

@@ -32,6 +32,23 @@ console.log(craftpassword);
 const level = localStorage.getItem("level");
 console.log(level);
 
+// player1のテキストにある値をsetplayer1とする。
+var setplayer1 = document.getElementById("player1").value;
+
+// player2のテキストにある値をsetplayer2とする。
+var setplayer2 = document.getElementById("player2").value;
+
+// player3のテキストにある値をsetplayer3とする。
+var setplayer3 = document.getElementById("player3").value;
+
+// player4のテキストにある値をsetplayer4とする。
+var setplayer4 = document.getElementById("player4").value;
+
+// GameStartで設定した難易度とRoomCreate Or RoomInで設定したsetpasswordでfirebaseのリファレンス指定
+const docRef = firestore.collection("Craft" + level).doc(craftpassword);
+
+const db = firestore.collection(level).doc(setpassword);
+
 // setnameを自分のプレイヤーナンバーのところに格納
 document.getElementById(playernumber).textContent = setname;
 
@@ -40,6 +57,57 @@ var player1 = null;
 var player2 = null;
 var player3 = null;
 var player4 = null;
+
+docRef.get().then((doc) => {
+    // player1,2,3,4の名前を取得
+    player1 = doc.data().player1;
+    player2 = doc.data().player2;
+    player3 = doc.data().player3;
+    player4 = doc.data().player4;
+
+    // player1テキストレイアウトがnullかつfirebaseのフィールドのplayer1がnull出ない場合の処理
+    if (setplayer1 == null && player1 != null) {
+
+        document.getElementById("player1").textContent = player1;
+
+    }
+
+    // player2テキストレイアウトがnullかつfirebaseのフィールドのplayer2がnull出ない場合の処理
+    if (setplayer2 == null && player2 != null) {
+
+        document.getElementById("player2").textContent = player2;
+
+    }
+
+    // player3テキストレイアウトがnullかつfirebaseのフィールドのplayer3がnull出ない場合の処理
+    if (setplayer3 == null && player3 != null) {
+
+        document.getElementById("player3").textContent = player3;
+
+    }
+
+    // player4テキストレイアウトがnullかつfirebaseのフィールドのplayer4がnull出ない場合の処理
+    if (setplayer4 == null && player4 != null) {
+
+        document.getElementById("player4").textContent = player4;
+
+    }
+
+    // player1(ホスト)がこの画面を操作する際の処理
+    if (playernumber === "player1") {
+
+        // player2(二人目)以降が入ってきた際
+        if (player2 != null) {
+
+            // GameStartボタンの表示
+            document.getElementById("GameStart").style.display = 'inline'
+            console.log("表示");
+        }
+    }
+}).catch((error) => {
+    console.log("ルームがありません", error);
+
+});
 
 // プレイヤーの待機画面に映す干支画像のパスワードの処理
 for (var i = 1; i <= 4; i++) {
@@ -104,7 +172,7 @@ for (var i = 1; i <= 4; i++) {
         console.log(i + " " + password);
         // サルの画像をi番目のpathにセット
         img.src = "img/Saru.png";
-        
+
         // i番目のパスワードがトリ[9]の時
     } else if (password == 9) {
         console.log(i + " " + password);
@@ -129,9 +197,6 @@ for (var i = 1; i <= 4; i++) {
 document.getElementById("GameStart").style.display = 'none'
 console.log("非表示");
 
-// GameStartで設定した難易度とRoomCreate Or RoomInで設定したsetpasswordでfirebaseのリファレンス指定
-var docRef = firestore.collection(level).doc(setpassword);
-
 // 指定したリファレンスのデータが更新される毎に処理する
 docRef.onSnapshot((doc) => {
 
@@ -140,18 +205,6 @@ docRef.onSnapshot((doc) => {
     player2 = doc.data().player2;
     player3 = doc.data().player3;
     player4 = doc.data().player4;
-
-    // player1のテキストにある値をsetplayer1とする。
-    var setplayer1 = document.getElementById("player1").value;
-
-    // player2のテキストにある値をsetplayer2とする。
-    var setplayer2 = document.getElementById("player2").value;
-
-    // player3のテキストにある値をsetplayer3とする。
-    var setplayer3 = document.getElementById("player3").value;
-
-    // player4のテキストにある値をsetplayer4とする。
-    var setplayer4 = document.getElementById("player4").value;
 
     // player1テキストレイアウトがnullかつfirebaseのフィールドのplayer1がnull出ない場合の処理
     if (setplayer1 == null && player1 != null) {
@@ -194,59 +247,107 @@ docRef.onSnapshot((doc) => {
     }
 });
 
-const db = firestore.collection("Craft" + level).doc(craftpassword);
+if (playernumber === "player1") {
+
+} else {
+    // 指定したfirebaseからリアルタイムでデータを取得したとき毎に処理をする
+    docRef.onSnapshot((doc) => {
+
+        // firabaseのGamaStartから取得してきた値をGameStartとして格納
+        var Start = doc.data().GameStart;
+        console.log(Start);
+
+        // 変数GameStartに"Start"という値が入った際に行う処理
+        if (Start == "true") {
+
+            if (level === "easy") {
+                // に画面遷移
+                window.location.href = 'Game.html';
+            } else if (level === "normal") {
+
+            } else if (level === "hard") {
+
+            }
+
+        }
+
+        if (Start == "end") {
+            alert("ゲームがかいさんされました");
+            // に画面遷移
+            window.location.href = 'GameStart.html';
+        }
+    });
+}
+
 // GameStartボタンを押した際の処理
 document.getElementById("GameStart").addEventListener("click", function () {
-            // 難易度の変数が格納されているlevelと12進数表記のsetpasswordでfirebaseを指定
+    // 難易度の変数が格納されているlevelと12進数表記のsetpasswordでfirebaseを指定
 
-            db.update({
-                // ここのGameStartの値で他の画面がゲームをスタートするためにセットする
-                GameStart:"true",
-                player1:player1,
-                player2:player2,
-                player3:player3,
-                player4:player4
-                // それぞれのプレイヤー名をfirebaseのプレイヤーナンバーのところに格納
+    docRef.update({
+
+        // ここのGameStartの値で他の画面がゲームをスタートするためにセットする
+        GameStart: "true",
+    })
+        // 値の格納が成功した際の処理
+        .then(() => {
+
+            //指定したfirebaseのドキュメント削除
+            db.delete().then(() => {
+
+                // 指定したfirebaseのDelete成功
+                console.log("Document successfully deleted!");
+
+                // 指定したfirebaseのDelete失敗(エラー)
+            }).catch((error) => {
+                console.error("Error removing document: ", error);
             })
-                // 値の格納が成功した際の処理
-                .then(() => {
-                    
-                    // //指定したfirebaseのドキュメント削除
-                    docRef.delete().then(() => {
+            if (level === "easy") {
+                // Game.htmlに画面遷移
+                window.location.href = 'Game.html';
+            } else if (level === "normal") {
 
-                        // 指定したfirebaseのDelete成功
-                        console.log("Document successfully deleted!");
+            } else if (level === "hard") {
 
-                        // 指定したfirebaseのDelete失敗(エラー)
-                    }).catch((error) => {
-                        console.error("Error removing document: ", error);
-                    })
-                    
-                    // に画面遷移
-                    window.location.href = 'Game.html';
-                })
-                // エラー処理
-                .catch((error) => {
-                    console.error("Error writing document: ", error);
-                });
+            }
+        })
+        // エラー処理
+        .catch((error) => {
+            console.error("Error writing document: ", error);
+        });
 })
 
 //難易度の変数が格納されているlevelとゲームをする際のルームID、craftpasswordでfirebaseを指定
 
-if(playernumber === "player1"){
+document.getElementById("back").addEventListener("click", function () {
 
-}else{
-// 指定したfirebaseからリアルタイムでデータを取得したとき毎に処理をする
-db.onSnapshot((doc) => {
+    //指定したfirebaseのドキュメント削除
+    db.delete().then(() => {
 
-    // firabaseのGamaStartから取得してきた値をGameStartとして格納
-    var Start = doc.data().GameStart;
-    console.log(Start);
+        // 指定したfirebaseのDelete成功
+        console.log("Document successfully deleted!");
 
-    // 変数GameStartに"Start"という値が入った際に行う処理
-    if (Start == "true") {
-        // に画面遷移
-        window.location.href = 'Game.html';
-    }
+        //指定したfirebaseのドキュメント削除
+        docRef.delete().then(() => {
+
+            // 指定したfirebaseのDelete成功
+            console.log("Document successfully deleted!");
+
+            if (playernumber === "player1") {
+                // に画面遷移
+                window.location.href = 'RoomCreate.html';
+            } else {
+                // に画面遷移
+                window.location.href = 'RoomIn.html';
+            }
+
+            // 指定したfirebaseのDelete失敗(エラー)
+        }).catch((error) => {
+            console.error("Error removing document: ", error);
+        })
+
+        // 指定したfirebaseのDelete失敗(エラー)
+    }).catch((error) => {
+        console.error("Error removing document: ", error);
+    })
+
 });
-}

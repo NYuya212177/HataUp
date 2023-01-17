@@ -2,8 +2,8 @@
 
 <head>
     <meta charset="UTF-8">
-    
-    <link rel="stylesheet" href="css/result.css">
+    <link rel="stylesheet" href="css/Result.css">
+    <!-- 画面の横幅が480px以下のときに適用されるCSSはすべてここに記述する -->
     <link rel="stylesheet" media="screen and (max-width: 480px)">
     <title>はたあげゲーム</title>
     <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-app.js"></script>
@@ -12,12 +12,12 @@
 </head>
 
 <body>
-    <h1>とくてん</h1>
-    <h2>せいかいのとくてん</h2>
+    <h1 id="pointtext"></h1>
+    <h2 id="point"></h2>
     <button type="submit" class="button" id="again">もう一回</button>
     <button type="submit" class="button" id="home">ホーム</button>
     <button type="submit" class="button" id="stop">やめる</button>
-    <script src="js/result.js"></script>
+    <script src="js/Result.js"></script>
 </body>
 
 </html>

@@ -11,9 +11,6 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 var firestore = firebase.firestore();
 
-// localStorageに保存したsetpasswordの値をページが開いたときに削除
-localStorage.removeItem("setpassword");
-
 // localStorageに保存したcraftpasswordの値をページが開いたときに削除
 localStorage.removeItem("craftpassword");
 
@@ -23,6 +20,16 @@ localStorage.removeItem("playernumber");
 // localStorageに保存したname"の値をページが開いたときに削除
 localStorage.removeItem("name");
 
+// setpassword変数の初期化
+var setpassword = null;
+
+// craftpassword変数の初期化
+var craftpassword = null;
+
+var level = null;
+
+var setname = null;
+
 // 透明なパス画像のを指定している
 var Path1 = document.getElementById("path1");
 var Path2 = document.getElementById("path2");
@@ -30,13 +37,7 @@ var Path3 = document.getElementById("path3");
 var Path4 = document.getElementById("path4");
 
 // 透明なパス画像をあとで出てくるif文で使いたくて設定している変数
-var Path = Path4.src;
-
-// setpassword変数の初期化
-var setpassword = null;
-
-// craftpassword変数の初期化
-var craftpassword = null;
+var Path = Path1.src;
 
 // 最終のパスワードを入れるための変数の初期化
 var pass1 = null;
@@ -252,71 +253,90 @@ document.getElementById("DELETE").addEventListener("click", function () {
 // 設定したパスをcloud firebaseのドキュメントとして設定しルームを作成する
 document.getElementById("GameStart").addEventListener("click", function () {
     // 透明なパスのところに動物が四つ入っていないときにルームに入れなくする処理
-    if (Path1.src == Path || Path2.src == Path || Path3.src == Path || Path4.src == Path) {
+    if (Path1.src == Path || Path2.src == Path || Path3.src == Path || Path4.src === Path) {
         alert("pass足りない");
     } else {
-
         // 画像でパスワードを設定したものを12進数で表記した値を合わせてsetpasswordとする
-        var setpassword = pass1 + pass2 + pass3 + pass4;
+        setpassword = pass1 + pass2 + pass3 + pass4;
+        localStorage.setItem('setpassword', setpassword);
         console.log(setpassword);
 
         // GameStartで設定した難易度をlevelとする
-        const level = localStorage.getItem("level");
+        level = localStorage.getItem("level");
         console.log(level);
 
         // 設定した名前をsetnameとする
-        const setname = document.getElementById("name").value;
+        setname = document.getElementById("name").value;
         // 上で設定した名前をlocalStorageに保存
         localStorage.setItem('name', setname);
 
         // player1(ホスト)であるということでlocalStorageにplayer1を保存
         localStorage.setItem('playernumber', "player1");
-        
-        // addセットを使いfirebaseで絶対にかぶらないルームを作成
-        firestore.collection("Craft" + level).add({
-            player1: null,
-            player2: null,
-            player3: null,
-            player4: null
-        })
-        
-        // addセットでルームをつくれた時にする処理
-            .then((docRef) => {
-                // addセットで作成したルームのdocument名を取得しcraftpasswordに入れる
-                craftpassword = docRef.id;
-                console.log("ID: ", craftpassword);
-                // 作ったcraftpasswordをlocalStorageに保存
-                localStorage.setItem('craftpassword', craftpassword);
-                // 一番上で取得してきた難易度と12進数表記したパスワードで一次的なルームを作る
-                firestore.collection(level).doc(setpassword).set({
-                    // 一次的なルームを作る際addセットで作った新しいルームdocumentを
-                    // passwordとしてfirebaseに格納
-                    password: craftpassword,
-                    // 上記で取得してきた名前をplayer1(ホスト)としてfirebaseに格納
+
+        const db = firestore.collection(level).doc(setpassword);
+
+        db.get().then((doc) => {
+
+            if (doc.exists) {
+                alert("現在このパスワードは使われています。");
+            } else {
+
+                // addセットを使いfirebaseで絶対にかぶらないルームを作成
+                firestore.collection("Craft" + level).add({
+                    GameStart: null,
                     player1: setname,
                     player2: null,
                     player3: null,
                     player4: null,
+                    life1: 0,
+                    life2: 0,
+                    life3: 0,
+                    life4: 0,
+                    Score1: 0,
+                    Score2: 0,
+                    Score3: 0,
+                    Score4: 0
                 })
-                // 一次的なルームの作成完了時の処理
-                    .then(() => {
-                        // 12進数表記で作ったsetpasswordをlocalStorageに保存
-                        localStorage.setItem('setpassword', setpassword);
-                        console.log(localStorage);
-                        // StandPage.htmlに画面遷移
-                        window.location.href = 'StandPage.html';
+                    // addセットでルームをつくれた時にする処理
+                    .then((docRef) => {
+
+                        // addセットで作成したルームのdocument名を取得しcraftpasswordに入れる
+                        craftpassword = docRef.id;
+
+                        // 作ったcraftpasswordをlocalStorageに保存
+                        localStorage.setItem('craftpassword', craftpassword);
+                        console.log("craftpassword: ", craftpassword);
+
+                        // 一番上で取得してきた難易度と12進数表記したパスワードで一次的なルームを作る
+                        db.set({
+                            // 一次的なルームを作る際addセットで作った新しいルームdocument名を
+                            // passwordとしてfirebaseに格納
+                            password: craftpassword,
+
+                        })
+                            // 一次的なルームの作成完了時の処理
+                            .then(() => {
+
+                                // StandPage.htmlに画面遷移
+                                window.location.href = 'StandPage.html';
+
+                            })
+                            // 一次的なルーム作成をする際のエラー処理
+                            .catch((error) => {
+
+                                console.error("Error writing document: ", error);
+
+                            });
+
                     })
-                    // 一次的なルーム作成をする際のエラー処理
+
+                    // addセットでルームを作成したときのエラー処理
                     .catch((error) => {
-                        console.error("Error writing document: ", error);
+
+                        alert("現在このパスワードは使われております");
+
                     });
-
-            })
-            // addセットでルームを作成したときのエラー処理
-            .catch((error) => {
-                console.error("Error adding document: ", error);
-            });
-
-
+            }
+        });
     }
 })

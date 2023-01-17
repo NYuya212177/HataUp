@@ -11,9 +11,6 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 var firestore = firebase.firestore();
 
-// localStorageに保存したsetpasswordの値をページが開いたときに削除
-localStorage.removeItem("setpassword");
-
 // localStorageに保存したcraftpasswordの値をページが開いたときに削除
 localStorage.removeItem("craftpassword");
 
@@ -23,6 +20,16 @@ localStorage.removeItem("playernumber");
 // localStorageに保存したname"の値をページが開いたときに削除
 localStorage.removeItem("name");
 
+// setpassword変数の初期化
+var setpassword = null;
+
+// craftpassword変数の初期化
+var craftpassword = null;
+
+var level = null;
+
+var setname = null;
+
 // 透明なパス画像のを指定している
 var Path1 = document.getElementById("path1");
 var Path2 = document.getElementById("path2");
@@ -30,13 +37,7 @@ var Path3 = document.getElementById("path3");
 var Path4 = document.getElementById("path4");
 
 // 透明なパス画像をあとで出てくるif文で使いたくて設定している変数
-var Path = Path4.src;
-
-// setpassword変数の初期化
-var setpassword = null;
-
-// craftpassword変数の初期化
-var craftpassword = null;
+var Path = Path1.src;
 
 // setpasswordのパスワードを入れるための変数の初期化
 var pass1 = null;
@@ -258,22 +259,24 @@ document.getElementById("GameStart").addEventListener("click", function () {
 
         // 画像でパスワードを設定したものを12進数で表記した値を合わせてsetpasswordとする
         setpassword = pass1 + pass2 + pass3 + pass4;
-
+        localStorage.setItem('setpassword', setpassword);
+        console.log(setpassword);
+        
         // GameStartで設定した難易度をlevelとする
-        const level = localStorage.getItem("level");
+        level = localStorage.getItem("level");
         console.log(level);
 
         // 設定した名前をsetnameとする
-        const setname = document.getElementById("name").value;
+        setname = document.getElementById("name").value;
 
         // 上で設定した名前をlocalStorageに保存
         localStorage.setItem('name', setname);
 
         // 難易度の変数が格納されているlevelと12進数表記のsetpasswordでfirebaseを指定
-        var docRef = firestore.collection(level).doc(setpassword);
+        const db = firestore.collection(level).doc(setpassword);
 
         // 指定したfirebaseから値を取得
-        docRef.get().then((doc) => {
+        db.get().then((doc) => {
 
             // 取得してきたfirebaseのデータからホストが作成したcraftpasswordのを取得
             craftpassword = doc.data().password;
@@ -286,12 +289,10 @@ document.getElementById("GameStart").addEventListener("click", function () {
             // firebaseから値を取得を完了した際の処理
             if (doc.exists) {
 
-                // 12進数表記で作ったsetpasswordをlocalStorageに保存
-                localStorage.setItem('setpassword', setpassword);
-
+                const docRef = firestore.collection("Craft" + level).doc(craftpassword);
                 // ホストがaddセットで作成したcraftpasswordをlocalStorageに保存
                 localStorage.setItem('craftpassword', craftpassword);
-                console.log("Document data:", doc.data());
+
                 // player2がいなかった際の処理
                 if (player2 == null) {
                     console.log(setname);
@@ -301,7 +302,6 @@ document.getElementById("GameStart").addEventListener("click", function () {
                         // setnameに格納した名前の変数をplayer2とする
                         player2: setname
                     })
-                    
                     // player2のupdateが成功した際の処理
                         .then(() => {
                             // player2(ゲスト)であるということでlocalStorageにplayer2を保存

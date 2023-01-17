@@ -5,43 +5,50 @@
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="css/game.css">
     <link rel="stylesheet" media="screen and (max-width: 480px)">
+    <title>はたあげゲーム</title>
+    <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-messaging.js"></script>
 </head>
 
 <body>
-    <ul>
-        <div class="flex">
-            <!-- スコア表示 -->
-            <div class="field">スコア</div>
-            <div id="score" class="field">　0　</div>
-            <!-- 残りライフの表示 -->
-            <div class="field">ライフ</div>
-            <div id="life" class="field">　3　</div>
+    <div class="center">
+        <ul>
+            <div class="flex">
+                <!-- スコア表示 -->
+                <p class="field">スコア　</p>
+                <p id="score" class="fieldc">　0　　</p>
+                <!-- 残りライフの表示 -->
+                <p class="field">ライフ　</p>
+                <p id="life" class="fieldc">　3　　</p>
+            </div>
+        </ul>
+
+        <!-- 最初のカウントダウン -->
+        <h2 id="countdown">すこしまってね</h2>
+
+        <!-- 問題のカウントダウン -->
+        <h2 id="Qcountdown"></h2>
+
+        <!-- 問題が出てくる場所 -->
+        <div class="mm">
+            <div class="flex">
+                <div class="field"></div>
+                <div id="question" class="fieldx">もんだい</div>
+            </div>
         </div>
-    </ul>
-
-    <!-- 最初のカウントダウン -->
-    <h1 id="countdown"></h1>
-
-    <!-- 問題が出てくる場所 -->
-    <div class="flex">
-        <div class="field"></div>
-        <div id="question" class="fieldx">もんだい</div>
+        <img src="img/usagidaruma.png" align="left">
+        <!-- 正解不正解の表示 -->
+        <h1 id="GameNav"></h1>
+        <!-- 画像を表示 -->
+        <img id="Hatahuman" src="">
     </div>
-
-    <!-- 正解不正解の表示 -->
-    <h1 id="gamenav"></h1>
-
-    <ul>
-        <li id="white"><img src="img/lefthand.png" alt="白い旗" class="white"></li>
-        <li id="red"><img src="img/righthand.png" alt="赤い旗" class="red"></li>
-    </ul>
-
     <!-- teachable machineのカメラ判定 -->
-    <div><canvas id="canvas"></canvas></div>
+    <div><canvas id="Canvas"></canvas></div>
     <div id="label-container"></div>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/pose@0.8/dist/teachablemachine-pose.min.js"></script>
-
+    </div>
     <script src="js/Game.js"></script>
 </body>
 

@@ -3,7 +3,9 @@
 
 <head>
     <meta charset="UTF-8">
+    <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="css/GameStart.css">
+    <!-- 画面の横幅が480px以下のときに適用されるCSSはすべてここに記述する -->
     <link rel="stylesheet" media="screen and (max-width: 480px)">
     <title>はたあげゲーム</title>
     <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-app.js"></script>
@@ -12,12 +14,12 @@
 </head>
 
 <body>
-    <img src="picture/zxc.png" align="top">
-    
+    <img src="img/theme.png" align="top">
     <!-- 難易度設定用ボタンレイアウト -->
     <h1>むずかしさをえらんでね</h1>
     <form>
         <div class="center">
+            
             <diV>
                 <input id="easy" class="r" name="hoge" type="radio" value="easy" checked />
                 <label for="easy" checked>かんたん</label>
@@ -32,7 +34,8 @@
     <!-- 一人で遊ぶ用ボタンレイアウト -->
     <h2>ひとりであそぶ</h2>
     <div class="center">
-        <button onclick="location.href='lastgame/Game.html'" type="submit" class="soro">スタート</button>
+        <!-- GameStart.htmlへ画面遷移 -->
+        <button type="submit" class="soro">スタート</button>
     </div>
 
     <!-- みんなで遊ぶ用ボタンレイアウト -->
@@ -42,6 +45,16 @@
         <button type="submit" id="RoomIn" class="room">へやにはいる</button>
     </div>
     <script src="js/GameStart.js"></script>
+    <script>
+        // ServiceWorker登録：https://developers.google.com/web/fundamentals/primers/service-workers/?hl=ja
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('js/sw.js').then(function(registration) {
+                console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            }).catch(function(err) {
+                console.log('ServiceWorker registration failed: ', err);
+            });
+        }
+        </script>
 </body>
 
 </html>

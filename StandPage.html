@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/StandPage.css">
+    <!-- 画面の横幅が480px以下のときに適用されるCSSはすべてここに記述する -->
     <link rel="stylesheet" media="screen and (max-width: 480px)">
     <title>はたあげゲーム</title>
     <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-app.js"></script>
@@ -12,8 +13,8 @@
 
 <body>
     <div>
-        <button onclick="location.href='./RoomCreate.html'" class="back">
-            </button>
+        <button class="back" id="back">
+            <</button>
                 <h1>ともだちをまっています</h1>
                 <!--透明なパスワード欄-->
                 <div class="usepath">

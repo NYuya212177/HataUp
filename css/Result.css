@@ -1,6 +1,6 @@
 @charset"utf-8";
 
-/*背景*/
+/*画面全体のレイアウト*/
 body {
     background: url(background/Haikei.jpg) center;
     /*背景画像指定*/

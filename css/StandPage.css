@@ -46,7 +46,7 @@ h1 {
     display: inline-block;
     font-size: 30px;
     font-family: 'HGP行書体';
-    color:blue;
+    color: blue;
 }
 
 .player p3 {
@@ -62,6 +62,7 @@ h1 {
     font-family: 'HGP行書体';
     color: green;
 }
+
 /*名前テキストボックスのデザイン*/
 /*https://copypet.jp/692/*/
 .cp_iptxt {
@@ -123,6 +124,7 @@ h1 {
     text-align: center;
     text-decoration: none;
     margin: auto;
+    margin-left: 45%;
     padding: 20px 20px;
     border: 2px solid #f08080;
     background: #f08080;
@@ -223,6 +225,7 @@ h1 {
     background-size: 45px;
 }
 
+/*スマホ画面レイアウト*/
 /* @mediaルールを使ったレスポンシブなCSSの記述例 */
 @media screen and (max-width: 1000px) {
     /* 画面の横幅が480px以下のときに適用されるCSSはすべてここに記述する */
@@ -236,54 +239,61 @@ h1 {
         touch-action: manipulation;
     }
 
+    /*スクロール停止*/
     html,
     body {
         overflow: hidden
     }
 
+    /* 文字の色付け １*/
     h1 {
-        margin-top: 10%;
+        margin-top: 15%;
         margin-bottom: 6%;
-        font-size: 90px;
+        font-size: 70px;
         font-family: 'HGP行書体';
         text-align: center;
         color: red;
     }
 
+    /* 文字の色付け １*/
     .player p {
         display: inline-block;
+        font-size: 50px;
         font-family: 'HGP行書体';
-        font-size: 60px;
-        margin-top: 80px;
+        font-weight: bold;
         color: black;
     }
 
+    /* 文字の色付け １*/
     .player p1 {
         display: inline-block;
+        font-size: 40px;
         font-family: 'HGP行書体';
-        font-size: 60px;
         color: red;
     }
 
-    /*名前テキストボックスのデザイン*/
-    /*https://copypet.jp/692/*/
-    .cp_iptxt {
-        margin: auto;
-        position: relative;
-        width: 500px;
+    /* 文字の色付け 2*/
+    .player p2 {
+        display: inline-block;
+        font-size: 25px;
+        font-family: 'HGP行書体';
+        color: blue;
     }
 
-    .cp_iptxt input[type='text'] {
-        background: beige;
-        font: 36px/50px sans-serif;
-        box-sizing: border-box;
-        width: 100%;
-        padding: 0.3em;
-        transition: 0.3s;
-        letter-spacing: 1px;
-        color: #000000;
-        border: 1px solid #1b2538;
-        border-radius: 4px;
+    /* 文字の色付け 3*/
+    .player p3 {
+        display: inline-block;
+        font-size: 25px;
+        font-family: 'HGP行書体';
+        color: yellow;
+    }
+
+    /* 文字の色付け 4*/
+    .player p4 {
+        display: inline-block;
+        font-size: 25px;
+        font-family: 'HGP行書体';
+        color: green;
     }
 
     /*透明なパスワード欄の画像のレイアウト*/
@@ -321,12 +331,13 @@ h1 {
         height: auto;
     }
 
-    /*パスのdeleteボタンレレイアウト*/
+    /*パスのStartボタンレレイアウト*/
     .Start {
         display: block;
         text-align: center;
         text-decoration: none;
         margin: auto;
+        margin-left: 35%;
         padding: 40px 40px;
         border: 2px solid #f08080;
         background: #f08080;
@@ -338,6 +349,7 @@ h1 {
         animation: move_a 2s infinite;
     }
 
+    /*ボタンのアクション*/
     @keyframes move_a {
         0% {
             transform: translate(0px, 10px);
@@ -399,32 +411,36 @@ h1 {
         border-bottom: none;
     }
 
+    /*文字のアイコンデザイン 1*/
     .icon1 {
-        padding-left: 12%;
+        padding-left: 8%;
         background: url(icon/rdesign_6510.png) no-repeat left center;
         padding-right: 30px;
-        background-size: 100px;
+        background-size: 60px;
     }
 
+    /*文字のアイコンデザイン 2*/
     .icon2 {
-        padding-left: 12%;
+        padding-left: 8%;
         background: url(icon/rdesign_09830.png) no-repeat left center;
         padding-right: 30px;
-        background-size: 100px;
+        background-size: 60px;
     }
 
+    /*文字のアイコンデザイン 3*/
     .icon3 {
-        padding-left: 12%;
+        padding-left: 8%;
         background: url(icon/rdesign_13677.png) no-repeat left center;
         padding-right: 30px;
-        background-size: 100px;
+        background-size: 60px;
     }
 
+    /*文字のアイコンデザイン 4*/
     .icon4 {
-        padding-left: 12%;
+        padding-left: 8%;
         background: url(icon/rdesign_14831s2.png) no-repeat left center;
         padding-right: 30px;
-        background-size: 100px;
+        background-size: 60px;
     }
 
 }

@@ -1,5 +1,6 @@
 @charset"utf-8";
 
+/*画面全体のレイアウト*/
 body {
     background: url(background/siroHaikei.jpg) center;
     /*背景画像指定*/
@@ -14,18 +15,30 @@ body {
 }
 
 /*スクロール停止*/
-html,
+/* html,
 body {
     overflow: hidden
-}
+} */
 
+/*スコア、ライフの文字*/
 .field {
-    margin-right: 80%;
     color: red;
-    font-size: 30px;
+    font-size: 20px;
+    font-weight: bold;
     font-family: 'HGP行書体';
+    display: inline-block;
 }
 
+/*問題の文字*/
+.fieldc {
+    color: black;
+    font-weight: bold;
+    font-size: 40px;
+    font-family: 'HGP行書体';
+    display: inline-block;
+}
+
+/*問題の文字*/
 .fieldx {
     color: black;
     font-size: 100px;
@@ -34,15 +47,16 @@ body {
     text-align: center;
 }
 
+/*正解不正解の表示*/
 .h1 {
     font-size: 30px;
     font-family: 'HGP行書体';
 }
 
+/*最初のカウントダウン*/
 #countdown {
-    margin-top: -5%;
-    color: red;
-    font-size: 50px;
+    color: black;
+    font-size: 80px;
     font-family: 'HGP行書体';
 }
 
@@ -94,16 +108,48 @@ li {
     text-align: center;
 }
 
+/*lefthand.png*/
 .white {
     width: 50%;
+    /*幅*/
     height: 50%;
+    /*高さ*/
 }
 
+/*righthand.png*/
 .red {
     width: 50%;
+    /*幅*/
     height: 50%;
+    /*高さ*/
 }
 
+.mm {
+    position: relative;
+    padding: 1rem;
+    border-radius: 10px;
+    border: 3px solid #333;
+    /* transform: perspective(1000px) rotateX(20deg); */
+    box-shadow: 0px 10px 0px #333;
+    background-color: #fff;
+    color: #333;
+    font-weight: bold;
+    font-size: 26px;
+}
+
+.mm:before {
+    position: absolute;
+    top: 100%;
+    left: 50px;
+    transform: skew(-25deg);
+    height: 30px;
+    width: 15px;
+    border-right: 13px solid #333;
+    background-color: #fff;
+    content: "";
+}
+
+/*スマホの画面*/
 /* @mediaルールを使ったレスポンシブなCSSの記述例 */
 @media screen and (max-width: 1000px) {
 
@@ -129,30 +175,52 @@ li {
         overflow: hidden
     }
 
-    .field {
-        margin-right: 80%;
-        color: red;
-        font-size: 50px;
-        font-family: 'HGP行書体';
+    img {
+        margin-top: 30px;
     }
 
+    /*スコア、ライフの文字*/
+    .field {
+        color: red;
+        font-size: 20px;
+        font-weight: bold;
+        font-family: 'HGP行書体';
+        display: inline-block;
+    }
+
+    /*問題の文字*/
+    .fieldc {
+        color: black;
+        font-weight: bold;
+        font-size: 40px;
+        font-family: 'HGP行書体';
+        display: inline-block;
+    }
+
+    /*問題の文字*/
     .fieldx {
         color: black;
         font-weight: bold;
-        margin-top: 25%;
-        font-size: 180px;
-        font-family: 'HGP行書体';
-        text-align: center;
-    }
-
-    h1 {
         font-size: 70px;
         font-family: 'HGP行書体';
+        text-align: center;
+        background-repeat: no-repeat;
     }
 
+    /*正解不正解の表示*/
+    h1 {
+        text-align:  center; 
+        padding-right: 200px;
+        font-size: 70px;
+        font-family: 'HGP行書体';
+        /* font-family: “HGP行書体”, “ＭＳ Ｐ明朝”, “MS PMincho”, serif; /* 書体変換 */
+    }
+
+    */
+
+    /*最初のカウントダウン*/
     #countdown {
-        margin-top: -30%;
-        color: red;
+        color: goldenrod;
         font-size: 100px;
         font-family: 'HGP行書体';
     }
@@ -205,14 +273,49 @@ li {
         text-align: center;
     }
 
+    /*lefthand.png*/
     .white {
+        margin-right: 80%;
         width: 200%;
+        /*幅*/
         height: 200%;
+        /*高さ*/
     }
 
+    /*righthand.png*/
     .red {
+        margin-right: 80%;
         width: 200%;
+        /*幅*/
         height: 200%;
+        /*高さ*/
     }
 
+    .mm {
+        position: relative;
+        padding: 1rem;
+        border-radius: 10px;
+        border: 3px solid #333;
+        /* transform: perspective(1000px) rotateX(20deg); */
+        box-shadow: 0px 10px 0px #333;
+        background-color: #fff;
+        color: #333;
+        font-weight: bold;
+        font-size: 26px;
+    }
+
+    .mm:before {
+        position: absolute;
+        top: 100%;
+        left: 50px;
+        transform: skew(-25deg);
+        height: 30px;
+        width: 15px;
+        border-right: 13px solid #333;
+        background-color: #fff;
+        content: "";
+    }
+    .center {
+    text-align: center;
+    }
 }
