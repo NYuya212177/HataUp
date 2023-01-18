@@ -34,7 +34,7 @@ var op = {//旗が上がっている状態をtrue,下がっている状態をfal
     WhiteOP: false,
     RedOP: false,
 };
-var EasyON = true; //問題の難易度上げを1度だけするコード
+var FeintON = true; //問題の難易度上げを1度だけするコード
 
 //DOM要素を読み込む
 document.addEventListener("DOMContentLoaded", function (event) {
@@ -401,8 +401,8 @@ function CHECKANSWER() {
         GameNav.innerText = ('正解！');//正解と表示する
         CurrentScore++;//正解数に1を足す
         if (CurrentScore > 5) {//正解数が5問を超えたらフェイント問題が追加される
-            if (EasyON == true) {
-                EasyON = false;//1度だけ追加するようにする
+            if (FeintON == true) {
+                FeintON = false;//1度だけ追加するようにする
                 DownDown.push("赤上げないで白上げて", "赤上げないで白上げて", "赤上げないで白上げて", "白上げないで赤上げて", "白上げないで赤上げて", "白上げないで赤上げて");
                 WhiteRise.push("赤上げないで白下げて", "赤上げないで白下げて", "赤上げないで白下げて", "白下げないで赤上げ", "白下げないで赤上げ", "白下げないで赤上げ");
                 RedRise.push("白上げないで赤下げて", "白上げないで赤下げて", "白上げないで赤下げて", "赤下げないで白上げ", "赤下げないで白上げ", "赤下げないで白上げ");
