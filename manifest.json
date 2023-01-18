@@ -1,11 +1,11 @@
 {
-    "short_name": "要件等",
-    "name": "要件等",
+    "short_name": "はたあげ",
+    "name": "はたあげ",
     "display": "standalone",
     "start_url": "GameStart.html",
     "icons": [
         {
-            "src": "img/Usagi.png",
+            "src": "img/icon.jpg",
             "sizes": "192x192",
             "type": "image/png"
         }

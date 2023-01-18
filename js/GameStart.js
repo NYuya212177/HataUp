@@ -70,6 +70,12 @@ document.getElementById("RoomIn").addEventListener("click", function () {
     // ●を打っていた処理はここで終わり 
     // すみません●で指定しているラジオボタンの処理は詳しくはよくわかってないです
     }
-    // RoomCreate.htmlに画面遷移
+    // RoomIn.htmlに画面遷移
     window.location.href = 'RoomIn.html';
 })
+
+// ボタンを押した時の処理
+document.getElementById("SoloGame").addEventListener("click", function () {
+    // RoomCreate.htmlに画面遷移
+    window.location.href = 'SoloGame.html';
+});

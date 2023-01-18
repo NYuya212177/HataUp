@@ -1,35 +1,3 @@
-// firebaseのコンソールとアプリをつないでいる部分
-const firebaseConfig = {
-    apiKey: "AIzaSyAJG9nKDU14PwHYSGGzV2EI8hVNDPePgsg",
-    authDomain: "hataup-dc173.firebaseapp.com",
-    projectId: "hataup-dc173",
-    storageBucket: "hataup-dc173.appspot.com",
-    messagingSenderId: "819131453401",
-    appId: "1:819131453401:web:45f88cf4fa35b4580593c8",
-    measurementId: "G-BG0VK3RC6V"
-};
-
-firebase.initializeApp(firebaseConfig);
-const firestore = firebase.firestore();
-
-// RoomCreate Or RoomInで設定したplayernumberをplayernumberとする
-const playernumber = localStorage.getItem("playernumber");
-console.log(playernumber);
-
-// RoomCreate Or RoomInで設定したnameをsetnameとする
-const setname = localStorage.getItem("name");
-console.log(setname);
-
-// RoomCreate Or RoomInで設定したcraftpasswordをcraftpasswordとする
-const craftpassword = localStorage.getItem("craftpassword");
-console.log(craftpassword);
-
-// GameStartで設定したlevelをlevelとする
-const level = localStorage.getItem("level");
-console.log(level);
-
-const docRef = firestore.collection("Craft" + level).doc(craftpassword);
-
 //Teachable Machineエクスポートパネルによって提供されるモデルへのリンク(Teachable Machineのアップロードされたリンク)
 const URL = "https://teachablemachine.withgoogle.com/models/uUb6SDzMc/";
 let Model, Webcam, Ctx, LabelContainer, MaxPredictions;
@@ -49,6 +17,8 @@ var RiseRise = ['赤下げて', '赤下げて', '赤下げて', '赤下げて', 
 var QuestionFirst, QuestionWhiteON, QuestionRedON, QuestionONON;//NOFLAG(旗が上がっていない)問題,WhiteRiseredDownFlag(白い旗が上がっている)の問題,redRisewhiteDownFlag(赤い旗が上がっている)の問題,WhiteRiseredRiseFlag(両方上がっている)の問題を格納
 var Answers, CorrectAnswer;//回答と正解を格納
 var AnswerArray = ['無'];//判定した回答を配列に格納(空だと何もしていないときに最頻値を計算するとNullになるので無を入れておく)
+
+var Life = 4;//初期ライフ
 var CurrentScore = 0;//正解数を格納
 const TrueSound = new Audio('mp3/true_sound.mp3');//正解した時の音声を設定
 const FalseSound = new Audio('mp3/false_sound.mp3');//不正解した時の音声を設定
@@ -64,110 +34,6 @@ var op = {//旗が上がっている状態をtrue,下がっている状態をfal
     RedOP: false,
 };
 
-var player1 = null;
-var player2 = null;
-var player3 = null;
-var player4 = null;
-
-//初期ライフ
-var Life = null;
-var miss = 0;
-var hp = null;
-var HP = hp;
-var Heartpoint = null;
-var point = 0;
-
-// 指定したfirebaseから値を取得
-docRef.get().then((doc) => {
-    // firebaseに上がっているそれぞれのプレイヤー名をプレイヤーナンバーの変数に格納
-    player1 = doc.data().player1;
-    player2 = doc.data().player2;
-    player3 = doc.data().player3;
-    player4 = doc.data().player4;
-    // 指定したfirebaseから値を取得してこれた際の処理
-    if (doc.exists) {
-        if (player2 == null) {
-            Life = "2";
-        } else if (player3 == null) {
-            Life = "4";
-        } else if (player4 == null) {
-            Life = "6";
-        } else {
-            Life = "8";
-        }
-        hp = Life;
-        //残り残機を表示
-        document.getElementById("life").innerHTML = Life;
-    }
-}).catch((error) => {
-    console.error("Error removing document: ", error);
-});
-
-docRef.onSnapshot((doc) => {
-    var point1 = doc.data().Score1;
-    var point2 = doc.data().Score2;
-    var point3 = doc.data().Score3;
-    var point4 = doc.data().Score4;
-
-    if (player1 == null) {
-        console.log("error");
-    } else if (player2 == null) {
-        point = point1 + point2;
-    } else if (player3 == null) {
-        point = point1 + point2 + point3;
-    } else if (player4 == null) {
-        point = point1 + point2 + point3 + point4;
-    }
-
-    document.getElementById("score").innerHTML = point;
-
-});
-
-docRef.onSnapshot((doc) => {
-    var life1 = doc.data().life1;
-    var life2 = doc.data().life2;
-    var life3 = doc.data().life3;
-    var life4 = doc.data().life4;
-    if (player1 == null) {
-        console.log("error");
-    } else if (player2 == null) {
-        Heartpoint = life1 + life2;
-    } else if (player3 == null) {
-        Heartpoint = life1 + life2 + life3;
-    } else if (player4 == null) {
-        Heartpoint = life1 + life2 + life3 + life4;
-    }
-    HP = hp - Heartpoint;
-    document.getElementById("life").innerHTML = HP;
-    if (HP === 0) {
-        //間違えたりタイムオーバー時にライフが無い場合リザルト画面に移動
-        GameNav.innerText = ('残念！ゲームオーバー');//残念！ゲームオーバーと表示する
-        docRef.update({
-            GameStart: "false",
-        })
-        location.href = "./Result.html";
-    }
-});
-
-docRef.onSnapshot((doc) => {
-    var point1 = doc.data().Score1;
-    var point2 = doc.data().Score2;
-    var point3 = doc.data().Score3;
-    var point4 = doc.data().Score4;
-
-    if (player1 == null) {
-        console.log("error");
-    } else if (player2 == null) {
-        point = point1 + point2;
-    } else if (player3 == null) {
-        point = point1 + point2 + point3;
-    } else if (player4 == null) {
-        point = point1 + point2 + point3 + point4;
-    }
-
-    document.getElementById("score").innerHTML = point;
-
-});
 
 //DOM要素を読み込む
 document.addEventListener("DOMContentLoaded", function (event) {
@@ -188,23 +54,6 @@ async function WEBCAMERA() {
     await Webcam.setup();//ウェブカメラへのアクセスをリクエストする
     Webcam.webcam.playsInline = true;//iphoneで動かすコード
     await Webcam.play();//カメラの起動
-    if (playernumber == "player1") {
-        docRef.update({
-            player1: setname + "準備OK"
-        })
-    } else if (playernumber == "player2") {
-        docRef.update({
-            player2: setname + "準備OK"
-        })
-    } else if (playernumber == "player3") {
-        docRef.update({
-            player3: setname + "準備OK"
-        })
-    } else if (playernumber == "player4") {
-        docRef.update({
-            player4: setname + "準備OK"
-        })
-    }
     window.requestAnimationFrame(LOOP);//判定の処理を動かす
     //DOMに要素を追加する
     const Canvas = document.getElementById("Canvas");
@@ -386,6 +235,7 @@ async function PREDICT() {
     for (let i = 0; i < MaxPredictions; i++) {
         const Name = Prediction[i].className;//クラス名の取得
         const Value = Prediction[i].probability.toFixed(2); //認識率の取得
+        // LabelContainer.childNodes[i].innerHTML = `${Name}: ${Value}`;//判定結果を随時表示する
         //FlagRiseがtrueの間判定をする
         if (FlagRise == true) {
             if (MovementjudgmentStop == true) {
@@ -419,7 +269,7 @@ async function PREDICT() {
         };
     }
     //画面にカメラの表示をする
-    //DROWPOSE(pose);//ここ消すとカメラが表示されなくなる
+    // DROWPOSE(pose);//ここ消すとカメラが表示されなくなる
 }
 
 //画面にカメラを表示する
@@ -478,11 +328,10 @@ function Movementjudgment() {
     if (ModeStr == "両") {
         console.log("両手上げてる");
         //両手の表示
-        let ALLFlagImg = document.document.getElementById("Hatahuman");
+        let ALLFlagImg = document.getElementById("Hatahuman");
         ALLFlagImg.src = "img/Allhand.png";
         op.WhiteOP = true;//trueにして白の旗を上がっている状態にする
         op.RedOP = true;//trueにして赤の旗を上がっている状態にする
-        FlagRise = false;//判定を止める
         Answers = "両手上げてる";//自分の回答を格納
         CHECKANSWER();//CHECKANSWER(正誤判定の処理)に移動する
     }
@@ -497,62 +346,32 @@ function CHECKANSWER() {
         console.log("正解");
         GameNav.innerText = ('正解！');//正解と表示する
         CurrentScore++;//正解数に1を足す
-        if (playernumber == "player1") {
-            docRef.update({
-                Score1: CurrentScore
-            })
-        } else if (playernumber == "player2") {
-            docRef.update({
-                Score2: CurrentScore
-            })
-        } else if (playernumber == "player3") {
-            docRef.update({
-                Score3: CurrentScore
-            })
-        } else if (playernumber == "player4") {
-            docRef.update({
-                Score4: CurrentScore
-            })
-        }
     } else {
         FalseSound.play();
-        console.log("残念");
+        console.log("残念");//不正解の音声を再生
         GameNav.innerText = ('不正解！');//不正解と表示する
         ADJUSTSCORE();///ADJUSTSCORE(ミスした時の処理)移動する
     }
     Answers = "";//Answersの初期化
-    document.getElementById('Qcountdown').value = 0;//プログレスバーの初期化
+    document.getElementById('Qcountdown').value=0;//プログレスバーの初期化
     setTimeout(judgeQuestion, 2000);//judgeQuestion(問題の振り分けの処理)に行く
-    //スコアを表示
+    //スコアと残りのライフを表示
     document.getElementById("score").innerHTML = CurrentScore;
+    document.getElementById("Life").innerHTML = Life;
 }
 
 //残り残機を表示する
 function ADJUSTSCORE() {
     if (Life > 0) {
         Life--;//ライフから1を引く
-        miss++;
-        console.log("life" + Life);
-        console.log("miss" + miss);
-
-        if (playernumber == "player1") {
-            docRef.update({
-                life1: miss
-            })
-        } else if (playernumber == "player2") {
-            docRef.update({
-                life2: miss
-            })
-        } else if (playernumber == "player3") {
-            docRef.update({
-                life3: miss
-            })
-        } else if (playernumber == "player4") {
-            docRef.update({
-                life4: miss
-            })
-        }
         console.log(Life);
+        if (Life === 0) {//ライフが0ならゲームオーバー
+            // alert("残念！お前の負け");
+            GameNav.innerText = ('残念！ゲームオーバー');//残念！ゲームオーバーと表示する
+            localStorage.setItem('Score', CurrentScore);
+            location.href = "SoloResult.html";//間違えたりタイムオーバー時にゲームオーバー画面に移動
+            console.log(Life);
+        }
     }
 }
 
