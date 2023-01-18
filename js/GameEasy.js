@@ -532,7 +532,7 @@ function Movementjudgment() {
     if (ModeStr == "両") {
         console.log("両手上げてる");
         //両手の表示
-        let ALLFlagImg = document.document.getElementById("Hatahuman");
+        let ALLFlagImg = document.getElementById("Hatahuman");
         ALLFlagImg.src = "img/Allhand.png";
         op.WhiteOP = true;//trueにして白の旗を上がっている状態にする
         op.RedOP = true;//trueにして赤の旗を上がっている状態にする
