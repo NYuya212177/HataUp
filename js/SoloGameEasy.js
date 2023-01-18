@@ -18,6 +18,7 @@ var QuestionFirst, QuestionWhiteON, QuestionRedON, QuestionONON;//NOFLAG(旗が�
 var Answers, CorrectAnswer;//回答と正解を格納
 var AnswerArray = ['無'];//判定した回答を配列に格納(空だと何もしていないときに最頻値を計算するとNullになるので無を入れておく)
 var TimetoJudg = null;//判定までの時間
+var ProgressTime = null;//プログレスバーがが最大まで行く時間
 var Life = 5;//初期ライフ
 var CurrentScore = 0;//正解数を格納
 const TrueSound = new Audio('mp3/true_sound.mp3');//正解した時の音声を設定
@@ -70,6 +71,7 @@ async function WEBCAMERA() {
 //ゲームの開始
 function GAMESTART() {
     FlagNo = false;//無を判定しないようにする
+    ProgressTime = 19;//プログレスバーがが最大まで行く時間
     //カウントダウンの開始 1秒ごとにCOUNTDOWNに移動する
     setInterval(COUNTDOWN, 1000);//setInterval…一定時間ごとに特定の処理を繰り返す
     //旗が上がっていない状態からのスタート 5秒後にNOFLAGに移動する
@@ -91,7 +93,7 @@ function COUNTDOWN() {
 function ProgressBar() {
     if (document.getElementById('Qcountdown').value < 100) {
         document.getElementById('Qcountdown').value++;
-        setTimeout(ProgressBar, 20);//20でバーが最大までいく
+        setTimeout(ProgressBar, ProgressTime);//20でバーが最大までいく
     }
 }
 
@@ -117,16 +119,20 @@ function NOFLAG() {
     //問題の正解を格納
     if ('赤上げて' == QuestionFirst) { //赤をあげる問題だった場合 A.右手が上がっている
         CorrectAnswer = "右手あげてる";
-        TimetoJudg = 1000;
+        TimetoJudg = 1000;//判定が開始されるまでの時間
+        ProgressTime = 19;//プログレスバーがが最大まで行く時間
     } else if ('白上げて' == QuestionFirst) {//白をあげる問題だった場合 A.左手が上がっている
         CorrectAnswer = "左手あげてる";
-        TimetoJudg = 1000;
+        TimetoJudg = 1000;//判定が開始されるまでの時間
+        ProgressTime = 19;//プログレスバーがが最大まで行く時間
     } else if ('赤上げないで白上げて' == QuestionFirst) {//白をあげる問題だった場合 A.左手が上がっている
         CorrectAnswer = "左手あげてる";
-        TimetoJudg = 2000;
+        TimetoJudg = 3000;//判定が開始されるまでの時間
+        ProgressTime = 21;//プログレスバーがが最大まで行く時間
     } else if ('白上げないで赤上げて' == QuestionFirst) {//赤をあげる問題だった場合 A.右手が上がっている
         CorrectAnswer = "右手あげてる";
-        TimetoJudg = 2000;
+        TimetoJudg = 3000;//判定が開始されるまでの時間
+        ProgressTime = 21;//プログレスバーがが最大まで行く時間
     };
     setTimeout(LOOPFLAG, TimetoJudg);//設定した秒数後にLOOPFLAG(判定の開始)の処理に移動する
 };
@@ -154,18 +160,22 @@ function WhiteRiseredDownFlag() {
     //問題の正解を格納
     if ('赤上げて' == QuestionWhiteON) {//赤をあげる問題だった場合 A.両手が上がっている
         CorrectAnswer = "両手上げてる";
-        TimetoJudg = 500;
+        TimetoJudg = 500;//判定が開始されるまでの時間
+        ProgressTime = 19;//プログレスバーがが最大まで行く時間
     } else if ('白下げて' == QuestionWhiteON) {//白を下げる問題だった場合 A.両手が下がっている
         FlagNo = true;//両手が下がっている判定が出来るようにする
         CorrectAnswer = "両手下げてる";
-        TimetoJudg = 500;
+        TimetoJudg = 500;//判定が開始されるまでの時間
+        ProgressTime = 19;//プログレスバーがが最大まで行く時間
     } else if ('赤上げないで白下げて' == QuestionFirst) {//白を下げる問題だった場合 A.両手が下がっている
         FlagNo = true;//両手が下がっている判定が出来るようにする
         CorrectAnswer = "両手さげてる";
-        TimetoJudg = 2000;
+        TimetoJudg = 3000;//判定が開始されるまでの時間
+        ProgressTime = 21;//プログレスバーがが最大まで行く時間
     } else if ('白下げないで赤上げて' == QuestionFirst) {//赤をあげる問題だった場合 A.両手が上がっている
         CorrectAnswer = "両手あげてる";
-        TimetoJudg = 2000;
+        TimetoJudg = 3000;//判定が開始されるまでの時間
+        ProgressTime = 21;//プログレスバーがが最大まで行く時間
     };
     setTimeout(LOOPFLAG, TimetoJudg); //設定した秒数後にLOOPFLAG(判定の開始)の処理に移動する
 };
@@ -194,17 +204,21 @@ function RedRisewhiteDownFlag() {
     if ('赤下げて' == QuestionRedON) {//赤を下げる問題だった場合 A.両手が下がっている
         FlagNo = true;//両手が下がっている判定が出来るようにする
         CorrectAnswer = "両手下げてる";
-        TimetoJudg = 500;
+        TimetoJudg = 500;//判定が開始されるまでの時間
+        ProgressTime = 19;//プログレスバーがが最大まで行く時間
     } else if ('白上げて' == QuestionRedON) {//白をあげる問題だった場合 A.両手が上がっている
         CorrectAnswer = "両手上げてる";
-        TimetoJudg = 500;
+        TimetoJudg = 500;//判定が開始されるまでの時間
+        ProgressTime = 19;//プログレスバーがが最大まで行く時間
     } else if ('白上げないで赤下げて' == QuestionFirst) {//赤を下げる問題だった場合 A.両手が下がっている
         FlagNo = true;//両手が下がっている判定が出来るようにする
         CorrectAnswer = "両手さげてる";
-        TimetoJudg = 2000;
+        TimetoJudg = 3000;//判定が開始されるまでの時間
+        ProgressTime = 21;//プログレスバーがが最大まで行く時間
     } else if ('赤下げないで白上げて' == QuestionFirst) {//白をあげる問題だった場合 A.両手が上がっている
         CorrectAnswer = "右手あげてる";
-        TimetoJudg = 2000;
+        TimetoJudg = 3000;//判定が開始されるまでの時間
+        ProgressTime = 21;//プログレスバーがが最大まで行く時間
     };
     setTimeout(LOOPFLAG, TimetoJudg);//設定した秒数後にLOOPFLAG(判定の開始)の処理に移動する
 };
@@ -232,17 +246,21 @@ function WhiteRiseredRiseFlag() {
     //問題の正解を格納
     if ('赤下げて' == QuestionONON) {//赤を下げる問題だった場合 A.左手が上がっている
         CorrectAnswer = "左手あげてる";
-        TimetoJudg = 500;
+        TimetoJudg = 500;//判定が開始されるまでの時間
+        ProgressTime = 19;//プログレスバーがが最大まで行く時間
     } else if ('白下げて' == QuestionONON) {//白を下げる問題だった場合 A.右手が上がっている
         CorrectAnswer = "右手あげてる";
-        TimetoJudg = 500;
+        TimetoJudg = 500;//判定が開始されるまでの時間
+        ProgressTime = 19;//プログレスバーがが最大まで行く時間
     } else if ('白下げないで赤下げて' == QuestionFirst) {//赤を下げる問題だった場合 A.左手が下がっている
         FlagNo = true;//両手が下がっている判定が出来るようにする
         CorrectAnswer = "両手さげてる";
-        TimetoJudg = 2000;
+        TimetoJudg = 3000;//判定が開始されるまでの時間
+        ProgressTime = 21;//プログレスバーがが最大まで行く時間
     } else if ('赤下げないで白下げて' == QuestionFirst) {//白を下げる問題だった場合 A.右手が上がっている
         CorrectAnswer = "右手あげてる";
-        TimetoJudg = 2000;
+        TimetoJudg = 3000;//判定が開始されるまでの時間
+        ProgressTime = 21;//プログレスバーがが最大まで行く時間
     };
     setTimeout(LOOPFLAG, TimetoJudg);//設定した秒数後にLOOPFLAG(判定の開始)の処理に移動する
 };
