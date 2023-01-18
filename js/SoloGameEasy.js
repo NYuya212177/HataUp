@@ -160,12 +160,12 @@ function WhiteRiseredDownFlag() {
     //問題の正解を格納
     if ('赤上げて' == QuestionWhiteON) {//赤をあげる問題だった場合 A.両手が上がっている
         CorrectAnswer = "両手上げてる";
-        TimetoJudg = 500;//判定が開始されるまでの時間
+        TimetoJudg = 1000;//判定が開始されるまでの時間
         ProgressTime = 19;//プログレスバーがが最大まで行く時間
     } else if ('白下げて' == QuestionWhiteON) {//白を下げる問題だった場合 A.両手が下がっている
         FlagNo = true;//両手が下がっている判定が出来るようにする
         CorrectAnswer = "両手下げてる";
-        TimetoJudg = 500;//判定が開始されるまでの時間
+        TimetoJudg = 1000;//判定が開始されるまでの時間
         ProgressTime = 19;//プログレスバーがが最大まで行く時間
     } else if ('赤上げないで白下げて' == QuestionFirst) {//白を下げる問題だった場合 A.両手が下がっている
         FlagNo = true;//両手が下がっている判定が出来るようにする
@@ -204,11 +204,11 @@ function RedRisewhiteDownFlag() {
     if ('赤下げて' == QuestionRedON) {//赤を下げる問題だった場合 A.両手が下がっている
         FlagNo = true;//両手が下がっている判定が出来るようにする
         CorrectAnswer = "両手下げてる";
-        TimetoJudg = 500;//判定が開始されるまでの時間
+        TimetoJudg = 1000;//判定が開始されるまでの時間
         ProgressTime = 19;//プログレスバーがが最大まで行く時間
     } else if ('白上げて' == QuestionRedON) {//白をあげる問題だった場合 A.両手が上がっている
         CorrectAnswer = "両手上げてる";
-        TimetoJudg = 500;//判定が開始されるまでの時間
+        TimetoJudg = 1000;//判定が開始されるまでの時間
         ProgressTime = 19;//プログレスバーがが最大まで行く時間
     } else if ('白上げないで赤下げて' == QuestionFirst) {//赤を下げる問題だった場合 A.両手が下がっている
         FlagNo = true;//両手が下がっている判定が出来るようにする
@@ -246,11 +246,11 @@ function WhiteRiseredRiseFlag() {
     //問題の正解を格納
     if ('赤下げて' == QuestionONON) {//赤を下げる問題だった場合 A.左手が上がっている
         CorrectAnswer = "左手あげてる";
-        TimetoJudg = 500;//判定が開始されるまでの時間
+        TimetoJudg = 1000;//判定が開始されるまでの時間
         ProgressTime = 19;//プログレスバーがが最大まで行く時間
     } else if ('白下げて' == QuestionONON) {//白を下げる問題だった場合 A.右手が上がっている
         CorrectAnswer = "右手あげてる";
-        TimetoJudg = 500;//判定が開始されるまでの時間
+        TimetoJudg = 1000;//判定が開始されるまでの時間
         ProgressTime = 19;//プログレスバーがが最大まで行く時間
     } else if ('白下げないで赤下げて' == QuestionFirst) {//赤を下げる問題だった場合 A.左手が下がっている
         FlagNo = true;//両手が下がっている判定が出来るようにする
