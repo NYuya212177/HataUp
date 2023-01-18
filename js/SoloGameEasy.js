@@ -93,7 +93,7 @@ function COUNTDOWN() {
 function ProgressBar() {
     if (document.getElementById('Qcountdown').value < 100) {
         document.getElementById('Qcountdown').value++;
-        setTimeout(ProgressBar, ProgressTime);//20でバーが最大までいく
+        setTimeout(ProgressBar, ProgressTime);//バーが最大までいく
     }
 }
 
