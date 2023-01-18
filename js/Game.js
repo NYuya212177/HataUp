@@ -31,7 +31,7 @@ console.log(level);
 const docRef = firestore.collection("Craft" + level).doc(craftpassword);
 
 //Teachable Machineエクスポートパネルによって提供されるモデルへのリンク(Teachable Machineのアップロードされたリンク)
-const URL = "https://teachablemachine.withgoogle.com/models/uUb6SDzMc/";
+const URL = "https://teachablemachine.withgoogle.com/models/11o4WAa6H/";
 let Model, Webcam, Ctx, LabelContainer, MaxPredictions;
 
 //getElementById...HTML要素の取得を行う

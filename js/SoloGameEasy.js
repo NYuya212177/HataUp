@@ -1,5 +1,5 @@
 //Teachable Machineエクスポートパネルによって提供されるモデルへのリンク(Teachable Machineのアップロードされたリンク)
-const URL = "https://teachablemachine.withgoogle.com/models/uUb6SDzMc/";
+const URL = "https://teachablemachine.withgoogle.com/models/11o4WAa6H/";
 let Model, Webcam, Ctx, LabelContainer, MaxPredictions;
 
 //getElementById...HTML要素の取得を行う
@@ -17,8 +17,8 @@ var RiseRise = ['赤下げて', '赤下げて', '赤下げて', '赤下げて', 
 var QuestionFirst, QuestionWhiteON, QuestionRedON, QuestionONON;//NOFLAG(旗が上がっていない)問題,WhiteRiseredDownFlag(白い旗が上がっている)の問題,redRisewhiteDownFlag(赤い旗が上がっている)の問題,WhiteRiseredRiseFlag(両方上がっている)の問題を格納
 var Answers, CorrectAnswer;//回答と正解を格納
 var AnswerArray = ['無'];//判定した回答を配列に格納(空だと何もしていないときに最頻値を計算するとNullになるので無を入れておく)
-
-var Life = 4;//初期ライフ
+var TimetoJudg = null;//判定までの時間
+var Life = 5;//初期ライフ
 var CurrentScore = 0;//正解数を格納
 const TrueSound = new Audio('mp3/true_sound.mp3');//正解した時の音声を設定
 const FalseSound = new Audio('mp3/false_sound.mp3');//不正解した時の音声を設定
@@ -33,7 +33,7 @@ var op = {//旗が上がっている状態をtrue,下がっている状態をfal
     WhiteOP: false,
     RedOP: false,
 };
-
+var EasyON = true; //問題の難易度上げを1度だけするコード
 
 //DOM要素を読み込む
 document.addEventListener("DOMContentLoaded", function (event) {
@@ -117,10 +117,18 @@ function NOFLAG() {
     //問題の正解を格納
     if ('赤上げて' == QuestionFirst) { //赤をあげる問題だった場合 A.右手が上がっている
         CorrectAnswer = "右手あげてる";
+        TimetoJudg = 1000;
     } else if ('白上げて' == QuestionFirst) {//白をあげる問題だった場合 A.左手が上がっている
         CorrectAnswer = "左手あげてる";
+        TimetoJudg = 1000;
+    } else if ('赤上げないで白上げて' == QuestionFirst) {//白をあげる問題だった場合 A.左手が上がっている
+        CorrectAnswer = "左手あげてる";
+        TimetoJudg = 2000;
+    } else if ('白上げないで赤上げて' == QuestionFirst) {//赤をあげる問題だった場合 A.右手が上がっている
+        CorrectAnswer = "右手あげてる";
+        TimetoJudg = 2000;
     };
-    setTimeout(LOOPFLAG, 1000);//1秒後にLOOPFLAG(判定の開始)の処理に移動する
+    setTimeout(LOOPFLAG, TimetoJudg);//設定した秒数後にLOOPFLAG(判定の開始)の処理に移動する
 };
 
 //白い旗だけ上がっている状態からスタートした場合 出題問題(赤上げて, 白下げて)
@@ -146,11 +154,20 @@ function WhiteRiseredDownFlag() {
     //問題の正解を格納
     if ('赤上げて' == QuestionWhiteON) {//赤をあげる問題だった場合 A.両手が上がっている
         CorrectAnswer = "両手上げてる";
+        TimetoJudg = 500;
     } else if ('白下げて' == QuestionWhiteON) {//白を下げる問題だった場合 A.両手が下がっている
         FlagNo = true;//両手が下がっている判定が出来るようにする
         CorrectAnswer = "両手下げてる";
+        TimetoJudg = 500;
+    } else if ('赤上げないで白下げて' == QuestionFirst) {//白を下げる問題だった場合 A.両手が下がっている
+        FlagNo = true;//両手が下がっている判定が出来るようにする
+        CorrectAnswer = "両手さげてる";
+        TimetoJudg = 2000;
+    } else if ('白下げないで赤上げて' == QuestionFirst) {//赤をあげる問題だった場合 A.両手が上がっている
+        CorrectAnswer = "両手あげてる";
+        TimetoJudg = 2000;
     };
-    setTimeout(LOOPFLAG, 500); //0.5秒後にLOOPFLAG(判定の開始)の処理に移動する
+    setTimeout(LOOPFLAG, TimetoJudg); //設定した秒数後にLOOPFLAG(判定の開始)の処理に移動する
 };
 
 //赤い旗だけ上がっている状態からスタートした場合 出題問題(赤下げて, 白上げて)
@@ -177,15 +194,26 @@ function RedRisewhiteDownFlag() {
     if ('赤下げて' == QuestionRedON) {//赤を下げる問題だった場合 A.両手が下がっている
         FlagNo = true;//両手が下がっている判定が出来るようにする
         CorrectAnswer = "両手下げてる";
+        TimetoJudg = 500;
     } else if ('白上げて' == QuestionRedON) {//白をあげる問題だった場合 A.両手が上がっている
         CorrectAnswer = "両手上げてる";
+        TimetoJudg = 500;
+    } else if ('白上げないで赤下げて' == QuestionFirst) {//赤を下げる問題だった場合 A.両手が下がっている
+        FlagNo = true;//両手が下がっている判定が出来るようにする
+        CorrectAnswer = "両手さげてる";
+        TimetoJudg = 2000;
+    } else if ('赤下げないで白上げて' == QuestionFirst) {//白をあげる問題だった場合 A.両手が上がっている
+        CorrectAnswer = "右手あげてる";
+        TimetoJudg = 2000;
     };
-    setTimeout(LOOPFLAG, 500);//0.5秒後にLOOPFLAG(判定の開始)の処理に移動する
+    setTimeout(LOOPFLAG, TimetoJudg);//設定した秒数後にLOOPFLAG(判定の開始)の処理に移動する
 };
 
 //両方上がっている状態からスタートした場合 出題問題(赤下げて, 白下げて)
 function WhiteRiseredRiseFlag() {
     FlagAll = false;//両手が上がっていると判定しないようにする
+    FlagRight = true;//右手が上がっていると判定するようにする
+    FlagLeft = true;//左手が上がっていると判定するようにする
     QuestionONON = RiseRise[Math.floor(Math.random() * RiseRise.length)];//RiseRiseの中からランダムで問題を表示
     //問題を表示
     Question.innerText = QuestionONON;
@@ -204,10 +232,19 @@ function WhiteRiseredRiseFlag() {
     //問題の正解を格納
     if ('赤下げて' == QuestionONON) {//赤を下げる問題だった場合 A.左手が上がっている
         CorrectAnswer = "左手あげてる";
+        TimetoJudg = 500;
     } else if ('白下げて' == QuestionONON) {//白を下げる問題だった場合 A.右手が上がっている
         CorrectAnswer = "右手あげてる";
+        TimetoJudg = 500;
+    } else if ('白下げないで赤下げて' == QuestionFirst) {//赤を下げる問題だった場合 A.左手が下がっている
+        FlagNo = true;//両手が下がっている判定が出来るようにする
+        CorrectAnswer = "両手さげてる";
+        TimetoJudg = 2000;
+    } else if ('赤下げないで白下げて' == QuestionFirst) {//白を下げる問題だった場合 A.右手が上がっている
+        CorrectAnswer = "右手あげてる";
+        TimetoJudg = 2000;
     };
-    setTimeout(LOOPFLAG, 500);//0.5秒後にLOOPFLAG(判定の開始)の処理に移動する
+    setTimeout(LOOPFLAG, TimetoJudg);//設定した秒数後にLOOPFLAG(判定の開始)の処理に移動する
 };
 
 //モデルの判定を繰り返し実行
@@ -235,7 +272,6 @@ async function PREDICT() {
     for (let i = 0; i < MaxPredictions; i++) {
         const Name = Prediction[i].className;//クラス名の取得
         const Value = Prediction[i].probability.toFixed(2); //認識率の取得
-        // LabelContainer.childNodes[i].innerHTML = `${Name}: ${Value}`;//判定結果を随時表示する
         //FlagRiseがtrueの間判定をする
         if (FlagRise == true) {
             if (MovementjudgmentStop == true) {
@@ -346,14 +382,23 @@ function CHECKANSWER() {
         console.log("正解");
         GameNav.innerText = ('正解！');//正解と表示する
         CurrentScore++;//正解数に1を足す
+        if (CurrentScore > 5) {//正解数が5問を超えたらフェイント問題が追加される
+            if (EasyON == true) {
+                EasyON = false;//1度だけ追加するようにする
+                DownDown.push("赤上げないで白上げて", "赤上げないで白上げて", "赤上げないで白上げて", "白上げないで赤上げて", "白上げないで赤上げて", "白上げないで赤上げて");
+                WhiteRise.push("赤上げないで白下げて", "赤上げないで白下げて", "赤上げないで白下げて", "白下げないで赤上げ", "白下げないで赤上げ", "白下げないで赤上げ");
+                RedRise.push("白上げないで赤下げて", "白上げないで赤下げて", "白上げないで赤下げて", "赤下げないで白上げ", "赤下げないで白上げ", "赤下げないで白上げ");
+                RiseRise.push("白下げないで赤下げて", "白下げないで赤下げて", "白下げないで赤下げて", "赤下げないで白下げて", "赤下げないで白下げて", "赤下げないで白下げて");
+            }
+        }
     } else {
-        FalseSound.play();
-        console.log("残念");//不正解の音声を再生
+        FalseSound.play();//不正解の音声を再生
+        console.log("残念");
         GameNav.innerText = ('不正解！');//不正解と表示する
         ADJUSTSCORE();///ADJUSTSCORE(ミスした時の処理)移動する
     }
     Answers = "";//Answersの初期化
-    document.getElementById('Qcountdown').value=0;//プログレスバーの初期化
+    document.getElementById('Qcountdown').value = 0;//プログレスバーの初期化
     setTimeout(judgeQuestion, 2000);//judgeQuestion(問題の振り分けの処理)に行く
     //スコアと残りのライフを表示
     document.getElementById("score").innerHTML = CurrentScore;
@@ -366,7 +411,6 @@ function ADJUSTSCORE() {
         Life--;//ライフから1を引く
         console.log(Life);
         if (Life === 0) {//ライフが0ならゲームオーバー
-            // alert("残念！お前の負け");
             GameNav.innerText = ('残念！ゲームオーバー');//残念！ゲームオーバーと表示する
             localStorage.setItem('Score', CurrentScore);
             location.href = "SoloResult.html";//間違えたりタイムオーバー時にゲームオーバー画面に移動
