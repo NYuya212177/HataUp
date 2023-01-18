@@ -286,7 +286,6 @@ async function PREDICT() {
     const { pose, posenetOutput } = await Model.estimatePose(Webcam.canvas);//estimatePose...画像,ビデオ,キャンバスのhtml要素を受け取ることが出来る
     //判定2:教示可能な機械分類モデルを通じて入力を実行する
     const Prediction = await Model.predict(posenetOutput);
-    //setTimeout(Movementjudgment, 15000);//3秒後にMovementjudgmentの処理に移動する
     for (let i = 0; i < MaxPredictions; i++) {
         const Name = Prediction[i].className;//クラス名の取得
         const Value = Prediction[i].probability.toFixed(2); //認識率の取得
