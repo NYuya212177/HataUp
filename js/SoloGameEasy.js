@@ -128,11 +128,11 @@ function NOFLAG() {
     } else if ('赤上げないで白上げて' == QuestionFirst) {//白をあげる問題だった場合 A.左手が上がっている
         CorrectAnswer = "左手あげてる";
         TimetoJudg = 3000;//判定が開始されるまでの時間
-        ProgressTime = 21;//プログレスバーがが最大まで行く時間
+        ProgressTime = 20;//プログレスバーがが最大まで行く時間
     } else if ('白上げないで赤上げて' == QuestionFirst) {//赤をあげる問題だった場合 A.右手が上がっている
         CorrectAnswer = "右手あげてる";
         TimetoJudg = 3000;//判定が開始されるまでの時間
-        ProgressTime = 21;//プログレスバーがが最大まで行く時間
+        ProgressTime = 20;//プログレスバーがが最大まで行く時間
     };
     setTimeout(LOOPFLAG, TimetoJudg);//設定した秒数後にLOOPFLAG(判定の開始)の処理に移動する
 };
@@ -167,15 +167,15 @@ function WhiteRiseredDownFlag() {
         CorrectAnswer = "両手下げてる";
         TimetoJudg = 1000;//判定が開始されるまでの時間
         ProgressTime = 19;//プログレスバーがが最大まで行く時間
-    } else if ('赤上げないで白下げて' == QuestionFirst) {//白を下げる問題だった場合 A.両手が下がっている
+    } else if ('赤上げないで白下げて' == QuestionWhiteON) {//白を下げる問題だった場合 A.両手が下がっている
         FlagNo = true;//両手が下がっている判定が出来るようにする
         CorrectAnswer = "両手さげてる";
         TimetoJudg = 3000;//判定が開始されるまでの時間
-        ProgressTime = 21;//プログレスバーがが最大まで行く時間
-    } else if ('白下げないで赤上げて' == QuestionFirst) {//赤をあげる問題だった場合 A.両手が上がっている
+        ProgressTime = 20;//プログレスバーがが最大まで行く時間
+    } else if ('白下げないで赤上げて' == QuestionWhiteON) {//赤をあげる問題だった場合 A.両手が上がっている
         CorrectAnswer = "両手あげてる";
         TimetoJudg = 3000;//判定が開始されるまでの時間
-        ProgressTime = 21;//プログレスバーがが最大まで行く時間
+        ProgressTime = 20;//プログレスバーがが最大まで行く時間
     };
     setTimeout(LOOPFLAG, TimetoJudg); //設定した秒数後にLOOPFLAG(判定の開始)の処理に移動する
 };
@@ -210,15 +210,15 @@ function RedRisewhiteDownFlag() {
         CorrectAnswer = "両手上げてる";
         TimetoJudg = 1000;//判定が開始されるまでの時間
         ProgressTime = 19;//プログレスバーがが最大まで行く時間
-    } else if ('白上げないで赤下げて' == QuestionFirst) {//赤を下げる問題だった場合 A.両手が下がっている
+    } else if ('白上げないで赤下げて' == QuestionRedON) {//赤を下げる問題だった場合 A.両手が下がっている
         FlagNo = true;//両手が下がっている判定が出来るようにする
         CorrectAnswer = "両手さげてる";
         TimetoJudg = 3000;//判定が開始されるまでの時間
-        ProgressTime = 21;//プログレスバーがが最大まで行く時間
-    } else if ('赤下げないで白上げて' == QuestionFirst) {//白をあげる問題だった場合 A.両手が上がっている
+        ProgressTime = 20;//プログレスバーがが最大まで行く時間
+    } else if ('赤下げないで白上げて' == QuestionRedON) {//白をあげる問題だった場合 A.両手が上がっている
         CorrectAnswer = "右手あげてる";
         TimetoJudg = 3000;//判定が開始されるまでの時間
-        ProgressTime = 21;//プログレスバーがが最大まで行く時間
+        ProgressTime = 20;//プログレスバーがが最大まで行く時間
     };
     setTimeout(LOOPFLAG, TimetoJudg);//設定した秒数後にLOOPFLAG(判定の開始)の処理に移動する
 };
@@ -252,15 +252,15 @@ function WhiteRiseredRiseFlag() {
         CorrectAnswer = "右手あげてる";
         TimetoJudg = 1000;//判定が開始されるまでの時間
         ProgressTime = 19;//プログレスバーがが最大まで行く時間
-    } else if ('白下げないで赤下げて' == QuestionFirst) {//赤を下げる問題だった場合 A.左手が下がっている
+    } else if ('白下げないで赤下げて' == QuestionONON) {//赤を下げる問題だった場合 A.左手が下がっている
         FlagNo = true;//両手が下がっている判定が出来るようにする
         CorrectAnswer = "両手さげてる";
         TimetoJudg = 3000;//判定が開始されるまでの時間
-        ProgressTime = 21;//プログレスバーがが最大まで行く時間
-    } else if ('赤下げないで白下げて' == QuestionFirst) {//白を下げる問題だった場合 A.右手が上がっている
+        ProgressTime = 20;//プログレスバーがが最大まで行く時間
+    } else if ('赤下げないで白下げて' == QuestionONON) {//白を下げる問題だった場合 A.右手が上がっている
         CorrectAnswer = "右手あげてる";
         TimetoJudg = 3000;//判定が開始されるまでの時間
-        ProgressTime = 21;//プログレスバーがが最大まで行く時間
+        ProgressTime = 20;//プログレスバーがが最大まで行く時間
     };
     setTimeout(LOOPFLAG, TimetoJudg);//設定した秒数後にLOOPFLAG(判定の開始)の処理に移動する
 };
@@ -336,8 +336,11 @@ function DROWPOSE(pose) {
 function Movementjudgment() {
     console.log(AnswerArray);
     const c = (x, i, v) => (x[i] ? x[i].add(v) : x[i] = new Set(v), i);
+    //回答が格納された配列の後ろ2つからデータを取得する
+    const ModeJuge = AnswerArray.slice(-2);
+    console.log(ModeJuge);
     //最頻値を計算
-    const Mode = AnswerArray.reduce(function (x, v) { return (this.set(v, c(x, (this.get(v) + 1 || 1), v)), x); }.bind(new Map), []).pop();
+    const Mode = ModeJuge.reduce(function (x, v) { return (this.set(v, c(x, (this.get(v) + 1 || 1), v)), x); }.bind(new Map), []).pop();
     Mode.forEach(function (ModeData) {//最頻値として出された配列の文字をModStrに入れる
         console.log("最頻値:", ModeData);
         ModeStr = ModeData;
