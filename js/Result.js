@@ -35,7 +35,7 @@ var point4 = null;
 
 const docRef = firestore.collection("Craft" + level).doc(craftpassword);
 
-document.getElementById("pointtext").innerHTML = setname + "さんたちのとくてん";
+document.getElementById("pointtext").innerHTML = setname + "さん";
 
 var Point = 0;
 

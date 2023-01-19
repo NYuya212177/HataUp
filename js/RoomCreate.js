@@ -254,23 +254,23 @@ document.getElementById("DELETE").addEventListener("click", function () {
 document.getElementById("GameStart").addEventListener("click", function () {
 
     // 設定した名前をsetnameとする
-    var name = document.getElementById("name").value;
+    var setname = document.getElementById("name").value;
 
     // HTMLに文字数を出力
-    var NameCount = name.length;
+    var NameCount = setname.length;
 
     if(NameCount < 1){
         alert("なまえをいれてね");
         // 透明なパスのところに動物が四つ入っていないときにルームに入れなくする処理
     }else if(NameCount > 5){
-        setname= name.substr( 0, 5 );
+        setname = setname.substr( 0, 5 );
         console.log(setname);
         document.getElementById("name").value = setname;
         alert("５もじまでにしてね");
     }else if (Path1.src == Path || Path2.src == Path || Path3.src == Path || Path4.src === Path) {
 
         alert("pass足りない");
-        NameCount <= 5
+        
     } else {
         // 画像でパスワードを設定したものを12進数で表記した値を合わせてsetpasswordとする
         setpassword = pass1 + pass2 + pass3 + pass4;

@@ -262,7 +262,7 @@ if (playernumber === "player1") {
 
             if (level === "easy") {
                 // に画面遷移
-                window.location.href = 'Game.html';
+                window.location.href = 'GameEasy.html';
             } else if (level === "normal") {
 
             } else if (level === "hard") {
@@ -303,7 +303,7 @@ document.getElementById("GameStart").addEventListener("click", function () {
             })
             if (level === "easy") {
                 // Game.htmlに画面遷移
-                window.location.href = 'Game.html';
+                window.location.href = 'GameEasy.html';
             } else if (level === "normal") {
 
             } else if (level === "hard") {

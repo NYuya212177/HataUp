@@ -72,6 +72,8 @@ var player2 = null;
 var player3 = null;
 var player4 = null;
 
+var GameStart = true;
+
 //初期ライフ
 var Life = null;
 var miss = 0;
@@ -105,6 +107,69 @@ docRef.get().then((doc) => {
 }).catch((error) => {
     console.error("Error removing document: ", error);
 });
+
+if (GameStart == true) {
+    docRef.onSnapshot((doc) => {
+        // firebaseに上がっているそれぞれのプレイヤー名をプレイヤーナンバーの変数に格納
+        player1 = doc.data().player1;
+        player2 = doc.data().player2;
+        player3 = doc.data().player3;
+        player4 = doc.data().player4;
+
+        if (doc.exists) {
+            if (player3 == null) {
+
+                // 指定したfirebaseから値を取得してこれた際の処理
+                var Standby1 = player1.substr(-4);
+                console.log("player1 : " + Standby1);
+
+                var Standby2 = player2.substr(-4);
+                console.log("player2 : " + Standby2);
+
+                if (Standby1 === "準備OK" && Standby2 === "準備OK") {
+
+                    //GAMESTART(ゲームの開始)に移動する
+                    GAMESTART();
+                }
+            } else if (player4 == null) {
+
+                // 指定したfirebaseから値を取得してこれた際の処理
+                var Standby1 = player1.substr(-4);
+                console.log("player1 : " + Standby1);
+
+                var Standby2 = player2.substr(-4);
+                console.log("player2 : " + Standby2);
+
+                var Standby3 = player3.substr(-4);
+                console.log("player3 : " + Standby3);
+
+                if (Standby1 === "準備OK" && Standby2 === "準備OK" && Standby3 === "準備OK") {
+                    //GAMESTART(ゲームの開始)に移動する
+                    GAMESTART();
+                }
+            } else {
+
+                // 指定したfirebaseから値を取得してこれた際の処理
+                var Standby1 = player1.substr(-4);
+                console.log("player1 : " + Standby1);
+
+                var Standby2 = player2.substr(-4);
+                console.log("player2 : " + Standby2);
+
+                var Standby3 = player3.substr(-4);
+                console.log("player3 : " + Standby3);
+
+                var Standby4 = player4.substr(-3);
+                console.log("player4 : " + Standby4);
+
+                if (Standby1 === "準備OK" && Standby2 === "準備OK" && Standby3 === "準備OK" && Standby4 === "準備OK") {
+                    //GAMESTART(ゲームの開始)に移動する
+                    GAMESTART();
+                }
+            }
+        }
+    });
+}
 
 docRef.onSnapshot((doc) => {
     var point1 = doc.data().Score1;
@@ -191,23 +256,27 @@ async function WEBCAMERA() {
     await Webcam.setup();//ウェブカメラへのアクセスをリクエストする
     Webcam.webcam.playsInline = true;//iphoneで動かすコード
     await Webcam.play();//カメラの起動
+
+    var StandbyName = setname + "準備OK";
+
     if (playernumber == "player1") {
         docRef.update({
-            player1: setname + "準備OK"
+            player1: StandbyName
         })
     } else if (playernumber == "player2") {
         docRef.update({
-            player2: setname + "準備OK"
+            player2: StandbyName
         })
     } else if (playernumber == "player3") {
         docRef.update({
-            player3: setname + "準備OK"
+            player3: StandbyName
         })
     } else if (playernumber == "player4") {
         docRef.update({
-            player4: setname + "準備OK"
+            player4: StandbyName
         })
     }
+
     window.requestAnimationFrame(LOOP);//判定の処理を動かす
     //DOMに要素を追加する
     const Canvas = document.getElementById("Canvas");
@@ -218,11 +287,14 @@ async function WEBCAMERA() {
     for (let i = 0; i < MaxPredictions; i++) {
         LabelContainer.appendChild(document.createElement("div"));
     }
-    GAMESTART();//GAMESTART(ゲームの開始)に移動する
 }
 
 //ゲームの開始
 function GAMESTART() {
+
+    console.log("スタート")
+    GameStart = false;
+    
     FlagNo = false;//無を判定しないようにする
     ProgressTime = 19;//プログレスバーがが最大まで行く時間
     //カウントダウンの開始 1秒ごとにCOUNTDOWNに移動する
