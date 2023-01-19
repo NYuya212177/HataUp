@@ -297,24 +297,36 @@ async function PREDICT() {
             }
             //右手が上げられた場合
             if (Name == "右" && Value >= 0.9) {
+                //赤い旗の表示
+                let RedFlagImg = document.getElementById("Hatahuman");
+                RedFlagImg.src = "img/righthand.png";
                 if (FlagRight == true) {//FlagRightがtrueの間実行する
                     AnswerArray.push("右");//配列AnswerArrayに"右"を格納する
                 }
             }
             //左手が上げられた場合
             if (Name == "左" && Value >= 0.9) {
+                //白い旗の表示
+                let WhiteFlagImg = document.getElementById("Hatahuman");
+                WhiteFlagImg.src = "img/lefthand.png";
                 if (FlagLeft == true) {//FlagLeftがtrueの間実行する
                     AnswerArray.push("左");//配列AnswerArrayに"左"を格納する
                 }
             }
             //何も上げていない場合
             if (Name == "無" && Value >= 0.9) {
+                //何もないときの表示
+                let NoFlagImg = document.getElementById("Hatahuman");
+                NoFlagImg.src = "img/nohand.png";
                 if (FlagNo == true) {//FlagNoがtrueの間実行する
                     AnswerArray.push("無");//配列AnswerArrayに"無"を格納する
                 }
             }
             //両手が上がっている場合
             if (Name == "両手" && Value >= 0.9) {
+                //両手の表示
+                let ALLFlagImg = document.getElementById("Hatahuman");
+                ALLFlagImg.src = "img/Allhand.png";
                 if (FlagAll == true) {//FlagAllがtrueの間実行する
                     AnswerArray.push("両");//配列AnswerArrayに"両"を格納する
                 }
