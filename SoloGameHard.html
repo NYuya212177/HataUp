@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="css/SoloGame.css">
+    <link rel="stylesheet" media="screen and (max-width: 480px)">
+    <title>はたあげゲーム</title>
+</head>
+
+<body>
+    <div class="center">
+        <ul>
+            <div class="flex">
+                <!-- スコア表示 -->
+                <p class="field">スコア　</p>
+                <p id="score" class="fieldc">　 0　　</p>
+                <!-- 残りライフの表示 -->
+                <p class="field">ライフ　</p>
+                <p id="Life" class="fieldc">　 4　 </p>
+            </div>
+        </ul>
+
+        <!-- 最初のカウントダウン -->
+        <h2 id="countdown">すこしまってね</h2>
+
+        <!-- 問題が出てくる場所 -->
+        <div class="mm">
+            <div class="flex">
+                <div class="field"></div>
+                <div id="question" class="fieldx">もんだい</div>
+            </div>
+        </div>
+        <!-- 問題のカウントダウン -->
+        <progress id="Qcountdown" min="0" max="100" value="0"></progress>
+        <img src="img/usagidaruma.png" align="left">
+        <!-- 正解不正解の表示 -->
+        <img id="GameNav" src="">
+        <!-- 画像を表示 -->
+        <img id="Hatahuman" src="">
+    </div>
+    <!-- teachable machineのカメラ判定 -->
+    <div><canvas id="Canvas"></canvas></div>
+    <div id="label-container"></div>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/pose@0.8/dist/teachablemachine-pose.min.js"></script>
+    </div>
+    <script src="js/SoloGameHard.js"></script>
+</body>
+
+</html>

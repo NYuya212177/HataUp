@@ -77,5 +77,5 @@ document.getElementById("RoomIn").addEventListener("click", function () {
 // ボタンを押した時の処理
 document.getElementById("SoloGame").addEventListener("click", function () {
     // RoomCreate.htmlに画面遷移
-    window.location.href = 'SoloGame.html';
+    window.location.href = 'SoloGameEasy.html';
 });
