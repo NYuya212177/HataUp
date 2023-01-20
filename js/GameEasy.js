@@ -44,16 +44,13 @@ var DownDown = ['赤上げて', '赤上げて', '赤上げて', '白上げて', 
 var WhiteRise = ['赤上げて', '赤上げて', '赤上げて', '白下げて', '白下げて', '白下げて'];
 var RedRise = ['白上げて', '白上げて', '白上げて', '白上げて', '赤下げて', '赤下げて', '赤下げて', '赤下げて'];
 var RiseRise = ['赤下げて', '赤下げて', '赤下げて', '赤下げて', '白下げて', '白下げて', '白下げて', '白下げて'];
-
 var QuestionFirst, QuestionWhiteON, QuestionRedON, QuestionONON;//NOFLAG(旗が上がっていない)問題,WhiteRiseredDownFlag(白い旗が上がっている)の問題,redRisewhiteDownFlag(赤い旗が上がっている)の問題,WhiteRiseredRiseFlag(両方上がっている)の問題を格納
 var Answers, CorrectAnswer;//回答と正解を格納
 var AnswerArray = ['無'];//判定した回答を配列に格納(空だと何もしていないときに最頻値を計算するとNullになるので無を入れておく)
 var TimetoJudg = null;//判定までの時間
-var ProgressTime = null;//プログレスバーがが最大まで行く時間
 var CurrentScore = 0;//正解数を格納
 var TrueSound = new Audio('mp3/true_sound.mp3');//正解した時の音声を設定
 var FalseSound = new Audio('mp3/false_sound.mp3');//不正解した時の音声を設定
-
 var FlagRise = false;//判定のONOFF
 var FlagRight = true;//右が上がっている判定のONOFF
 var FlagLeft = true;//左が上がっている判定のONOFF
@@ -114,54 +111,40 @@ if (GameStart == true) {
         player1 = doc.data().player1;
         player2 = doc.data().player2;
         player3 = doc.data().player3;
-        player4 = doc.data().player4;
-
+        player4 = doc.data().player4
         if (doc.exists) {
             if (player3 == null) {
-
                 // 指定したfirebaseから値を取得してこれた際の処理
                 var Standby1 = player1.substr(-4);
                 console.log("player1 : " + Standby1);
-
                 var Standby2 = player2.substr(-4);
                 console.log("player2 : " + Standby2);
-
                 if (Standby1 === "準備OK" && Standby2 === "準備OK") {
-
                     //GAMESTART(ゲームの開始)に移動する
                     GAMESTART();
                 }
             } else if (player4 == null) {
-
                 // 指定したfirebaseから値を取得してこれた際の処理
                 var Standby1 = player1.substr(-4);
                 console.log("player1 : " + Standby1);
-
                 var Standby2 = player2.substr(-4);
                 console.log("player2 : " + Standby2);
-
                 var Standby3 = player3.substr(-4);
                 console.log("player3 : " + Standby3);
-
                 if (Standby1 === "準備OK" && Standby2 === "準備OK" && Standby3 === "準備OK") {
                     //GAMESTART(ゲームの開始)に移動する
                     GAMESTART();
                 }
             } else {
-
                 // 指定したfirebaseから値を取得してこれた際の処理
                 var Standby1 = player1.substr(-4);
                 console.log("player1 : " + Standby1);
-
                 var Standby2 = player2.substr(-4);
                 console.log("player2 : " + Standby2);
-
                 var Standby3 = player3.substr(-4);
                 console.log("player3 : " + Standby3);
-
                 var Standby4 = player4.substr(-3);
                 console.log("player4 : " + Standby4);
-
                 if (Standby1 === "準備OK" && Standby2 === "準備OK" && Standby3 === "準備OK" && Standby4 === "準備OK") {
                     //GAMESTART(ゲームの開始)に移動する
                     GAMESTART();
@@ -176,7 +159,6 @@ docRef.onSnapshot((doc) => {
     var point2 = doc.data().Score2;
     var point3 = doc.data().Score3;
     var point4 = doc.data().Score4;
-
     if (player1 == null) {
         console.log("error");
     } else if (player2 == null) {
@@ -186,9 +168,7 @@ docRef.onSnapshot((doc) => {
     } else if (player4 == null) {
         point = point1 + point2 + point3 + point4;
     }
-
     document.getElementById("score").innerHTML = point;
-
 });
 
 docRef.onSnapshot((doc) => {
@@ -222,7 +202,6 @@ docRef.onSnapshot((doc) => {
     var point2 = doc.data().Score2;
     var point3 = doc.data().Score3;
     var point4 = doc.data().Score4;
-
     if (player1 == null) {
         console.log("error");
     } else if (player2 == null) {
@@ -232,7 +211,6 @@ docRef.onSnapshot((doc) => {
     } else if (player4 == null) {
         point = point1 + point2 + point3 + point4;
     }
-
     document.getElementById("score").innerHTML = point;
 
 });
@@ -256,9 +234,7 @@ async function WEBCAMERA() {
     await Webcam.setup();//ウェブカメラへのアクセスをリクエストする
     Webcam.webcam.playsInline = true;//iphoneで動かすコード
     await Webcam.play();//カメラの起動
-
     var StandbyName = setname + "準備OK";
-
     if (playernumber == "player1") {
         docRef.update({
             player1: StandbyName
@@ -276,7 +252,6 @@ async function WEBCAMERA() {
             player4: StandbyName
         })
     }
-
     window.requestAnimationFrame(LOOP);//判定の処理を動かす
     //DOMに要素を追加する
     const Canvas = document.getElementById("Canvas");
@@ -291,12 +266,9 @@ async function WEBCAMERA() {
 
 //ゲームの開始
 function GAMESTART() {
-
     console.log("スタート")
     GameStart = false;
-
     FlagNo = false;//無を判定しないようにする
-    ProgressTime = 19;//プログレスバーがが最大まで行く時間
     //カウントダウンの開始 1秒ごとにCOUNTDOWNに移動する
     setInterval(COUNTDOWN, 1000);//setInterval…一定時間ごとに特定の処理を繰り返す
     //旗が上がっていない状態からのスタート 5秒後にNOFLAGに移動する
@@ -318,7 +290,7 @@ function COUNTDOWN() {
 function ProgressBar() {
     if (document.getElementById('Qcountdown').value < 100) {
         document.getElementById('Qcountdown').value++;
-        setTimeout(ProgressBar, ProgressTime);//バーが最大までいく
+        setTimeout(ProgressBar, 19);//バーが最大までいく
     }
 }
 
@@ -344,20 +316,16 @@ function NOFLAG() {
     //問題の正解を格納
     if ('赤上げて' == QuestionFirst) { //赤をあげる問題だった場合 A.右手が上がっている
         CorrectAnswer = "右手あげてる";
-        TimetoJudg = 1000;//判定が開始されるまでの時間
-        ProgressTime = 19;//プログレスバーがが最大まで行く時間
+        TimetoJudg = 1000;//判定が開始されるまでの時間   
     } else if ('白上げて' == QuestionFirst) {//白をあげる問題だった場合 A.左手が上がっている
         CorrectAnswer = "左手あげてる";
-        TimetoJudg = 1000;//判定が開始されるまでの時間
-        ProgressTime = 19;//プログレスバーがが最大まで行く時間
+        TimetoJudg = 1000;//判定が開始されるまでの時間  
     } else if ('赤上げないで白上げて' == QuestionFirst) {//白をあげる問題だった場合 A.左手が上がっている
         CorrectAnswer = "左手あげてる";
-        TimetoJudg = 3000;//判定が開始されるまでの時間
-        ProgressTime = 20;//プログレスバーがが最大まで行く時間
+        TimetoJudg = 3000;//判定が開始されるまでの時間   
     } else if ('白上げないで赤上げて' == QuestionFirst) {//赤をあげる問題だった場合 A.右手が上がっている
         CorrectAnswer = "右手あげてる";
         TimetoJudg = 3000;//判定が開始されるまでの時間
-        ProgressTime = 20;//プログレスバーがが最大まで行く時間
     };
     setTimeout(LOOPFLAG, TimetoJudg);//設定した秒数後にLOOPFLAG(判定の開始)の処理に移動する
 };
@@ -386,21 +354,17 @@ function WhiteRiseredDownFlag() {
     if ('赤上げて' == QuestionWhiteON) {//赤をあげる問題だった場合 A.両手が上がっている
         CorrectAnswer = "両手上げてる";
         TimetoJudg = 1000;//判定が開始されるまでの時間
-        ProgressTime = 19;//プログレスバーがが最大まで行く時間
     } else if ('白下げて' == QuestionWhiteON) {//白を下げる問題だった場合 A.両手が下がっている
         FlagNo = true;//両手が下がっている判定が出来るようにする
         CorrectAnswer = "両手下げてる";
         TimetoJudg = 1000;//判定が開始されるまでの時間
-        ProgressTime = 19;//プログレスバーがが最大まで行く時間
     } else if ('赤上げないで白下げて' == QuestionWhiteON) {//白を下げる問題だった場合 A.両手が下がっている
         FlagNo = true;//両手が下がっている判定が出来るようにする
         CorrectAnswer = "両手さげてる";
         TimetoJudg = 3000;//判定が開始されるまでの時間
-        ProgressTime = 20;//プログレスバーがが最大まで行く時間
     } else if ('白下げないで赤上げて' == QuestionWhiteON) {//赤をあげる問題だった場合 A.両手が上がっている
         CorrectAnswer = "両手あげてる";
-        TimetoJudg = 3000;//判定が開始されるまでの時間
-        ProgressTime = 20;//プログレスバーがが最大まで行く時間
+        TimetoJudg = 3000;//判定が開始されるまでの時間  
     };
     setTimeout(LOOPFLAG, TimetoJudg); //設定した秒数後にLOOPFLAG(判定の開始)の処理に移動する
 };
@@ -429,21 +393,17 @@ function RedRisewhiteDownFlag() {
     if ('赤下げて' == QuestionRedON) {//赤を下げる問題だった場合 A.両手が下がっている
         FlagNo = true;//両手が下がっている判定が出来るようにする
         CorrectAnswer = "両手下げてる";
-        TimetoJudg = 1000;//判定が開始されるまでの時間
-        ProgressTime = 19;//プログレスバーがが最大まで行く時間
+        TimetoJudg = 1000;//判定が開始されるまでの時間    
     } else if ('白上げて' == QuestionRedON) {//白をあげる問題だった場合 A.両手が上がっている
         CorrectAnswer = "両手上げてる";
-        TimetoJudg = 1000;//判定が開始されるまでの時間
-        ProgressTime = 19;//プログレスバーがが最大まで行く時間
+        TimetoJudg = 1000;//判定が開始されるまでの時間        
     } else if ('白上げないで赤下げて' == QuestionRedON) {//赤を下げる問題だった場合 A.両手が下がっている
         FlagNo = true;//両手が下がっている判定が出来るようにする
         CorrectAnswer = "両手さげてる";
-        TimetoJudg = 3000;//判定が開始されるまでの時間
-        ProgressTime = 20;//プログレスバーがが最大まで行く時間
+        TimetoJudg = 3000;//判定が開始されるまでの時間      
     } else if ('赤下げないで白上げて' == QuestionRedON) {//白をあげる問題だった場合 A.両手が上がっている
         CorrectAnswer = "右手あげてる";
         TimetoJudg = 3000;//判定が開始されるまでの時間
-        ProgressTime = 20;//プログレスバーがが最大まで行く時間
     };
     setTimeout(LOOPFLAG, TimetoJudg);//設定した秒数後にLOOPFLAG(判定の開始)の処理に移動する
 };
@@ -470,20 +430,16 @@ function WhiteRiseredRiseFlag() {
     if ('赤下げて' == QuestionONON) {//赤を下げる問題だった場合 A.左手が上がっている
         CorrectAnswer = "左手あげてる";
         TimetoJudg = 1000;//判定が開始されるまでの時間
-        ProgressTime = 19;//プログレスバーがが最大まで行く時間
     } else if ('白下げて' == QuestionONON) {//白を下げる問題だった場合 A.右手が上がっている
         CorrectAnswer = "右手あげてる";
         TimetoJudg = 1000;//判定が開始されるまでの時間
-        ProgressTime = 19;//プログレスバーがが最大まで行く時間
     } else if ('白下げないで赤下げて' == QuestionONON) {//赤を下げる問題だった場合 A.左手が下がっている
         FlagNo = true;//両手が下がっている判定が出来るようにする
         CorrectAnswer = "両手さげてる";
-        TimetoJudg = 3000;//判定が開始されるまでの時間
-        ProgressTime = 20;//プログレスバーがが最大まで行く時間
+        TimetoJudg = 3000;//判定が開始されるまでの時間 
     } else if ('赤下げないで白下げて' == QuestionONON) {//白を下げる問題だった場合 A.右手が上がっている
         CorrectAnswer = "右手あげてる";
-        TimetoJudg = 3000;//判定が開始されるまでの時間
-        ProgressTime = 20;//プログレスバーがが最大まで行く時間
+        TimetoJudg = 3000;//判定が開始されるまでの時間 
     };
     setTimeout(LOOPFLAG, TimetoJudg);//設定した秒数後にLOOPFLAG(判定の開始)の処理に移動する
 };
@@ -555,15 +511,6 @@ async function PREDICT() {
                 }
             }
         };
-    }
-    //画面にカメラの表示をする
-    //DROWPOSE(pose);//ここ消すとカメラが表示されなくなる
-}
-
-//画面にカメラを表示する
-function DROWPOSE(pose) {
-    if (Webcam.canvas) {
-        Ctx.drawImage(Webcam.canvas, 0, 0);
     }
 }
 
@@ -688,7 +635,6 @@ function ADJUSTSCORE() {
         miss++;
         console.log("life" + Life);
         console.log("miss" + miss);
-
         if (playernumber == "player1") {
             docRef.update({
                 life1: miss
