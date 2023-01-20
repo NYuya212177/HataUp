@@ -37,7 +37,6 @@ let Model, Webcam, Ctx, LabelContainer, MaxPredictions;
 //getElementById...HTML要素の取得を行う
 const CountStart = document.getElementById("countdown");
 const Question = document.getElementById("question");
-const GameNav = document.getElementById("GameNav");
 
 var CountTime = 3;//始まる前のカウントダウンの時間
 //問題の一覧
@@ -295,7 +294,7 @@ function GAMESTART() {
 
     console.log("スタート")
     GameStart = false;
-    
+
     FlagNo = false;//無を判定しないようにする
     ProgressTime = 19;//プログレスバーがが最大まで行く時間
     //カウントダウンの開始 1秒ごとにCOUNTDOWNに移動する
@@ -351,7 +350,7 @@ function NOFLAG() {
         CorrectAnswer = "左手あげてる";
         TimetoJudg = 1000;//判定が開始されるまでの時間
         ProgressTime = 19;//プログレスバーがが最大まで行く時間
-    }else if ('赤上げないで白上げて' == QuestionFirst) {//白をあげる問題だった場合 A.左手が上がっている
+    } else if ('赤上げないで白上げて' == QuestionFirst) {//白をあげる問題だった場合 A.左手が上がっている
         CorrectAnswer = "左手あげてる";
         TimetoJudg = 3000;//判定が開始されるまでの時間
         ProgressTime = 20;//プログレスバーがが最大まで行く時間
@@ -360,7 +359,7 @@ function NOFLAG() {
         TimetoJudg = 3000;//判定が開始されるまでの時間
         ProgressTime = 20;//プログレスバーがが最大まで行く時間
     };
-    setTimeout(LOOPFLAG,TimetoJudg);//設定した秒数後にLOOPFLAG(判定の開始)の処理に移動する
+    setTimeout(LOOPFLAG, TimetoJudg);//設定した秒数後にLOOPFLAG(判定の開始)の処理に移動する
 };
 
 //白い旗だけ上がっている状態からスタートした場合 出題問題(赤上げて, 白下げて)
@@ -393,7 +392,7 @@ function WhiteRiseredDownFlag() {
         CorrectAnswer = "両手下げてる";
         TimetoJudg = 1000;//判定が開始されるまでの時間
         ProgressTime = 19;//プログレスバーがが最大まで行く時間
-    }else if ('赤上げないで白下げて' == QuestionWhiteON) {//白を下げる問題だった場合 A.両手が下がっている
+    } else if ('赤上げないで白下げて' == QuestionWhiteON) {//白を下げる問題だった場合 A.両手が下がっている
         FlagNo = true;//両手が下がっている判定が出来るようにする
         CorrectAnswer = "両手さげてる";
         TimetoJudg = 3000;//判定が開始されるまでの時間
@@ -403,7 +402,7 @@ function WhiteRiseredDownFlag() {
         TimetoJudg = 3000;//判定が開始されるまでの時間
         ProgressTime = 20;//プログレスバーがが最大まで行く時間
     };
-    setTimeout(LOOPFLAG,  TimetoJudg); //設定した秒数後にLOOPFLAG(判定の開始)の処理に移動する
+    setTimeout(LOOPFLAG, TimetoJudg); //設定した秒数後にLOOPFLAG(判定の開始)の処理に移動する
 };
 
 //赤い旗だけ上がっている状態からスタートした場合 出題問題(赤下げて, 白上げて)
@@ -436,7 +435,7 @@ function RedRisewhiteDownFlag() {
         CorrectAnswer = "両手上げてる";
         TimetoJudg = 1000;//判定が開始されるまでの時間
         ProgressTime = 19;//プログレスバーがが最大まで行く時間
-    }else if ('白上げないで赤下げて' == QuestionRedON) {//赤を下げる問題だった場合 A.両手が下がっている
+    } else if ('白上げないで赤下げて' == QuestionRedON) {//赤を下げる問題だった場合 A.両手が下がっている
         FlagNo = true;//両手が下がっている判定が出来るようにする
         CorrectAnswer = "両手さげてる";
         TimetoJudg = 3000;//判定が開始されるまでの時間
@@ -446,7 +445,7 @@ function RedRisewhiteDownFlag() {
         TimetoJudg = 3000;//判定が開始されるまでの時間
         ProgressTime = 20;//プログレスバーがが最大まで行く時間
     };
-    setTimeout(LOOPFLAG,TimetoJudg);//設定した秒数後にLOOPFLAG(判定の開始)の処理に移動する
+    setTimeout(LOOPFLAG, TimetoJudg);//設定した秒数後にLOOPFLAG(判定の開始)の処理に移動する
 };
 
 //両方上がっている状態からスタートした場合 出題問題(赤下げて, 白下げて)
@@ -521,18 +520,18 @@ async function PREDICT() {
             }
             //右手が上げられた場合
             if (Name == "右" && Value >= 0.9) {
-                 //赤い旗の表示
-                 let RedFlagImg = document.getElementById("Hatahuman");
-                 RedFlagImg.src = "img/righthand.png";
+                //赤い旗の表示
+                let RedFlagImg = document.getElementById("Hatahuman");
+                RedFlagImg.src = "img/righthand.png";
                 if (FlagRight == true) {//FlagRightがtrueの間実行する
                     AnswerArray.push("右");//配列AnswerArrayに"右"を格納する
                 }
             }
             //左手が上げられた場合
             if (Name == "左" && Value >= 0.9) {
-                 //白い旗の表示
-                 let WhiteFlagImg = document.getElementById("Hatahuman");
-                 WhiteFlagImg.src = "img/lefthand.png";
+                //白い旗の表示
+                let WhiteFlagImg = document.getElementById("Hatahuman");
+                WhiteFlagImg.src = "img/lefthand.png";
                 if (FlagLeft == true) {//FlagLeftがtrueの間実行する
                     AnswerArray.push("左");//配列AnswerArrayに"左"を格納する
                 }
@@ -637,7 +636,9 @@ function CHECKANSWER() {
     if (Answers === CorrectAnswer) {//回答が正解だった場合の処理
         TrueSound.play();//正解の音声を再生
         console.log("正解");
-        GameNav.innerText = ('正解！');//正解と表示する
+        //マルを表示する
+        let GameNav = document.getElementById("GameNav");
+        // GameNav.src = ".png";
         CurrentScore++;//正解数に1を足す
         if (playernumber == "player1") {
             docRef.update({
@@ -668,7 +669,9 @@ function CHECKANSWER() {
     } else {
         FalseSound.play();
         console.log("残念");
-        GameNav.innerText = ('不正解！');//不正解と表示する
+        //バツを表示する
+        let GameNav = document.getElementById("GameNav");
+        //GameNav.src = ".png";
         ADJUSTSCORE();///ADJUSTSCORE(ミスした時の処理)移動する
     }
     Answers = "";//Answersの初期化

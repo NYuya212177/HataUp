@@ -5,7 +5,6 @@ let Model, Webcam, Ctx, LabelContainer, MaxPredictions;
 //getElementById...HTML要素の取得を行う
 const CountStart = document.getElementById("countdown");
 const Question = document.getElementById("question");
-const GameNav = document.getElementById("GameNav");
 
 var CountTime = 3;//始まる前のカウントダウンの時間
 //問題の一覧
@@ -412,7 +411,9 @@ function CHECKANSWER() {
     if (Answers === CorrectAnswer) {//回答が正解だった場合の処理
         TrueSound.play();//正解の音声を再生
         console.log("正解");
-        GameNav.innerText = ('正解！');//正解と表示する
+        //正解と表示する
+        let GameNav = document.getElementById("GameNav");
+        // GameNav.src = ".png";
         CurrentScore++;//正解数に1を足す
         if (CurrentScore > 5) {//正解数が5問を超えたらフェイント問題が追加される
             if (FeintON == true) {
@@ -426,7 +427,9 @@ function CHECKANSWER() {
     } else {
         FalseSound.play();//不正解の音声を再生
         console.log("残念");
-        GameNav.innerText = ('不正解！');//不正解と表示する
+        //不正解と表示する
+        let GameNav = document.getElementById("GameNav");
+        //GameNav.src = ".png";
         ADJUSTSCORE();///ADJUSTSCORE(ミスした時の処理)移動する
     }
     Answers = "";//Answersの初期化
