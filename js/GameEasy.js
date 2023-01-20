@@ -52,8 +52,9 @@ var AnswerArray = ['無'];//判定した回答を配列に格納(空だと何も
 var TimetoJudg = null;//判定までの時間
 var ProgressTime = null;//プログレスバーがが最大まで行く時間
 var CurrentScore = 0;//正解数を格納
-const TrueSound = new Audio('mp3/true_sound.mp3');//正解した時の音声を設定
-const FalseSound = new Audio('mp3/false_sound.mp3');//不正解した時の音声を設定
+var TrueSound = new Audio('mp3/true_sound.mp3');//正解した時の音声を設定
+var FalseSound = new Audio('mp3/false_sound.mp3');//不正解した時の音声を設定
+
 var FlagRise = false;//判定のONOFF
 var FlagRight = true;//右が上がっている判定のONOFF
 var FlagLeft = true;//左が上がっている判定のONOFF

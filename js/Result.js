@@ -158,7 +158,3 @@ document.getElementById("home").addEventListener("click", function () {
         })
 
 });
-
-document.getElementById("stop").addEventListener("click", function () {
-
-});
