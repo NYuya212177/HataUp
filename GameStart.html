@@ -22,9 +22,9 @@
             <diV>
                 <input id="easy" class="r" name="LevelOfDifficulty" type="radio" value="easy" checked />
                 <label for="easy" checked>かんたん</label>
-                <input id="normal" class="r" name="LevelOfDifficulty" type="radio" value="normal" checked/>
+                <input id="normal" class="r" name="LevelOfDifficulty" type="radio" value="normal" checked />
                 <label for="normal" checked>ふつう</label>
-                <input id="hard" class="r" name="LevelOfDifficulty" type="radio" value="hard" checked/>
+                <input id="hard" class="r" name="LevelOfDifficulty" type="radio" value="hard" checked />
                 <label for="hard" checked>むずかしい</label>
             </diV>
         </div>
@@ -47,13 +47,13 @@
     <script>
         // ServiceWorker登録：https://developers.google.com/web/fundamentals/primers/service-workers/?hl=ja
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('js/sw.js').then(function(registration) {
+            navigator.serviceWorker.register('js/sw.js').then(function (registration) {
                 console.log('ServiceWorker registration successful with scope: ', registration.scope);
-            }).catch(function(err) {
+            }).catch(function (err) {
                 console.log('ServiceWorker registration failed: ', err);
             });
         }
-        </script>
+    </script>
 </body>
 
 </html>

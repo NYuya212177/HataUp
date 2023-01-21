@@ -67,38 +67,25 @@ docRef.get().then((doc) => {
 
     // player1テキストレイアウトがnullかつfirebaseのフィールドのplayer1がnull出ない場合の処理
     if (setplayer1 == null && player1 != null) {
-
         document.getElementById("player1").textContent = player1;
-
     }
-
     // player2テキストレイアウトがnullかつfirebaseのフィールドのplayer2がnull出ない場合の処理
     if (setplayer2 == null && player2 != null) {
-
         document.getElementById("player2").textContent = player2;
-
     }
-
     // player3テキストレイアウトがnullかつfirebaseのフィールドのplayer3がnull出ない場合の処理
     if (setplayer3 == null && player3 != null) {
-
         document.getElementById("player3").textContent = player3;
-
     }
-
     // player4テキストレイアウトがnullかつfirebaseのフィールドのplayer4がnull出ない場合の処理
     if (setplayer4 == null && player4 != null) {
-
         document.getElementById("player4").textContent = player4;
-
     }
 
     // player1(ホスト)がこの画面を操作する際の処理
     if (playernumber === "player1") {
-
         // player2(二人目)以降が入ってきた際
         if (player2 != null) {
-
             // GameStartボタンの表示
             document.getElementById("GameStart").style.display = 'inline'
             console.log("表示");
@@ -106,94 +93,56 @@ docRef.get().then((doc) => {
     }
 }).catch((error) => {
     console.log("ルームがありません", error);
-
 });
 
 // プレイヤーの待機画面に映す干支画像のパスワードの処理
 for (var i = 1; i <= 4; i++) {
-
     var k = i - 1;
     // i番目の文字をpasswordとする
     var password = setpassword.charAt(k);
-
     // i番目のpathナンバーのIDの場所をimgとする
     let img = document.getElementById("path" + i);
-
-    // i番目のパスワードがネズミ[0]の時
-    if (password == 0) {
+    
+    if (password == 0) {// i番目のパスワードがネズミ[0]の時
         console.log(i + " " + password);
-        // ネズミの画像をi番目のpathにセット
-        img.src = "img/Nezumi.png";
-
-        // i番目のパスワードがウシ[1]の時
-    } else if (password == 1) {
+        img.src = "img/Nezumi.png";// ネズミの画像をi番目のpathにセット
+    } else if (password == 1) { // i番目のパスワードがウシ[1]の時
         console.log(i + " " + password);
-        // ウシの画像をi番目のpathにセット
-        img.src = "img/Ushi.png";
-
-        // i番目のパスワードがトラ[2]の時
-    } else if (password == 2) {
+        img.src = "img/Ushi.png";// ウシの画像をi番目のpathにセット
+    } else if (password == 2) {// i番目のパスワードがトラ[2]の時
         console.log(i + " " + password);
-        // トラの画像をi番目のpathにセット
-        img.src = "img/Tora.png";
-
-        // i番目のパスワードがウサギ[3]の時
-    } else if (password == 3) {
+        img.src = "img/Tora.png";// トラの画像をi番目のpathにセット
+    } else if (password == 3) {// i番目のパスワードがウサギ[3]の時
         console.log(i + " " + password);
-        // ウサギの画像をi番目のpathにセット
-        img.src = "img/Usagi.png";
-
-        // i番目のパスワードがタツ[4]の時
-    } else if (password == 4) {
+        img.src = "img/Usagi.png";// ウサギの画像をi番目のpathにセット
+    } else if (password == 4) {// i番目のパスワードがタツ[4]の時
         console.log(i + " " + password);
-        // タツの画像をi番目のpathにセット
-        img.src = "img/Tatu.png";
-
-        // i番目のパスワードがヘビ[5]の時
-    } else if (password == 5) {
+        img.src = "img/Tatu.png";// タツの画像をi番目のpathにセット
+    } else if (password == 5) {// i番目のパスワードがヘビ[5]の時
         console.log(i + " " + password);
-        // ヘビの画像をi番目のpathにセット
-        img.src = "img/Hebi.png";
-
-        // i番目のパスワードがウマ[6]の時
-    } else if (password == 6) {
+        img.src = "img/Hebi.png";// ヘビの画像をi番目のpathにセット
+    } else if (password == 6) {// i番目のパスワードがウマ[6]の時
         console.log(i + " " + password);
-        // ウマの画像をi番目のpathにセット
-        img.src = "img/Uma.png";
-
-        // i番目のパスワードがヒツジ[7]の時
-    } else if (password == 7) {
+        img.src = "img/Uma.png";// ウマの画像をi番目のpathにセット
+    } else if (password == 7) { // i番目のパスワードがヒツジ[7]の時
         console.log(i + " " + password);
-        // ヒツジの画像をi番目のpathにセット
-        img.src = "img/Hithuji.png";
-
-        // i番目のパスワードがサル[8]の時
-    } else if (password == 8) {
+        img.src = "img/Hithuji.png"; // ヒツジの画像をi番目のpathにセット
+    } else if (password == 8) {// i番目のパスワードがサル[8]の時
         console.log(i + " " + password);
-        // サルの画像をi番目のpathにセット
-        img.src = "img/Saru.png";
-
-        // i番目のパスワードがトリ[9]の時
-    } else if (password == 9) {
+        img.src = "img/Saru.png";// サルの画像をi番目のpathにセット
+    } else if (password == 9) {// i番目のパスワードがトリ[9]の時
         console.log(i + " " + password);
-        // トラの画像をi番目のpathにセット
-        img.src = "img/Tori.png";
-
-        // i番目のパスワードがイヌ[A]の時
-    } else if (password == "A") {
+        img.src = "img/Tori.png";// トラの画像をi番目のpathにセット
+    } else if (password == "A") {// i番目のパスワードがイヌ[A]の時
         console.log(i + " " + password);
-        // イヌの画像をi番目のpathにセット
-        img.src = "img/Inu.png";
-
-        // i番目のパスワードがイノシシ[B]の時
-    } else if (password == "B") {
+        img.src = "img/Inu.png";// イヌの画像をi番目のpathにセット
+    } else if (password == "B") {// i番目のパスワードがイノシシ[B]の時
         console.log(i + " " + password);
-        // イノシシの画像をi番目のpathにセット
-        img.src = "img/Inoshishi.png";
+        img.src = "img/Inoshishi.png";// イノシシの画像をi番目のpathにセット
     }
 }
 
-// GameStartボタンを存在しない状態とする
+//GameStartボタンを存在しない状態とする
 document.getElementById("GameStart").style.display = 'none'
 console.log("非表示");
 
