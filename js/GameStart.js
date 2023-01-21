@@ -10,7 +10,7 @@ var level = null;
 
 //へやをつくるボタンを押した時の処理
 document.getElementById("RoomCreate").addEventListener("click", function () {
-    //●ボタンを押されたときに選択されていたラジオボタンのvalueを取得する処理
+    //ボタンを押されたときに選択されていた難易度のvalueを取得する処理
     for (var i = 0; i < LevelLength; i++) {
         if (LevelOfDifficulty.item(i).checked) {
             checkValue = LevelOfDifficulty.item(i).value;
@@ -38,7 +38,7 @@ document.getElementById("RoomCreate").addEventListener("click", function () {
 
 //へやにはいるボタンを押した時の処理
 document.getElementById("RoomIn").addEventListener("click", function () {
-    //●ボタンを押されたときに選択されていたラジオボタンのvalueを取得する処理
+    //ボタンを押されたときに選択されていた難易度のvalueを取得する処理
     for (var i = 0; i < LevelLength; i++) {
         if (LevelOfDifficulty.item(i).checked) {
             checkValue = LevelOfDifficulty.item(i).value;
@@ -66,7 +66,7 @@ document.getElementById("RoomIn").addEventListener("click", function () {
 
 //ボタンを押した時の処理
 document.getElementById("SoloGame").addEventListener("click", function () {
-    //●ボタンを押されたときに選択されていたラジオボタンのvalueを取得する処理
+    //ボタンを押されたときに選択されていた難易度のvalueを取得する処理
     for (var i = 0; i < LevelLength; i++) {
         if (LevelOfDifficulty.item(i).checked) {
             checkValue = LevelOfDifficulty.item(i).value;
