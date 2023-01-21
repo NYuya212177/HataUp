@@ -21,7 +21,7 @@ localStorage.removeItem("name");
 var setpassword = null;
 //craftpassword変数の初期化
 var craftpassword = null;
-//clevel変数の初期化
+//level変数の初期化
 var level = null;
 //setname変数の初期化
 var setname = null;
