@@ -26,7 +26,7 @@ var point1 = null;
 var point2 = null;
 var point3 = null;
 var point4 = null;
-
+//firebaseのcraftpasswordを取得
 const docRef = firestore.collection("Craft" + level).doc(craftpassword);
 //ユーザー名を表示
 document.getElementById("pointtext").innerHTML = setname + "さん";

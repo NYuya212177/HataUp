@@ -10,7 +10,6 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 var firestore = firebase.firestore();
-
 //RoomCreateかRoomInで設定したplayernumberをplayernumberとする
 const playernumber = localStorage.getItem("playernumber");
 console.log(playernumber);
