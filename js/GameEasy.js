@@ -8,28 +8,22 @@ const firebaseConfig = {
     appId: "1:819131453401:web:45f88cf4fa35b4580593c8",
     measurementId: "G-BG0VK3RC6V"
 };
-
 firebase.initializeApp(firebaseConfig);
 const firestore = firebase.firestore();
-
 // RoomCreateかRoomInで設定したplayernumberをplayernumberとする
 const playernumber = localStorage.getItem("playernumber");
 console.log(playernumber);
-
 // RoomCreateかRoomInで設定したnameをsetnameとする
 const setname = localStorage.getItem("name");
 console.log(setname);
-
 // RoomCreateかRoomInで設定したcraftpasswordをcraftpasswordとする
 const craftpassword = localStorage.getItem("craftpassword");
 console.log(craftpassword);
-
 // GameStartで設定したlevelをlevelとする
 const level = localStorage.getItem("level");
 console.log(level);
-
+//GameStartで設定した難易度とRoomCreateかRoomInで設定したsetpasswordでfirebaseのリファレンス指定
 const docRef = firestore.collection("Craft" + level).doc(craftpassword);
-
 //Teachable Machineエクスポートパネルによって提供されるモデルへのリンク(Teachable Machineのアップロードされたリンク)
 const URL = "https://teachablemachine.withgoogle.com/models/FgslK4WFL/";
 let Model, Webcam, Ctx, LabelContainer, MaxPredictions;

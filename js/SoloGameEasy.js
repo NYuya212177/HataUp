@@ -1,20 +1,21 @@
 //Teachable Machineエクスポートパネルによって提供されるモデルへのリンク(Teachable Machineのアップロードされたリンク)
 const URL = "https://teachablemachine.withgoogle.com/models/FgslK4WFL/";
 let Model, Webcam, Ctx, LabelContainer, MaxPredictions;
-
 //getElementById...HTML要素の取得を行う
 const CountStart = document.getElementById("countdown");
 const Question = document.getElementById("question");
-
 var CountTime = 3;//始まる前のカウントダウンの時間
 //問題の一覧
 var DownDown = ['赤上げて', '赤上げて', '赤上げて', '白上げて', '白上げて', '白上げて'];
 var WhiteRise = ['赤上げて', '赤上げて', '赤上げて', '白下げて', '白下げて', '白下げて'];
 var RedRise = ['白上げて', '白上げて', '白上げて', '白上げて', '赤下げて', '赤下げて', '赤下げて', '赤下げて'];
 var RiseRise = ['赤下げて', '赤下げて', '赤下げて', '赤下げて', '白下げて', '白下げて', '白下げて', '白下げて'];
-var QuestionFirst, QuestionWhiteON, QuestionRedON, QuestionONON;//NOFLAG(旗が上がっていない)問題,WhiteRiseredDownFlag(白い旗が上がっている)の問題,redRisewhiteDownFlag(赤い旗が上がっている)の問題,WhiteRiseredRiseFlag(両方上がっている)の問題を格納
-var Answers, CorrectAnswer;//回答と正解を格納
-var AnswerArray = ['無'];//判定した回答を配列に格納(空だと何もしていないときに最頻値を計算するとNullになるので無を入れておく)
+//NOFLAG(旗が上がっていない)問題,WhiteRiseredDownFlag(白い旗が上がっている)の問題,redRisewhiteDownFlag(赤い旗が上がっている)の問題,WhiteRiseredRiseFlag(両方上がっている)の問題を格納
+var QuestionFirst, QuestionWhiteON, QuestionRedON, QuestionONON;
+//回答と正解を格納
+var Answers, CorrectAnswer;
+//判定した回答を配列に格納(空だと何もしていないときに最頻値を計算するとNullになるので無を入れておく)
+var AnswerArray = ['無'];
 var TimetoJudg = null;//判定までの時間
 var Life = 5;//初期ライフ
 var CurrentScore = 0;//正解数を格納

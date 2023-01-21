@@ -10,7 +10,6 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 var firestore = firebase.firestore();
-
 //localStorageに保存したcraftpasswordの値をページが開いたときに削除
 localStorage.removeItem("craftpassword");
 //localStorageに保存したplayernumberの値をページが開いたときに削除
@@ -297,6 +296,7 @@ document.getElementById("GameStart").addEventListener("click", function () {
             player4 = doc.data().player4;
             //firebaseから値を取得を完了した際の処理
             if (doc.exists) {
+                //GameStartで設定した難易度とRoomCreateかRoomInで設定したsetpasswordでfirebaseのリファレンス指定
                 const docRef = firestore.collection("Craft" + level).doc(craftpassword);
                 //ホストがaddセットで作成したcraftpasswordをlocalStorageに保存
                 localStorage.setItem('craftpassword', craftpassword);

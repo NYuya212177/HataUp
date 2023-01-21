@@ -10,7 +10,6 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 var firestore = firebase.firestore();
-
 //localStorageに保存したcraftpasswordの値をページが開いたときに削除
 localStorage.removeItem("craftpassword");
 //localStorageに保存したplayernumberの値をページが開いたときに削除
