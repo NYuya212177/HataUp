@@ -1,4 +1,4 @@
-// firebaseのコンソールとアプリをつないでいる部分
+//firebaseのコンソールとアプリをつないでいる部分
 const firebaseConfig = {
     apiKey: "AIzaSyAJG9nKDU14PwHYSGGzV2EI8hVNDPePgsg",
     authDomain: "hataup-dc173.firebaseapp.com",
@@ -10,16 +10,16 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 const firestore = firebase.firestore();
-// RoomCreateかRoomInで設定したplayernumberをplayernumberとする
+//RoomCreateかRoomInで設定したplayernumberをplayernumberとする
 const playernumber = localStorage.getItem("playernumber");
 console.log(playernumber);
-// RoomCreateかRoomInで設定したnameをsetnameとする
+//RoomCreateかRoomInで設定したnameをsetnameとする
 const setname = localStorage.getItem("name");
 console.log(setname);
-// RoomCreateかRoomInで設定したcraftpasswordをcraftpasswordとする
+//RoomCreateかRoomInで設定したcraftpasswordをcraftpasswordとする
 const craftpassword = localStorage.getItem("craftpassword");
 console.log(craftpassword);
-// GameStartで設定したlevelをlevelとする
+//GameStartで設定したlevelをlevelとする
 const level = localStorage.getItem("level");
 console.log(level);
 //GameStartで設定した難易度とRoomCreateかRoomInで設定したsetpasswordでfirebaseのリファレンス指定
@@ -27,11 +27,9 @@ const docRef = firestore.collection("Craft" + level).doc(craftpassword);
 //Teachable Machineエクスポートパネルによって提供されるモデルへのリンク(Teachable Machineのアップロードされたリンク)
 const URL = "https://teachablemachine.withgoogle.com/models/FgslK4WFL/";
 let Model, Webcam, Ctx, LabelContainer, MaxPredictions;
-
 //getElementById...HTML要素の取得を行う
 const CountStart = document.getElementById("countdown");
 const Question = document.getElementById("question");
-
 var CountTime = 3;//始まる前のカウントダウンの時間
 //問題の一覧
 var DownDown = ['赤上げて', '赤上げて', '赤上げて', '白上げて', '白上げて', '白上げて'];
@@ -56,16 +54,15 @@ var op = {//旗が上がっている状態をtrue,下がっている状態をfal
     WhiteOP: false,
     RedOP: false,
 };
-var FeintON = true; //問題の難易度上げを1度だけするコード
-
+var FeintON = true;//問題の難易度上げを1度だけするコード
+//参加者登録
 var player1 = null;
 var player2 = null;
 var player3 = null;
 var player4 = null;
-
+//GameStartのオンオフ
 var GameStart = true;
-
-//初期ライフ
+//初期ライフ,正解数
 var Life = null;
 var miss = 0;
 var hp = null;
@@ -73,14 +70,14 @@ var HP = hp;
 var Heartpoint = null;
 var point = 0;
 
-// 指定したfirebaseから値を取得
+//指定したfirebaseから値を取得
 docRef.get().then((doc) => {
-    // firebaseに上がっているそれぞれのプレイヤー名をプレイヤーナンバーの変数に格納
+    //firebaseに上がっているそれぞれのプレイヤー名をプレイヤーナンバーの変数に格納
     player1 = doc.data().player1;
     player2 = doc.data().player2;
     player3 = doc.data().player3;
     player4 = doc.data().player4;
-    // 指定したfirebaseから値を取得してこれた際の処理
+    //指定したfirebaseから値を取得してこれた際の処理
     if (doc.exists) {
         if (player2 == null) {
             Life = "2";
@@ -101,14 +98,14 @@ docRef.get().then((doc) => {
 
 if (GameStart == true) {
     docRef.onSnapshot((doc) => {
-        // firebaseに上がっているそれぞれのプレイヤー名をプレイヤーナンバーの変数に格納
+        //firebaseに上がっているそれぞれのプレイヤー名をプレイヤーナンバーの変数に格納
         player1 = doc.data().player1;
         player2 = doc.data().player2;
         player3 = doc.data().player3;
         player4 = doc.data().player4
         if (doc.exists) {
             if (player3 == null) {
-                // 指定したfirebaseから値を取得してこれた際の処理
+                //指定したfirebaseから値を取得してこれた際の処理
                 var Standby1 = player1.substr(-4);
                 console.log("player1 : " + Standby1);
                 var Standby2 = player2.substr(-4);
@@ -118,7 +115,7 @@ if (GameStart == true) {
                     GAMESTART();
                 }
             } else if (player4 == null) {
-                // 指定したfirebaseから値を取得してこれた際の処理
+                //指定したfirebaseから値を取得してこれた際の処理
                 var Standby1 = player1.substr(-4);
                 console.log("player1 : " + Standby1);
                 var Standby2 = player2.substr(-4);
@@ -130,7 +127,7 @@ if (GameStart == true) {
                     GAMESTART();
                 }
             } else {
-                // 指定したfirebaseから値を取得してこれた際の処理
+                //指定したfirebaseから値を取得してこれた際の処理
                 var Standby1 = player1.substr(-4);
                 console.log("player1 : " + Standby1);
                 var Standby2 = player2.substr(-4);
@@ -148,6 +145,7 @@ if (GameStart == true) {
     });
 }
 
+//参加者全体の正解数を求める
 docRef.onSnapshot((doc) => {
     var point1 = doc.data().Score1;
     var point2 = doc.data().Score2;
@@ -165,6 +163,7 @@ docRef.onSnapshot((doc) => {
     document.getElementById("score").innerHTML = point;
 });
 
+//全体のライフを計算
 docRef.onSnapshot((doc) => {
     var life1 = doc.data().life1;
     var life2 = doc.data().life2;
@@ -181,32 +180,14 @@ docRef.onSnapshot((doc) => {
     }
     HP = hp - Heartpoint;
     document.getElementById("life").innerHTML = HP;
+    //ライフが0になったときにリザルト画面に行く
     if (HP === 0) {
-        //間違えたりタイムオーバー時にライフが無い場合リザルト画面に移動
-        GameNav.innerText = ('残念！ゲームオーバー');//残念！ゲームオーバーと表示する
         docRef.update({
             GameStart: "false",
         })
+        //間違えたりタイムオーバー時にライフが無い場合リザルト画面に移動
         location.href = "./Result.html";
     }
-});
-
-docRef.onSnapshot((doc) => {
-    var point1 = doc.data().Score1;
-    var point2 = doc.data().Score2;
-    var point3 = doc.data().Score3;
-    var point4 = doc.data().Score4;
-    if (player1 == null) {
-        console.log("error");
-    } else if (player2 == null) {
-        point = point1 + point2;
-    } else if (player3 == null) {
-        point = point1 + point2 + point3;
-    } else if (player4 == null) {
-        point = point1 + point2 + point3 + point4;
-    }
-    document.getElementById("score").innerHTML = point;
-
 });
 
 //DOM要素を読み込む
@@ -228,6 +209,7 @@ async function WEBCAMERA() {
     await Webcam.setup();//ウェブカメラへのアクセスをリクエストする
     Webcam.webcam.playsInline = true;//iphoneで動かすコード
     await Webcam.play();//カメラの起動
+    //アクセス許可されたら準備okにする
     var StandbyName = setname + "準備OK";
     if (playernumber == "player1") {
         docRef.update({
@@ -581,6 +563,7 @@ function CHECKANSWER() {
         let GameNav = document.getElementById("GameNav");
         // GameNav.src = ".png";
         CurrentScore++;//正解数に1を足す
+        //firebaseの正解数を更新
         if (playernumber == "player1") {
             docRef.update({
                 Score1: CurrentScore
@@ -646,7 +629,6 @@ function ADJUSTSCORE() {
                 life4: miss
             })
         }
-        console.log(Life);
     }
 }
 
