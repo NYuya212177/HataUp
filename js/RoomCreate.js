@@ -1,4 +1,4 @@
-// firebaseのコンソールとアプリをつないでいる部分
+//firebaseのコンソールとアプリをつないでいる部分
 const firebaseConfig = {
     apiKey: "AIzaSyAJG9nKDU14PwHYSGGzV2EI8hVNDPePgsg",
     authDomain: "hataup-dc173.firebaseapp.com",
@@ -11,41 +11,35 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 var firestore = firebase.firestore();
 
-// localStorageに保存したcraftpasswordの値をページが開いたときに削除
+//localStorageに保存したcraftpasswordの値をページが開いたときに削除
 localStorage.removeItem("craftpassword");
-
-// localStorageに保存したplayernumberの値をページが開いたときに削除
+//localStorageに保存したplayernumberの値をページが開いたときに削除
 localStorage.removeItem("playernumber");
-
-// localStorageに保存したname"の値をページが開いたときに削除
+//localStorageに保存したname"の値をページが開いたときに削除
 localStorage.removeItem("name");
-
-// setpassword変数の初期化
+//setpassword変数の初期化
 var setpassword = null;
-
-// craftpassword変数の初期化
+//craftpassword変数の初期化
 var craftpassword = null;
-
+//level変数の初期化
 var level = null;
-
+//setname変数の初期化
 var setname = null;
-
-// 透明なパス画像のを指定している
+//透明なパス画像のを指定している
 var Path1 = document.getElementById("path1");
 var Path2 = document.getElementById("path2");
 var Path3 = document.getElementById("path3");
 var Path4 = document.getElementById("path4");
-
-// 透明なパス画像をあとで出てくるif文で使いたくて設定している変数
+//透明なパス画像をあとで出てくるif文で使いたくて設定している変数
 var Path = Path1.src;
-
-// 最終のパスワードを入れるための変数の初期化
+//最終のパスワードを入れるための変数の初期化
 var pass1 = null;
 var pass2 = null;
 var pass3 = null;
 var pass4 = null;
 
-// 干支の画像を押したら透明なパス画像のところに左から順番に入れていくためのif文
+//干支の画像を押したら透明なパス画像のところに左から順番に入れていくためのif文
+//ネズミが押されたとき
 document.getElementById("nezumi").addEventListener("click", function () {
     if (Path1.src == Path) {
         Path1.src = "img/Nezumi.png";
@@ -62,6 +56,7 @@ document.getElementById("nezumi").addEventListener("click", function () {
     }
 })
 
+//うしが押されたとき
 document.getElementById("ushi").addEventListener("click", function () {
     if (Path1.src == Path) {
         Path1.src = "img/Ushi.png";
@@ -78,6 +73,7 @@ document.getElementById("ushi").addEventListener("click", function () {
     }
 })
 
+//とらが押されたとき
 document.getElementById("tora").addEventListener("click", function () {
     if (Path1.src == Path) {
         Path1.src = "img/Tora.png";
@@ -94,6 +90,7 @@ document.getElementById("tora").addEventListener("click", function () {
     }
 })
 
+//うさぎが押されたとき
 document.getElementById("usagi").addEventListener("click", function () {
     if (Path1.src == Path) {
         Path1.src = "img/Usagi.png";
@@ -110,6 +107,7 @@ document.getElementById("usagi").addEventListener("click", function () {
     }
 })
 
+//たつが押されたとき
 document.getElementById("tatu").addEventListener("click", function () {
     if (Path1.src == Path) {
         Path1.src = "img/Tatu.png";
@@ -126,6 +124,7 @@ document.getElementById("tatu").addEventListener("click", function () {
     }
 })
 
+//へびが押されたとき
 document.getElementById("hebi").addEventListener("click", function () {
     if (Path1.src == Path) {
         Path1.src = "img/Hebi.png";
@@ -142,6 +141,7 @@ document.getElementById("hebi").addEventListener("click", function () {
     }
 })
 
+//うまが押されたとき
 document.getElementById("uma").addEventListener("click", function () {
     if (Path1.src == Path) {
         Path1.src = "img/Uma.png";
@@ -158,6 +158,7 @@ document.getElementById("uma").addEventListener("click", function () {
     }
 })
 
+//ひつじが押されたとき
 document.getElementById("hithuji").addEventListener("click", function () {
     if (Path1.src == Path) {
         Path1.src = "img/Hithuji.png";
@@ -174,6 +175,7 @@ document.getElementById("hithuji").addEventListener("click", function () {
     }
 })
 
+//さるが押されたとき
 document.getElementById("saru").addEventListener("click", function () {
     if (Path1.src == Path) {
         Path1.src = "img/Saru.png";
@@ -190,6 +192,7 @@ document.getElementById("saru").addEventListener("click", function () {
     }
 })
 
+//とりが押されたとき
 document.getElementById("tori").addEventListener("click", function () {
     if (Path1.src == Path) {
         Path1.src = "img/Tori.png";
@@ -206,6 +209,7 @@ document.getElementById("tori").addEventListener("click", function () {
     }
 })
 
+//いぬが押されたとき
 document.getElementById("inu").addEventListener("click", function () {
     if (Path1.src == Path) {
         Path1.src = "img/Inu.png";
@@ -222,6 +226,7 @@ document.getElementById("inu").addEventListener("click", function () {
     }
 })
 
+//いのししが押されたとき
 document.getElementById("inoshishi").addEventListener("click", function () {
     if (Path1.src == Path) {
         Path1.src = "img/Inoshishi.png";
@@ -238,6 +243,7 @@ document.getElementById("inoshishi").addEventListener("click", function () {
     }
 })
 
+//×ボタンが押されたときに透明の画像を入れる
 document.getElementById("DELETE").addEventListener("click", function () {
     if (Path4.src != Path) {
         Path4.src = "img/Path.png";
@@ -250,52 +256,42 @@ document.getElementById("DELETE").addEventListener("click", function () {
     }
 });
 
-// 設定したパスをcloud firebaseのドキュメントとして設定しルームを作成する
-document.getElementById("GameStart").addEventListener("click", function () {
-
-    // 設定した名前をsetnameとする
+//設定したパスをcloud firebaseのドキュメントとして設定しルームを作成する
+document.getElementById("GameStart").addEventListener("click", function () {//ゲームスタートボタンを押した際の処理
+    //設定した名前をsetnameとする
     var setname = document.getElementById("name").value;
-
-    // HTMLに文字数を出力
+    //NameCountに名前の文字数を出力
     var NameCount = setname.length;
-
-    if(NameCount < 1){
+    if (NameCount < 1) {//名前が無いと"なまえをいれてね"とアラートを出す
         alert("なまえをいれてね");
-        // 透明なパスのところに動物が四つ入っていないときにルームに入れなくする処理
-    }else if(NameCount > 5){
-        setname = setname.substr( 0, 5 );
+    } else if (NameCount > 5) {//名前の文字数が5文字より多いと"５もじまでにしてね"とアラートを出す
+        //名前の先頭から5文字を入れる
+        setname = setname.substr(0, 5);
         console.log(setname);
         document.getElementById("name").value = setname;
         alert("５もじまでにしてね");
-    }else if (Path1.src == Path || Path2.src == Path || Path3.src == Path || Path4.src === Path) {
-
+    } else if (Path1.src == Path || Path2.src == Path || Path3.src == Path || Path4.src === Path) {//透明なパスのところに動物が四つ入っていないときにルームに入れなくする処理
         alert("pass足りない");
-        
-    } else {
-        // 画像でパスワードを設定したものを12進数で表記した値を合わせてsetpasswordとする
+    } else {//画像でパスワードを設定したものを12進数で表記した値を合わせてsetpasswordとする
+        //passに格納された英数字を元にパスワードをセットする
         setpassword = pass1 + pass2 + pass3 + pass4;
+        //ローカルストレージにセットしたパスワードを保存する
         localStorage.setItem('setpassword', setpassword);
         console.log(setpassword);
-
-        // GameStartで設定した難易度をlevelとする
+        //GameStartで設定した難易度をlevelとする
         level = localStorage.getItem("level");
         console.log(level);
-
-        // 上で設定した名前をlocalStorageに保存
+        //設定した名前をlocalStorageに保存
         localStorage.setItem('name', setname);
-
-        // player1(ホスト)であるということでlocalStorageにplayer1を保存
+        //player1(ホスト)であるということでlocalStorageにplayer1を保存
         localStorage.setItem('playernumber', "player1");
-
+        //firebaseにパスワードを入れる
         const db = firestore.collection(level).doc(setpassword);
-
         db.get().then((doc) => {
-
-            if (doc.exists) {
-                alert("現在このパスワードは使われています。");
+            if (doc.exists) {//firebaseにパスワードを入れたパスワードが被ったら現在このパスワードは使われていますとアラートを出す
+                alert("現在このパスワードは使われています");
             } else {
-
-                // addセットを使いfirebaseで絶対にかぶらないルームを作成
+                //addセットを使いfirebaseで絶対にかぶらないルームを作成
                 firestore.collection("Craft" + level).add({
                     GameStart: null,
                     player1: setname,
@@ -311,44 +307,26 @@ document.getElementById("GameStart").addEventListener("click", function () {
                     Score3: 0,
                     Score4: 0
                 })
-                    // addセットでルームをつくれた時にする処理
-                    .then((docRef) => {
-
-                        // addセットで作成したルームのdocument名を取得しcraftpasswordに入れる
+                    .then((docRef) => {//addセットでルームをつくれた時にする処理
+                        //addセットで作成したルームのdocument名を取得しcraftpasswordに入れる
                         craftpassword = docRef.id;
-
-                        // 作ったcraftpasswordをlocalStorageに保存
+                        //作ったcraftpasswordをlocalStorageに保存
                         localStorage.setItem('craftpassword', craftpassword);
                         console.log("craftpassword: ", craftpassword);
-
-                        // 一番上で取得してきた難易度と12進数表記したパスワードで一次的なルームを作る
-                        db.set({
-                            // 一次的なルームを作る際addセットで作った新しいルームdocument名を
-                            // passwordとしてfirebaseに格納
+                        db.set({//一番上で取得してきた難易度と12進数表記したパスワードで一次的なルームを作る
+                            //一次的なルームを作る際addセットで作った新しいルームdocument名をpasswordとしてfirebaseに格納
                             password: craftpassword,
-
                         })
-                            // 一次的なルームの作成完了時の処理
-                            .then(() => {
-
-                                // StandPage.htmlに画面遷移
+                            .then(() => {// 一次的なルームの作成完了時の処理
+                                //StandPage.htmlに画面遷移
                                 window.location.href = 'StandPage.html';
-
                             })
-                            // 一次的なルーム作成をする際のエラー処理
-                            .catch((error) => {
-
+                            .catch((error) => {//一次的なルーム作成をする際のエラー処理
                                 console.error("Error writing document: ", error);
-
                             });
-
                     })
-
-                    // addセットでルームを作成したときのエラー処理
-                    .catch((error) => {
-
+                    .catch((error) => {//addセットでルームを作成したときのエラー処理
                         alert("現在このパスワードは使われております");
-
                     });
             }
         });

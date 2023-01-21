@@ -12,15 +12,15 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const firestore = firebase.firestore();
 
-// RoomCreate Or RoomInで設定したplayernumberをplayernumberとする
+// RoomCreateかRoomInで設定したplayernumberをplayernumberとする
 const playernumber = localStorage.getItem("playernumber");
 console.log(playernumber);
 
-// RoomCreate Or RoomInで設定したnameをsetnameとする
+// RoomCreateかRoomInで設定したnameをsetnameとする
 const setname = localStorage.getItem("name");
 console.log(setname);
 
-// RoomCreate Or RoomInで設定したcraftpasswordをcraftpasswordとする
+// RoomCreateかRoomInで設定したcraftpasswordをcraftpasswordとする
 const craftpassword = localStorage.getItem("craftpassword");
 console.log(craftpassword);
 

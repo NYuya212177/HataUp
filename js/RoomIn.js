@@ -324,7 +324,6 @@ document.getElementById("GameStart").addEventListener("click", function () {
                             //StandPage.htmlに画面遷移
                             window.location.href = 'StandPage.html';
                         })
-
                     //player4がいなかった際の処理
                 } else if (player4 == null) {
                     console.log(setname);
