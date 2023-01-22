@@ -327,7 +327,7 @@ function WhiteRiseredDownFlag() {
         AllTimeSet();//AllTimeSet(時間設定)の処理に移動する
     } else if ('赤上げないで白下げて' == QuestionWhiteON) {//白を下げる問題だった場合 A.両手が下がっている
         FlagNo = true;//両手が下がっている判定が出来るようにする
-        CorrectAnswer = "両手さげてる";
+        CorrectAnswer = "両手下てる";
         TimeSetNum = 1;//時間設定の区分1を入れる
         AllTimeSet();//AllTimeSet(時間設定)の処理に移動する
     } else if ('白下げないで赤上げて' == QuestionWhiteON) {//赤をあげる問題だった場合 A.両手が上がっている
@@ -396,7 +396,7 @@ function RedRisewhiteDownFlag() {
         AllTimeSet();//AllTimeSet(時間設定)の処理に移動する
     } else if ('白上げないで赤下げて' == QuestionRedON) {//赤を下げる問題だった場合 A.両手が下がっている
         FlagNo = true;//両手が下がっている判定が出来るようにする
-        CorrectAnswer = "両手さげてる";
+        CorrectAnswer = "両手下てる";
         TimeSetNum = 1;//時間設定の区分1を入れる
         AllTimeSet();//AllTimeSet(時間設定)の処理に移動する
     } else if ('赤下げないで白上げて' == QuestionRedON) {//白をあげる問題だった場合 A.両手が上がっている
@@ -464,7 +464,7 @@ function WhiteRiseredRiseFlag() {
         AllTimeSet();//AllTimeSet(時間設定)の処理に移動する
     } else if ('白下げないで赤下げて' == QuestionONON) {//赤を下げる問題だった場合 A.左手が下がっている
         FlagNo = true;//両手が下がっている判定が出来るようにする
-        CorrectAnswer = "両手さげてる";
+        CorrectAnswer = "両手下てる";
         TimeSetNum = 1;//時間設定の区分1を入れる
         AllTimeSet();//AllTimeSet(時間設定)の処理に移動する
     } else if ('赤下げないで白下げて' == QuestionONON) {//白を下げる問題だった場合 A.右手が上がっている
@@ -678,8 +678,8 @@ function CHECKANSWER() {
             if (FeintON == true) {
                 FeintON = false;//1度だけ追加するようにする
                 DownDown.push("赤上げないで白上げて", "赤上げないで白上げて", "赤上げないで白上げて", "白上げないで赤上げて", "白上げないで赤上げて", "白上げないで赤上げて");
-                WhiteRise.push("赤上げないで白下げて", "赤上げないで白下げて", "赤上げないで白下げて", "白下げないで赤上げ", "白下げないで赤上げ", "白下げないで赤上げ");
-                RedRise.push("白上げないで赤下げて", "白上げないで赤下げて", "白上げないで赤下げて", "赤下げないで白上げ", "赤下げないで白上げ", "赤下げないで白上げ");
+                WhiteRise.push("赤上げないで白下げて", "赤上げないで白下げて", "赤上げないで白下げて", "白下げないで赤上げて", "白下げないで赤上げて", "白下げないで赤上げて");
+                RedRise.push("白上げないで赤下げて", "白上げないで赤下げて", "白上げないで赤下げて", "赤下げないで白上げて", "赤下げないで白上げて", "赤下げないで白上げて");
                 RiseRise.push("白下げないで赤下げて", "白下げないで赤下げて", "白下げないで赤下げて", "赤下げないで白下げて", "赤下げないで白下げて", "赤下げないで白下げて");
             }
         }
