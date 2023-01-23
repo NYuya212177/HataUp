@@ -3,8 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="css/GameEasy.css">
-    <link rel="stylesheet" media="screen and (max-width: 480px)">
+    <link rel="stylesheet" href="css/Game.css">
     <title>旗上げ</title>
     <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-firestore.js"></script>
@@ -23,26 +22,32 @@
                 <p id="life" class="fieldc"> </p>
             </div>
         </ul>
+    </div>
+    <!-- 最初のカウントダウン -->
+    <h2 id="countdown">すこしまってね</h2>
+    <p1 class="siro">ひだりてが<span1>しろ</span1>
+    </p1>
+    <p2 class="aka">みぎてが<span2>あか</span2>
+    </p2>
 
-        <!-- 最初のカウントダウン -->
-        <h2 id="countdown">すこしまってね</h2>
-
-        <!-- 問題が出てくる場所 -->
-        <div class="mm">
-            <div class="flex">
-                <div class="field"></div>
-                <div id="question" class="fieldx">もんだい</div>
-            </div>
+    <!-- 問題が出てくる場所 -->
+    <div class="boder">
+        <div class="flex">
+            <div class="field"></div>
+            <div id="question" class="fieldx">もんだい</div>
         </div>
-        <!-- 問題のカウントダウン -->
+    </div>
+    <!-- 問題のカウントダウン -->
+    <div class="center">
         <progress id="Qcountdown" min="0" max="100" value="0"></progress>
-        <img src="img/usagidaruma.png" align="left">
-        <!-- 正解不正解の表示 -->
-        <img id="GameNav" src="">
+    </div>
+    <img src="img/usagidaruma.png" align="left">
+    <!-- 正解不正解の表示 -->
+    <div class="center">
+        <img id="GameNav" src="" class="toi">
     </div>
     <!-- 画像を表示 -->
-    <img id="Hatahuman" src="">
-    </div>
+    <img id="Hatahuman" src="" class="human">
     <!-- teachable machineのカメラ判定 -->
     <div><canvas id="Canvas"></canvas></div>
     <div id="label-container"></div>

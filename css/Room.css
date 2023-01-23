@@ -2,30 +2,18 @@
 
 /*画面全体のレイアウト*/
 body {
-    background: url(background/Haikei.jpg) center;
-    /*背景画像指定*/
-    background-repeat: no-repeat;
-    /*画像複製阻止*/
-    background-size: cover;
-    /*画面領域*/
-    height: 100vh;
-    /*高さ設定*/
-    text-align: center;
-    /*中央配置*/
-    touch-action: manipulation;
-}
-
-html,
-body {
-    overflow: hidden
+    background: url(background/Haikei.jpg) center; /*背景画像指定*/
+    background-repeat: no-repeat; /*画像複製阻止*/
+    background-size: cover; /*画面領域*/
+    height: 100vh; /*高さ設定*/
+    text-align: center; /*中央配置*/
+    touch-action: manipulation; /*画面二回タップで拡大を阻止*/
 }
 
 /* 名前を教えてのテキスト */
 .name {
-    margin-top: -40px;
     font-size: 30px;
     font-family: 'HGP行書体';
-    text-align: center;
     color: red;
 }
 
@@ -33,17 +21,15 @@ body {
 h1 {
     font-size: 30px;
     font-family: 'HGP行書体';
-    text-align: center;
     color: red;
 }
 
 /*名前テキストボックスのデザイン*/
-/*https://copypet.jp/692/*/
-.cp_iptxt {
+/* .cp_iptxt {
     margin: auto;
     text-align: center;
     position: relative;
-}
+} */
 
 .cp_iptxt input[type='text'] {
     background: cadetblue;
@@ -51,13 +37,13 @@ h1 {
     box-sizing: border-box;
     width: 400px;
     padding: 10px 10px;
-    border-radius: 15px;
+    border-radius: 30px;
     border: none;
 }
 
 .ef input[type='text']:focus {
-    border: 10px solid blueviolet;
-    border-radius: 15px;
+    border: 10px solid #f08080;
+    border-radius: 30px;
     outline: none;
 }
 
@@ -68,14 +54,15 @@ input::placeholder {
     text-align: center;
 }
 
+input[type="text"]{
+    color: #FFF;
+}
+
 /*透明なパスワード欄の画像のレイアウト*/
 .usepath {
-    width: 400px;
-    /*ボタンの幅*/
-    border-radius: 15px;
-    /*ボタンの角削除*/
-    margin: auto;
-    /*中央配置*/
+    width: 400px; /*ボタンの幅*/
+    border-radius: 30px; /*ボタンの角削除*/
+    margin: auto; /*中央配置*/
     background: cadetblue;
     text-align: center;
 }
@@ -127,6 +114,8 @@ input::placeholder {
     font-size: 30px;
     background: #ff8181;
     color: #FFF;
+    padding-left: 20px;
+    padding-right: 20px;
     width: 60px;
     height: 60px;
     border-radius: 100%;
@@ -148,17 +137,16 @@ input::placeholder {
     font-family: 'HGP行書体';
     padding: 20px 20px;
     color: #fff;
-    background-color: tomato;
+    background-color: #f08080;
     border-radius: 20px;
     border: none;
-    /* デフォルトで入るリンクの下線を消す */
-    box-shadow: 0 3px 0 tomato;
+    box-shadow: 0 3px 0 #f08080;
     text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
 }
 
 .roommake:hover {
-    background-color: tomato;
-    box-shadow: 0 3px 0 tomato;
+    background-color: #f08080;
+    box-shadow: 0 3px 0 #f08080;
 }
 
 /*ボタンアクション*/
@@ -168,23 +156,24 @@ input::placeholder {
     transform: translateY(4px);
 }
 
-/*前の画面に画面遷移ボタンデザイン*/
+/*前の画面に遷移するボタンデザイン*/
 .back {
-    margin-left: -80%;
+    margin-right: 600px;
     font-size: 30px;
-    font-weight: bold;
     text-decoration: none;
-    background: mediumpurple;
+    background: #f08080;
     color: #FFF;
+    padding-left: 20px;
+    padding-right: 20px;
     width: 60px;
     height: 60px;
     line-height: 50px;
-    border-radius: 10px;
+    border-radius: 100px;
     text-align: center;
     overflow: hidden;
     border: none;
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
-    border-bottom: solid 3px mediumpurple;
+    border-bottom: solid 3px #f08080;
     transition: .4s;
 }
 
@@ -197,15 +186,16 @@ input::placeholder {
 
 /* @mediaルールを使ったレスポンシブなCSSの記述例 */
 @media screen and (max-width: 1000px) {
-    /* 画面の横幅が480px以下のときに適用されるCSSはすべてここに記述する */
+    /* 画面の横幅が1000px以下のときに適用されるCSSはすべてここに記述する */
 
     /*画面全体のレイアウト*/
     body {
-        background: url(background/Haikei.jpg) center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        text-align: center;
-        touch-action: manipulation;
+        background: url(background/Haikei.jpg) center; /*背景画像指定*/
+        background-repeat: no-repeat; /*画像複製阻止*/
+        background-size: cover; /*画面領域*/
+        height: 100vh; /*高さ設定*/
+        text-align: center; /*中央配置*/
+        touch-action: manipulation; /*画面二回タップで拡大を阻止*/
     }
 
     html,
@@ -217,10 +207,8 @@ input::placeholder {
     .name {
         margin-top: 30px;
         margin-bottom: 4%;
-        font-weight: 900px;
         font-family: 'HGP行書体';
         font-size: 70px;
-        text-align: center;
         color: red;
     }
 
@@ -228,15 +216,12 @@ input::placeholder {
     h1 {
         margin-top: 60px;
         margin-bottom: 3%;
-        font-weight: 900px;
         font-family: 'HGP行書体';
         font-size: 70px;
-        text-align: center;
         color: red;
     }
 
     /*名前テキストボックスのデザイン*/
-    /*https://copypet.jp/692/*/
     .cp_iptxt {
         margin: auto;
         text-align: center;
@@ -249,20 +234,24 @@ input::placeholder {
         box-sizing: border-box;
         width: 700px;
         padding: 30px 30px;
-        border-radius: 15px;
+        border-radius: 30px;
         border: none;
     }
 
     .ef input[type='text']:focus {
-        border: 20px solid blueviolet;
-        border-radius: 15px;
+        border: 20px solid #f08080;
+        border-radius: 30px;
         outline: none;
     }
 
     input::placeholder {
-        color: #fff;
+        color: cadetblue;
         font-size: 60px;
         font-style: italic;
+    }
+
+    input[type="text"]{
+        color: #FFF;
     }
 
     /*透明なパスワード欄の画像のレイアウト*/
@@ -270,7 +259,7 @@ input::placeholder {
         padding-bottom: 10px;
         width: 70%;
         /*ボタンの幅*/
-        border-radius: 15px;
+        border-radius: 30px;
         /*ボタンの角削除*/
         margin: auto;
         /*中央配置*/
@@ -293,7 +282,7 @@ input::placeholder {
 
     /*干支のパスワード画像設定*/
     .path img {
-        margin-top: 60px;
+        margin-top: 100px;
         margin-left: 25px;
         margin-right: 25px;
         width: 12%;
@@ -321,12 +310,13 @@ input::placeholder {
 
     /*パスのdeleteボタンレレイアウト*/
     .delete {
-        font-size: 100px;
-        background: #ff8181;
+        font-size: 90px;
+        background: #f08080;
         color: #FFF;
-        width: 130px;
-        height: 130px;
-        border-radius: 100%;
+        padding-left: 20px;
+        padding-right: 20px;
+        width: 120px;
+        height: 120px;
         border: none;
         box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.29);
         transition: .5s;
@@ -341,22 +331,22 @@ input::placeholder {
 
     /*部屋を作るボタンデザイン*/
     .roommake {
-        margin-top: 50px;
+        margin-top: 100px;
         font-size: 60px;
         font-family: 'HGP行書体';
         padding: 30px 30px;
         color: #fff;
-        background-color: tomato;
+        background-color: #f08080;
         border-radius: 20px;
         border: none;
         /* デフォルトで入るリンクの下線を消す */
-        box-shadow: 0 3px 0 tomato;
+        box-shadow: 0 3px 0 #f08080;
         text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
     }
 
     .roommake:hover {
-        background-color: tomato;
-        box-shadow: 0 3px 0 tomato;
+        background-color: #f08080;
+        box-shadow: 0 3px 0 #f08080;
     }
 
     /*ボタンアクション*/
@@ -368,20 +358,22 @@ input::placeholder {
 
     /*前の画面に画面遷移ボタンデザイン*/
     .back {
-        margin-left: -80%;
-        font-size: 80px;
+        margin-right: 600px;
+        font-size: 60px;
         text-decoration: none;
-        background: mediumpurple;
+        background: #f08080;
         color: #FFF;
+        padding-left: 20px;
+        padding-right: 20px;
         width: 120px;
         height: 120px;
         line-height: 120px;
-        border-radius: 30px;
+        border-radius: 100px;
         text-align: center;
         overflow: hidden;
         border: none;
         box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
-        border-bottom: solid 3px mediumpurple;
+        border-bottom: solid 3px #f08080;
         transition: .4s;
     }
 

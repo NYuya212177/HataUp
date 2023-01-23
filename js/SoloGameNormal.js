@@ -36,7 +36,8 @@ var op = {//旗が上がっている状態をtrue,下がっている状態をfal
     RedOP: false,
 };
 var FeintON = true; //問題の難易度上げを1度だけするコード
-
+// 回答結果の画像を貼るdocument
+let GameNav = document.getElementById("GameNav");
 //DOM要素を読み込む
 document.addEventListener("DOMContentLoaded", function (event) {
     WEBCAMERA();
@@ -468,8 +469,7 @@ function CHECKANSWER() {
         TrueSound.play();//正解の音声を再生
         console.log("正解");
         //正解と表示する
-        let GameNav = document.getElementById("GameNav");
-        // GameNav.src = ".png";
+        GameNav.src = "./img/maru.png";
         CurrentScore++;//正解数に1を足す
         if (CurrentScore > 5) {//正解数が5問を超えたらフェイント問題が追加される
             if (FeintON == true) {
@@ -484,8 +484,7 @@ function CHECKANSWER() {
         FalseSound.play();//不正解の音声を再生
         console.log("残念");
         //不正解と表示する
-        let GameNav = document.getElementById("GameNav");
-        //GameNav.src = ".png";
+        GameNav.src = "img/batu.png";
         ADJUSTSCORE();///ADJUSTSCORE(ミスした時の処理)移動する
     }
     Answers = "";//Answersの初期化
@@ -512,6 +511,7 @@ function ADJUSTSCORE() {
 
 //現在のプレイヤーの状態から問題の振り分け
 function judgeQuestion() {
+    GameNav.src = null;
     if ((op.WhiteOP === true) && (op.RedOP === true)) {//赤い旗と白い旗の両方が上がっている
         console.log("両手が上がっているときの問題");
         WhiteRiseredRiseFlag();//WhiteRiseredRiseFlag(両手が上がっているときの問題)に行く

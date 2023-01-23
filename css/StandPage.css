@@ -2,24 +2,19 @@
 
 /*画面全体のレイアウト*/
 body {
-    background: url(background/Haikei.jpg) center;
-    /*背景画像指定*/
-    background-repeat: no-repeat;
-    /*画像複製阻止*/
-    background-size: cover;
-    /*画面領域*/
-    height: 100vh;
-    /*高さ設定*/
-    touch-action: manipulation;
+    background: url(background/Haikei.jpg) center; /*背景画像指定*/
+    background-repeat: no-repeat; /*画像複製阻止*/
+    background-size: cover; /*画面領域*/
+    height: 100vh; /*高さ設定*/
+    touch-action: manipulation; /*画面二回タップで拡大を阻止*/
 }
 
-html,
+/* html,
 body {
     overflow: hidden
-}
+} */
 
 h1 {
-    margin-top: -60px;
     font-size: 30px;
     font-weight: bold;
     font-family: 'HGP行書体';
@@ -29,7 +24,7 @@ h1 {
 
 .player p {
     display: inline-block;
-    font-size: 30px;
+    font-size: 40px;
     font-family: 'HGP行書体';
     font-weight: bold;
     color: black;
@@ -37,34 +32,37 @@ h1 {
 
 .player p1 {
     display: inline-block;
-    font-size: 30px;
+    font-size: 40px;
     font-family: 'HGP行書体';
-    color: red;
+    font-weight: bold;
+    color: #f08080;
 }
 
 .player p2 {
     display: inline-block;
-    font-size: 30px;
+    font-size: 40px;
     font-family: 'HGP行書体';
-    color: blue;
+    font-weight: bold;
+    color: #f08080;
 }
 
 .player p3 {
     display: inline-block;
-    font-size: 30px;
+    font-size: 40px;
     font-family: 'HGP行書体';
-    color: yellow;
+    font-weight: bold;
+    color: #f08080;
 }
 
 .player p4 {
     display: inline-block;
-    font-size: 30px;
+    font-size: 40px;
     font-family: 'HGP行書体';
-    color: green;
+    font-weight: bold;
+    color: #f08080;
 }
 
 /*名前テキストボックスのデザイン*/
-/*https://copypet.jp/692/*/
 .cp_iptxt {
     margin: auto;
     position: relative;
@@ -87,11 +85,8 @@ h1 {
 /*透明なパスワード欄の画像のレイアウト*/
 .usepath {
     width: 400px;
-    /*ボタンの幅*/
     border-radius: 15px;
-    /*ボタンの角削除*/
     margin: auto;
-    /*中央配置*/
     background: cadetblue;
     text-align: center;
 }
@@ -176,17 +171,19 @@ h1 {
     margin-left: 100px;
     font-size: 30px;
     text-decoration: none;
-    background: mediumpurple;
+    background: #f08080;
     color: #FFF;
+    padding-left: 20px;
+    padding-right: 20px;
     width: 60px;
     height: 60px;
     line-height: 50px;
-    border-radius: 10px;
+    border-radius: 100px;
     text-align: center;
     overflow: hidden;
     border: none;
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
-    border-bottom: solid 3px mediumpurple;
+    border-bottom: solid 3px #f08080;
     transition: .4s;
 }
 
@@ -225,18 +222,17 @@ h1 {
     background-size: 45px;
 }
 
-/*スマホ画面レイアウト*/
 /* @mediaルールを使ったレスポンシブなCSSの記述例 */
 @media screen and (max-width: 1000px) {
     /* 画面の横幅が480px以下のときに適用されるCSSはすべてここに記述する */
 
     /*画面全体のレイアウト*/
     body {
-        background: url(background/Haikei.jpg) center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        height: 100vh;
-        touch-action: manipulation;
+    background: url(background/Haikei.jpg) center; /*背景画像指定*/
+    background-repeat: no-repeat; /*画像複製阻止*/
+    background-size: cover; /*画面領域*/
+    height: 100vh; /*高さ設定*/
+    touch-action: manipulation; /*画面二回タップで拡大を阻止*/
     }
 
     /*スクロール停止*/
@@ -257,6 +253,7 @@ h1 {
 
     /* 文字の色付け １*/
     .player p {
+        margin-top: 100px;
         display: inline-block;
         font-size: 50px;
         font-family: 'HGP行書体';
@@ -267,44 +264,45 @@ h1 {
     /* 文字の色付け １*/
     .player p1 {
         display: inline-block;
-        font-size: 40px;
+        font-size: 50px;
         font-family: 'HGP行書体';
-        color: red;
+        font-weight: bold;
+        color: #f08080;
     }
 
     /* 文字の色付け 2*/
     .player p2 {
         display: inline-block;
-        font-size: 25px;
+        font-size: 50px;
         font-family: 'HGP行書体';
-        color: blue;
+        font-weight: bold;
+        color: #f08080;
     }
 
     /* 文字の色付け 3*/
     .player p3 {
         display: inline-block;
-        font-size: 25px;
+        font-size: 50px;
         font-family: 'HGP行書体';
-        color: yellow;
+        font-weight: bold;
+        color: #f08080;
     }
 
     /* 文字の色付け 4*/
     .player p4 {
         display: inline-block;
-        font-size: 25px;
+        font-size: 50px;
         font-family: 'HGP行書体';
-        color: green;
+        font-weight: bold;
+        color: #f08080;
     }
 
     /*透明なパスワード欄の画像のレイアウト*/
     .usepath {
         padding-bottom: 10px;
         width: 70%;
-        /*ボタンの幅*/
         border-radius: 15px;
-        /*ボタンの角削除*/
         margin: auto;
-        /*中央配置*/
         background: cadetblue;
         text-align: center;
     }
@@ -333,10 +331,10 @@ h1 {
 
     /*パスのStartボタンレレイアウト*/
     .Start {
+        margin-top: 50px;
         display: block;
         text-align: center;
         text-decoration: none;
-        margin: auto;
         margin-left: 35%;
         padding: 40px 40px;
         border: 2px solid #f08080;
@@ -388,19 +386,21 @@ h1 {
     /*前の画面に画面遷移ボタンデザイン*/
     .back {
         margin-left: 5%;
-        font-size: 80px;
+        font-size: 60px;
         text-decoration: none;
-        background: mediumpurple;
+        background: #f08080;
         color: #FFF;
+        padding-left: 20px;
+        padding-right: 20px;
         width: 120px;
         height: 120px;
         line-height: 120px;
-        border-radius: 30px;
+        border-radius: 100px;
         text-align: center;
         overflow: hidden;
         border: none;
         box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
-        border-bottom: solid 3px mediumpurple;
+        border-bottom: solid 3px #f08080;
         transition: .4s;
     }
 

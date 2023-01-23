@@ -70,6 +70,8 @@ var HP = hp;
 var Heartpoint = null;
 var point = 0;
 
+// 回答結果の画像を貼るdocument
+let GameNav = document.getElementById("GameNav");
 //指定したfirebaseから値を取得
 docRef.get().then((doc) => {
     //firebaseに上がっているそれぞれのプレイヤー名をプレイヤーナンバーの変数に格納
@@ -558,10 +560,10 @@ function CHECKANSWER() {
     console.log("CorrectAnswer", CorrectAnswer);
     if (Answers === CorrectAnswer) {//回答が正解だった場合の処理
         TrueSound.play();//正解の音声を再生
+        
         console.log("正解");
         //マルを表示する
-        let GameNav = document.getElementById("GameNav");
-        // GameNav.src = ".png";
+        GameNav.src = "./img/maru.png";
         CurrentScore++;//正解数に1を足す
         //firebaseの正解数を更新
         if (playernumber == "player1") {
@@ -594,8 +596,7 @@ function CHECKANSWER() {
         FalseSound.play();
         console.log("残念");
         //バツを表示する
-        let GameNav = document.getElementById("GameNav");
-        //GameNav.src = ".png";
+        GameNav.src = "img/batu.png";
         ADJUSTSCORE();///ADJUSTSCORE(ミスした時の処理)移動する
     }
     Answers = "";//Answersの初期化
@@ -634,6 +635,7 @@ function ADJUSTSCORE() {
 
 //現在のプレイヤーの状態から問題の振り分け
 function judgeQuestion() {
+    GameNav.src = null;
     if ((op.WhiteOP === true) && (op.RedOP === true)) {//赤い旗と白い旗の両方が上がっている
         console.log("両手が上がっているときの問題");
         WhiteRiseredRiseFlag();//WhiteRiseredRiseFlag(両手が上がっているときの問題)に行く

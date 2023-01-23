@@ -3,8 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="css/SoloGame.css">
-    <link rel="stylesheet" media="screen and (max-width: 480px)">
+    <link rel="stylesheet" href="css/Game.css">
     <title>旗上げ</title>
 </head>
 
@@ -23,21 +22,27 @@
 
         <!-- 最初のカウントダウン -->
         <h2 id="countdown">すこしまってね</h2>
+        <p1 class="siro">ひだりてが<span1>しろ</span1>
+        </p1>
+        <p2 class="aka">みぎてが<span2>あか</span2>
+        </p2>
 
         <!-- 問題が出てくる場所 -->
-        <div class="mm">
+        <div class="boder">
             <div class="flex">
                 <div class="field"></div>
                 <div id="question" class="fieldx">もんだい</div>
             </div>
         </div>
         <!-- 問題のカウントダウン -->
-        <progress id="Qcountdown" min="0" max="100" value="0"></progress>
+        <div class="center">
+            <progress id="Qcountdown" min="0" max="100" value="0"></progress>
+        </div>
         <img src="img/usagidaruma.png" align="left">
         <!-- 正解不正解の表示 -->
-        <img id="GameNav" src="">
+        <img id="GameNav" src="" class="toi">
         <!-- 画像を表示 -->
-        <img id="Hatahuman" src="">
+        <img id="Hatahuman" src="" class="human">
     </div>
     <!-- teachable machineのカメラ判定 -->
     <div><canvas id="Canvas"></canvas></div>

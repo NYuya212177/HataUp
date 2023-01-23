@@ -5,27 +5,48 @@
     <meta charset="UTF-8">
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="css/GameStart.css">
-    <!-- 画面の横幅が480px以下のときに適用されるCSSはすべてここに記述する -->
-    <link rel="stylesheet" media="screen and (max-width: 480px)">
-    <title>旗上げ</title>
+    <title>はたあげゲーム</title>
     <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-messaging.js"></script>
 </head>
 
 <body>
-    <img src="img/theme.png" align="top">
+    <div id="sakura_block">
+        <div class="sakura_parts_box">
+            <img src="img/sakura1.png" alt="" class="parts_01">
+            <img src="img/sakura2.png" alt="" class="parts_02">
+            <img src="img/sakura3.png" alt="" class="parts_03">
+            <img src="img/sakura4.png" alt="" class="parts_04">
+            <img src="img/sakura5.png" alt="" class="parts_05">
+            <img src="img/sakura6.png" alt="" class="parts_06">
+            <img src="img/sakura7.png" alt="" class="parts_07">
+            <img src="img/sakura2.png" alt="" class="parts_08">
+            <img src="img/sakura1.png" alt="" class="parts_09">
+            <img src="img/sakura7.png" alt="" class="parts_10">
+            <img src="img/sakura5.png" alt="" class="parts_11">
+            <img src="img/sakura2.png" alt="" class="parts_12">
+            <img src="img/sakura4.png" alt="" class="parts_13">
+            <img src="img/sakura3.png" alt="" class="parts_14">
+            <img src="img/sakura1.png" alt="" class="parts_15">
+            <img src="img/sakura3.png" alt="" class="parts_16">
+            <img src="img/sakura4.png" alt="" class="parts_17">
+            <img src="img/sakura5.png" alt="" class="parts_18">
+            <img src="img/sakura7.png" alt="" class="parts_19">
+        </div>
+    </div>
+    <img src="img/icon.png" class="icon" align="top">
     <!-- 難易度設定用ボタンレイアウト -->
     <h1>むずかしさをえらんでね</h1>
     <form>
         <div class="center">
             <diV>
-                <input id="easy" class="r" name="LevelOfDifficulty" type="radio" value="easy" checked />
+                <input id="easy" class="radio" name="hoge" type="radio" value="easy" checked />
                 <label for="easy" checked>かんたん</label>
-                <input id="normal" class="r" name="LevelOfDifficulty" type="radio" value="normal" checked />
-                <label for="normal" checked>ふつう</label>
-                <input id="hard" class="r" name="LevelOfDifficulty" type="radio" value="hard" checked />
-                <label for="hard" checked>むずかしい</label>
+                <input id="normal" class="radio" name="hoge" type="radio" value="normal" />
+                <label for="normal">ふつう</label>
+                <input id="hard" class="radio" name="hoge" type="radio" value="hard" />
+                <label for="hard">むずかしい</label>
             </diV>
         </div>
     </form>
@@ -33,7 +54,6 @@
     <!-- 一人で遊ぶ用ボタンレイアウト -->
     <h2>ひとりであそぶ</h2>
     <div class="center">
-        <!-- GameStart.htmlへ画面遷移 -->
         <button type="submit" id="SoloGame" class="soro">スタート</button>
     </div>
 
@@ -53,6 +73,8 @@
                 console.log('ServiceWorker registration failed: ', err);
             });
         }
+
     </script>
 </body>
+
 </html>

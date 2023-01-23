@@ -2,33 +2,20 @@
 
 /*画面全体のレイアウト*/
 body {
-    background: url(background/Haikei.jpg) center;
-    /*背景画像指定*/
-    background-repeat: no-repeat;
-    /*画像複製阻止*/
-    background-size: cover;
-    /*画面領域*/
-    height: 100vh;
-    /*高さ設定*/
-    text-align: center;
-    /*中央配置*/
-    touch-action: manipulation;
-    /*画面二回タップで拡大を阻止*/
+    background: url(background/Haikei.jpg) center; /*背景画像指定*/
+    background-repeat: no-repeat; /*画像複製阻止*/
+    background-size: cover; /*画面領域*/
+    height: 100vh; /*高さ設定*/
+    text-align: center; /*中央配置*/
+    touch-action: manipulation; /*画面二回タップで拡大を阻止*/
 }
 
-/*title.png*/
-img {
+.icon {
     height: 150px;
 }
 
-/*スクロール停止*/
-html,
-body {
-    overflow: hidden
-}
-
 /*ラジオボタン*/
-.r {
+.radio {
     display: none;
     box-shadow: 0 3px 0 #66CCCC;
     text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
@@ -44,7 +31,7 @@ label {
     box-shadow: 0 3px 0 #66CCCC;
 }
 
-.r:checked+label {
+.radio:checked+label {
     box-shadow: none;
     background-color: #f08080;
     -webkit-transform: translateY(4px);
@@ -78,12 +65,9 @@ h3 {
 .soro {
     font-size: 20px;
     font-family: 'HGP行書体';
-    padding: 20px 20px;
-    /*幅、高さ*/
-    border-radius: 20px;
-    /*角を丸くする*/
-    border: none;
-    /* デフォルトで入るリンクの下線を消す */
+    padding: 20px 20px;/*幅、高さ*/
+    border-radius: 20px;/*角を丸くする*/
+    border: none;/* デフォルトで入るリンクの下線を消す */
     color: #fff;
     background-color: #f08080;
     box-shadow: 0 3px 0 #f08080;
@@ -106,12 +90,9 @@ h3 {
 .room {
     font-size: 20px;
     font-family: 'HGP行書体';
-    padding: 20px 20px;
-    /*幅、高さ*/
-    border-radius: 20px;
-    /*角を丸くする*/
-    border: none;
-    /* デフォルトで入るリンクの下線を消す */
+    padding: 20px 20px; /*幅、高さ*/
+    border-radius: 20px; /*角を丸くする*/
+    border: none; /* デフォルトで入るリンクの下線を消す */
     color: #fff;
     background-color: #f08080;
     box-shadow: 0 3px 0 #f08080;
@@ -128,6 +109,211 @@ h3 {
     box-shadow: none;
     -webkit-transform: translateY(4px);
     transform: translateY(4px);
+}
+
+#sakura_block {
+    width: 100%;
+}
+
+#sakura_block .sakura_parts_box {
+    position: relative;
+}
+
+#sakura_block .sakura_parts_box img {
+    position: absolute;
+}
+
+#sakura_block .sakura_parts_box img:nth-child(2n+1) {
+    width: 13px; /*花びらのサイズ*/
+}
+
+#sakura_block .sakura_parts_box img:nth-child(2n) {
+    width: 15px; /*花びらのサイズ*/
+}
+
+/*桜の花びらパーツの表示位置*/
+img.parts_01 {
+    top: 0;
+    left: 5%;
+}
+
+img.parts_02 {
+    top: 0;
+    left: 12%;
+}
+
+img.parts_03 {
+    top: 0;
+    left: 15%;
+}
+
+img.parts_04 {
+    top: 0;
+    left: 22%;
+}
+
+img.parts_05 {
+    top: 0;
+    left: 25%;
+}
+
+img.parts_06 {
+    top: 0;
+    left: 28%;
+}
+
+img.parts_07 {
+    top: 0;
+    left: 35%;
+}
+
+img.parts_08 {
+    top: 0;
+    left: 40%;
+}
+
+img.parts_09 {
+    top: 0;
+    left: 43%;
+}
+
+img.parts_10 {
+    top: 0;
+    left: 50%;
+}
+
+img.parts_11 {
+    top: 0;
+    left: 55%;
+}
+
+img.parts_12 {
+    top: 0;
+    left: 60%;
+}
+
+img.parts_13 {
+    top: 0;
+    left: 63%;
+}
+
+img.parts_14 {
+    top: 0;
+    left: 70%;
+}
+
+img.parts_15 {
+    top: 0;
+    left: 75%;
+}
+
+img.parts_16 {
+    top: 0;
+    left: 81%;
+}
+
+img.parts_17 {
+    top: 0;
+    left: 85%;
+}
+
+img.parts_18 {
+    top: 0;
+    left: 90%;
+}
+
+img.parts_19 {
+    top: 0;
+    left: 93%;
+}
+
+
+/* 舞い散るアニメーション回転しつつ上から下へ */
+@keyframes sakura {
+    0% {
+        opacity: 0;
+    }
+
+    20% {
+        transform: translate(3px, 30px) rotate(20deg);
+        opacity: 1;
+    }
+
+    30% {
+        transform: translate(0, 50px) rotate(50deg);
+    }
+
+    50% {
+        transform: translate(-20px, 100px) rotate(150deg);
+    }
+
+    70% {
+        transform: translate(-40px, 150px) rotate(-50deg);
+        opacity: .8;
+    }
+
+    90% {
+        transform: translate(-60px, 200px) rotate(-180deg);
+    }
+
+    100% {
+        transform: translate(-70px, 230px);
+        opacity: 0;
+    }
+}
+
+.sakura_parts_box img {
+    animation: sakura linear 6s infinite; /*アニメーションが始まるまで画像を見えなくしておく*/
+    opacity: 0;
+}
+
+/*アニメーションが始まるまでの時間*/
+img.parts_01,
+img.parts_04,
+img.parts_07,
+img.parts_10,
+img.parts_08,
+img.parts_11,
+img.parts_13,
+img.parts_16,
+img.parts_19 {
+    -webkit-animation-delay: 0s;
+    animation-delay: 0s;
+}
+
+img.parts_02,
+img.parts_05 {
+    -webkit-animation-delay: 1.5s;
+    animation-delay: 1.5s;
+}
+
+img.parts_03,
+img.parts_06,
+img.parts_09,
+img.parts_12 {
+    -webkit-animation-delay: 4s;
+    animation-delay: 4s;
+}
+
+img.parts_08,
+img.parts_11,
+img.parts_13,
+img.parts_16,
+img.parts_19 {
+    -webkit-animation-delay: 0.5s;
+    animation-delay: 0.5s;
+}
+
+img.parts_14,
+img.parts_17 {
+    -webkit-animation-delay: 2s;
+    animation-delay: 2s;
+}
+
+img.parts_15,
+img.parts_18 {
+    -webkit-animation-delay: 5s;
+    animation-delay: 5s;
 }
 
 /*スマホ画面レイアウト*/
@@ -156,8 +342,8 @@ h3 {
     }
 
     /*title.png*/
-    img {
-        height: 450px;
+    .icon {
+        height: 500px;
     }
 
     /*ラジオボタンデザイン*/
@@ -258,4 +444,214 @@ h3 {
         transform: translateY(4px);
     }
 
+    #sakura_block {
+        width: 100%;
+    }
+
+    #sakura_block .sakura_parts_box {
+        position: relative;
+    }
+
+    #sakura_block .sakura_parts_box img {
+        position: absolute;
+    }
+
+    #sakura_block .sakura_parts_box img:nth-child(2n+1) {
+        width: 80px;
+        /*花びらのサイズ*/
+    }
+
+    #sakura_block .sakura_parts_box img:nth-child(2n) {
+        width: 80px;
+        /*花びらのサイズ*/
+    }
+
+    /*桜の花びらパーツの表示位置*/
+    img.parts_01 {
+        top: 0;
+        left: 5%;
+    }
+
+    img.parts_02 {
+        top: 0;
+        left: 12%;
+    }
+
+    img.parts_03 {
+        top: 0;
+        left: 15%;
+    }
+
+    img.parts_04 {
+        top: 0;
+        left: 22%;
+    }
+
+    img.parts_05 {
+        top: 0;
+        left: 25%;
+    }
+
+    img.parts_06 {
+        top: 0;
+        left: 28%;
+    }
+
+    img.parts_07 {
+        top: 0;
+        left: 35%;
+    }
+
+    img.parts_08 {
+        top: 0;
+        left: 40%;
+    }
+
+    img.parts_09 {
+        top: 0;
+        left: 43%;
+    }
+
+    img.parts_10 {
+        top: 0;
+        left: 50%;
+    }
+
+    img.parts_11 {
+        top: 0;
+        left: 55%;
+    }
+
+    img.parts_12 {
+        top: 0;
+        left: 60%;
+    }
+
+    img.parts_13 {
+        top: 0;
+        left: 63%;
+    }
+
+    img.parts_14 {
+        top: 0;
+        left: 70%;
+    }
+
+    img.parts_15 {
+        top: 0;
+        left: 75%;
+    }
+
+    img.parts_16 {
+        top: 0;
+        left: 81%;
+    }
+
+    img.parts_17 {
+        top: 0;
+        left: 85%;
+    }
+
+    img.parts_18 {
+        top: 0;
+        left: 90%;
+    }
+
+    img.parts_19 {
+        top: 0;
+        left: 93%;
+    }
+
+
+    /*-----------------------------------
+      舞い散るアニメーション
+      回転しつつ上から下へ
+      -----------------------------------*/
+    @keyframes sakura {
+        0% {
+            opacity: 0;
+        }
+
+        20% {
+            transform: translate(3px, 30px) rotate(20deg);
+            opacity: 1;
+        }
+
+        30% {
+            transform: translate(0, 50px) rotate(50deg);
+        }
+
+        50% {
+            transform: translate(-20px, 100px) rotate(150deg);
+        }
+
+        70% {
+            transform: translate(-40px, 150px) rotate(-50deg);
+            opacity: .8;
+        }
+
+        90% {
+            transform: translate(-60px, 200px) rotate(-180deg);
+        }
+
+        100% {
+            transform: translate(-70px, 230px);
+            opacity: 0;
+        }
+    }
+
+    .sakura_parts_box img {
+        animation: sakura linear 6s infinite;
+        /*アニメーションが始まるまで画像を見えなくしておく*/
+        opacity: 0;
+    }
+
+    /*アニメーションが始まるまでの時間*/
+    img.parts_01,
+    img.parts_04,
+    img.parts_07,
+    img.parts_10,
+    img.parts_08,
+    img.parts_11,
+    img.parts_13,
+    img.parts_16,
+    img.parts_19 {
+        -webkit-animation-delay: 0s;
+        animation-delay: 0s;
+    }
+
+    img.parts_02,
+    img.parts_05 {
+        -webkit-animation-delay: 1.5s;
+        animation-delay: 1.5s;
+    }
+
+    img.parts_03,
+    img.parts_06,
+    img.parts_09,
+    img.parts_12 {
+        -webkit-animation-delay: 4s;
+        animation-delay: 4s;
+    }
+
+    img.parts_08,
+    img.parts_11,
+    img.parts_13,
+    img.parts_16,
+    img.parts_19 {
+        -webkit-animation-delay: 0.5s;
+        animation-delay: 0.5s;
+    }
+
+    img.parts_14,
+    img.parts_17 {
+        -webkit-animation-delay: 2s;
+        animation-delay: 2s;
+    }
+
+    img.parts_15,
+    img.parts_18 {
+        -webkit-animation-delay: 5s;
+        animation-delay: 5s;
+    }
 }
