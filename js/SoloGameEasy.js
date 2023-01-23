@@ -1,5 +1,5 @@
 //Teachable Machineエクスポートパネルによって提供されるモデルへのリンク(Teachable Machineのアップロードされたリンク)
-const URL = "https://teachablemachine.withgoogle.com/models/FgslK4WFL/";
+const URL = "https://teachablemachine.withgoogle.com/models/uK58cUWio/";
 let Model, Webcam, Ctx, LabelContainer, MaxPredictions;
 //getElementById...HTML要素の取得を行う
 const CountStart = document.getElementById("countdown");
