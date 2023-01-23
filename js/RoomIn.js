@@ -310,7 +310,7 @@ document.getElementById("GameStart").addEventListener("click", function () {
                             //player2(ゲスト)であるということでlocalStorageにplayer2を保存
                             localStorage.setItem('playernumber', "player2");
                             //StandPage.htmlに画面遷移
-                            window.location.href = 'StandPage.html';
+                            location.href = 'StandPage.html';
                         })
                 } else if (player3 == null) { //player3がいなかった際の処理
                     console.log(setname);
@@ -322,7 +322,7 @@ document.getElementById("GameStart").addEventListener("click", function () {
                             //player3(ゲスト)であるということでlocalStorageにplayer3を保存
                             localStorage.setItem('playernumber', "player3");
                             //StandPage.htmlに画面遷移
-                            window.location.href = 'StandPage.html';
+                            location.href = 'StandPage.html';
                         })
                     //player4がいなかった際の処理
                 } else if (player4 == null) {
@@ -335,7 +335,7 @@ document.getElementById("GameStart").addEventListener("click", function () {
                             //player4(ゲスト)であるということでlocalStorageにplayer4を保存
                             localStorage.setItem('playernumber', "player4");
                             //StandPage.htmlに画面遷移
-                            window.location.href = 'StandPage.html';
+                            location.href = 'StandPage.html';
                         })
                 } else {//player4がいた際の処理
                     console.log("人がいっぱいでルームに入れません");

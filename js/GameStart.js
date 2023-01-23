@@ -33,7 +33,7 @@ document.getElementById("RoomCreate").addEventListener("click", function () {
         }
     }
     //RoomCreate.html(へやをつくる)に画面遷移
-    window.location.href = 'RoomCreate.html';
+    location.href = 'RoomCreate.html';
 })
 
 //へやにはいるボタンを押した時の処理
@@ -61,7 +61,7 @@ document.getElementById("RoomIn").addEventListener("click", function () {
         }
     }
     //RoomIn.html(へやにはいる)に画面遷移
-    window.location.href = 'RoomIn.html';
+    location.href = 'RoomIn.html';
 })
 
 //ボタンを押した時の処理
@@ -72,24 +72,24 @@ document.getElementById("SoloGame").addEventListener("click", function () {
             checkValue = LevelOfDifficulty.item(i).value;
             if (checkValue === "easy") {
                 level = "easy";
-                console.log(localStorage);
+                console.log(level);
             } else if (checkValue === "normal") {
                 level = "normal";
-                console.log(localStorage);
+                console.log(level);
             } else if (checkValue === "hard") {
                 level = "hard";
-                console.log(localStorage);
+                console.log(level);
             }
         }
     }
     if (level === "easy") {//難易度がかんたんの時
         //SoloGameEasy.htmlに画面遷移
-        window.location.href = 'SoloGameEasy.html';
+        location.href = 'SoloGameEasy.html';
     } else if (level === "normal") {//難易度がふつうの時
         //SoloGameNormal.htmlに画面遷移
-        window.location.href = 'SoloGameNormal.html';
+        location.href = 'SoloGameNormal.html';
     } else if (level === "hard") {//難易度がむずかしいの時
         //SoloGameHard.htmlに画面遷移
-        window.location.href = 'SoloGameHard.html';
+        location.href = 'SoloGameHard.html';
     }
 });

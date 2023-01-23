@@ -9,11 +9,11 @@ document.getElementById("point").innerHTML = Point;
 //もう一回が押されたときの処理
 document.getElementById("again").addEventListener("click", function () {
     //SoloGame.htmlに画面遷移
-    window.location.href = 'SoloGame.html';
+    location.href = 'SoloGame.html';
 });
 
 //ホームに戻るボタンが押されたときの処理
 document.getElementById("home").addEventListener("click", function () {
     //GameStart.htmlに画面遷移
-    window.location.href = 'GameStart.html';
+    location.href = 'GameStart.html';
 });

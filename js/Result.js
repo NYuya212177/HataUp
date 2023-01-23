@@ -72,7 +72,7 @@ document.getElementById("again").addEventListener("click", function () {
             })
                 .then(() => {//値の格納が成功した際の処理
                     //StandPage.htmlに画面遷移
-                    window.location.href = 'StandPage.html';
+                    location.href = 'StandPage.html';
                 }).catch((error) => {//指定したfirebaseのDelete失敗(エラー)
                     console.error("Error removing document: ", error);
                 })
@@ -82,7 +82,7 @@ document.getElementById("again").addEventListener("click", function () {
             })
                 .then(() => {//値の格納が成功した際の処理
                     //StandPage.htmlに画面遷移
-                    window.location.href = 'StandPage.html';
+                    location.href = 'StandPage.html';
                 }).catch((error) => {//指定したfirebaseのDelete失敗(エラー)
                     console.error("Error removing document: ", error);
                 })
@@ -92,7 +92,7 @@ document.getElementById("again").addEventListener("click", function () {
             })
                 .then(() => {//値の格納が成功した際の処理
                     //StandPage.htmlに画面遷移
-                    window.location.href = 'StandPage.html';
+                    location.href = 'StandPage.html';
                 }).catch((error) => {//指定したfirebaseのDelete失敗(エラー)
                     console.error("Error removing document: ", error);
                 })
@@ -102,7 +102,7 @@ document.getElementById("again").addEventListener("click", function () {
             })
                 .then(() => {//値の格納が成功した際の処理
                     //StandPage.htmlに画面遷移
-                    window.location.href = 'StandPage.html';
+                    location.href = 'StandPage.html';
                 }).catch((error) => {//指定したfirebaseのDelete失敗(エラー)
                     console.error("Error removing document: ", error);
                 })
@@ -117,7 +117,7 @@ document.getElementById("home").addEventListener("click", function () {
     })
         .then(() => {//値の格納が成功した際の処理
             //GameStart.htmlに画面遷移
-            window.location.href = 'GameStart.html';
+            location.href = 'GameStart.html';
         }).catch((error) => {//指定したfirebaseのDelete失敗(エラー)
             console.error("Error removing document: ", error);
         })

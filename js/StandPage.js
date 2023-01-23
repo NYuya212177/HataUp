@@ -173,19 +173,19 @@ if (playernumber === "player1") {
         if (Start == "true") {
             if (level === "easy") {//難易度がかんたんの時
                 //GameEasy.htmlに画面遷移
-                window.location.href = 'GameEasy.html';
+                location.href = 'GameEasy.html';
             } else if (level === "normal") {//難易度がふつうの時
                 //GameNormal.htmlに画面遷移
-                window.location.href = 'GameNormal.html';
+                location.href = 'GameNormal.html';
             } else if (level === "hard") {//難易度がむずかしいの時
                 //GameHard.htmlに画面遷移
-                window.location.href = 'GameHard.html';
+                location.href = 'GameHard.html';
             }
         }
         if (Start == "end") {//GameStartにendが入っていたら"ゲームがかいさんされました"とアラートで出す
             alert("ゲームがかいさんされました");
             //GameStart.htmlに画面遷移
-            window.location.href = 'GameStart.html';
+            location.href = 'GameStart.html';
         }
     });
 }
@@ -207,13 +207,13 @@ document.getElementById("GameStart").addEventListener("click", function () {
             })
             if (level === "easy") {//難易度がかんたんの時
                 //GameEasy.htmlに画面遷移
-                window.location.href = 'GameEasy.html';
+                location.href = 'GameEasy.html';
             } else if (level === "normal") {//難易度がふつうの時
                 //GameNormal.htmlに画面遷移
-                window.location.href = 'GameNormal.html';
+                location.href = 'GameNormal.html';
             } else if (level === "hard") {//難易度がむずかしいの時
                 //GameHard.htmlに画面遷移
-                window.location.href = 'GameHard.html';
+                location.href = 'GameHard.html';
             }
         })
         .catch((error) => {//エラー処理
@@ -233,10 +233,10 @@ document.getElementById("back").addEventListener("click", function () {
             console.log("Document successfully deleted!");
             if (playernumber === "player1") {
                 //RoomCreate.htmlに画面遷移
-                window.location.href = 'RoomCreate.html';
+                location.href = 'RoomCreate.html';
             } else {
                 //RoomIn.htmlに画面遷移
-                window.location.href = 'RoomIn.html';
+                location.href = 'RoomIn.html';
             }
         }).catch((error) => {//指定したfirebaseのDelete失敗(エラー)
             console.error("Error removing document: ", error);

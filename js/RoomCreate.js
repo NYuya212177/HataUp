@@ -318,7 +318,7 @@ document.getElementById("GameStart").addEventListener("click", function () {//�
                         })
                             .then(() => {// 一次的なルームの作成完了時の処理
                                 //StandPage.htmlに画面遷移
-                                window.location.href = 'StandPage.html';
+                                location.href = 'StandPage.html';
                             })
                             .catch((error) => {//一次的なルーム作成をする際のエラー処理
                                 console.error("Error writing document: ", error);
