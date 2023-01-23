@@ -77,9 +77,10 @@ function GAMESTART() {
     //カウントダウンの開始 1秒ごとにCOUNTDOWNに移動する
     setInterval(COUNTDOWN, 1000);//setInterval…一定時間ごとに特定の処理を繰り返す
     //旗が上がっていない状態からのスタート 5秒後にNOFLAGに移動する
-    setTimeout(NOFLAG, 5000);//setTimeout…一定時間後に一度だけ特定の処理をおこなう
+    //setTimeout(NOFLAG, 5000);//setTimeout…一定時間後に一度だけ特定の処理をおこなう
 };
 
+var FirstQuestionNOFLAG = true;
 //ゲーム開始までのカウントダウン
 function COUNTDOWN() {
     //CountTime(3)から1秒ごとに1引いて、0になったら表示を消す
@@ -87,7 +88,11 @@ function COUNTDOWN() {
         CountStart.innerText = CountTime;
         CountTime--;
     } else if (CountTime === 0) {
-        CountStart.style.opacity = 0;
+        CountStart.style.opacity = 0;//表示を見えなくする
+        if(FirstQuestionNOFLAG == true){//1度だけ処理をする
+            NOFLAG();
+        }
+        FirstQuestionNOFLAG = false;
     };
 };
 
@@ -321,7 +326,7 @@ function AllTimeSet() {
             ProgressTime = 2.5;
             HanteiTime = 1000;
         };
-    } 
+    }
 }
 
 //モデルの判定を繰り返し実行
