@@ -1,7 +1,7 @@
 //localStorageにセットされているすべての値を削除
 localStorage.clear();
 //htmlの難易度を取得
-var LevelOfDifficulty = document.getLevelOfDifficultyByName("LevelOfDifficulty");
+var LevelOfDifficulty = document.getElementsByName("LevelOfDifficulty");
 //htmlの難易度を取得
 var LevelLength = LevelOfDifficulty.length;
 var checkValue = null;
