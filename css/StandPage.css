@@ -255,7 +255,7 @@ h1 {
     .player p {
         margin-top: 100px;
         display: inline-block;
-        font-size: 50px;
+        font-size: 70px;
         font-family: 'HGP行書体';
         font-weight: bold;
         color: black;
@@ -264,7 +264,7 @@ h1 {
     /* 文字の色付け １*/
     .player p1 {
         display: inline-block;
-        font-size: 50px;
+        font-size: 70px;
         font-family: 'HGP行書体';
         font-weight: bold;
         color: #f08080;
@@ -273,7 +273,7 @@ h1 {
     /* 文字の色付け 2*/
     .player p2 {
         display: inline-block;
-        font-size: 50px;
+        font-size: 70px;
         font-family: 'HGP行書体';
         font-weight: bold;
         color: #f08080;
@@ -282,7 +282,7 @@ h1 {
     /* 文字の色付け 3*/
     .player p3 {
         display: inline-block;
-        font-size: 50px;
+        font-size: 70px;
         font-family: 'HGP行書体';
         font-weight: bold;
         color: #f08080;
@@ -291,7 +291,7 @@ h1 {
     /* 文字の色付け 4*/
     .player p4 {
         display: inline-block;
-        font-size: 50px;
+        font-size: 70px;
         font-family: 'HGP行書体';
         font-weight: bold;
         color: #f08080;
@@ -416,7 +416,7 @@ h1 {
         padding-left: 8%;
         background: url(icon/rdesign_6510.png) no-repeat left center;
         padding-right: 30px;
-        background-size: 60px;
+        background-size: 100px;
     }
 
     /*文字のアイコンデザイン 2*/
@@ -424,7 +424,7 @@ h1 {
         padding-left: 8%;
         background: url(icon/rdesign_09830.png) no-repeat left center;
         padding-right: 30px;
-        background-size: 60px;
+        background-size: 100px;
     }
 
     /*文字のアイコンデザイン 3*/
@@ -432,7 +432,7 @@ h1 {
         padding-left: 8%;
         background: url(icon/rdesign_13677.png) no-repeat left center;
         padding-right: 30px;
-        background-size: 60px;
+        background-size: 100px;
     }
 
     /*文字のアイコンデザイン 4*/
@@ -440,7 +440,7 @@ h1 {
         padding-left: 8%;
         background: url(icon/rdesign_14831s2.png) no-repeat left center;
         padding-right: 30px;
-        background-size: 60px;
+        background-size: 100px;
     }
 
 }
