@@ -32,6 +32,8 @@ var op = {//旗が上がっている状態をtrue,下がっている状態をfal
     WhiteOP: false,
     RedOP: false,
 };
+//setIntervalをいれる
+var First, Progress, Loop1, Loop2, Loop3, Loop4, Move, judge;
 var FeintON = true; //問題の難易度上げを1度だけするコード
 // 回答結果の画像を貼るdocument
 let GameNav = document.getElementById("GameNav");
@@ -73,7 +75,7 @@ function GAMESTART() {
     //カウントダウンの開始 1秒ごとにCOUNTDOWNに移動する
     setInterval(COUNTDOWN, 1000);//setInterval…一定時間ごとに特定の処理を繰り返す
     //旗が上がっていない状態からのスタート 5秒後にNOFLAGに移動する
-    setTimeout(NOFLAG, 5000);//setTimeout…一定時間後に一度だけ特定の処理をおこなう
+    First = setInterval(NOFLAG, 5000);//setTimeout…一定時間後に一度だけ特定の処理をおこなう
 };
 
 //ゲーム開始までのカウントダウン
@@ -97,6 +99,7 @@ function ProgressBar() {
 
 //旗が上がっていない状態からスタートした場合 出題問題(赤上げて, 白上げて)
 function NOFLAG() {
+    clearInterval(First);//setIntervalの繰り返しを止める
     FlagRight = true;//右手が上がっていると判定するようにする
     FlagLeft = true;//左手が上がっていると判定するようにする
     QuestionFirst = DownDown[Math.floor(Math.random() * DownDown.length)];//DownDownの中から問題をシャッフル
@@ -128,7 +131,7 @@ function NOFLAG() {
         CorrectAnswer = "右手あげてる";
         TimetoJudg = 3000;//判定が開始されるまでの時間
     };
-    setTimeout(LOOPFLAG, TimetoJudg);//設定した秒数後にLOOPFLAG(判定の開始)の処理に移動する
+    Loop1 = setInterval(LOOPFLAG, TimetoJudg);//設定した秒数後にLOOPFLAG(判定の開始)の処理に移動する
 };
 
 //白い旗だけ上がっている状態からスタートした場合 出題問題(赤上げて, 白下げて)
@@ -167,7 +170,7 @@ function WhiteRiseredDownFlag() {
         CorrectAnswer = "両手あげてる";
         TimetoJudg = 3000;//判定が開始されるまでの時間
     };
-    setTimeout(LOOPFLAG, TimetoJudg); //設定した秒数後にLOOPFLAG(判定の開始)の処理に移動する
+    Loop2 = setInterval(LOOPFLAG, TimetoJudg);//設定した秒数後にLOOPFLAG(判定の開始)の処理に移動する
 };
 
 //赤い旗だけ上がっている状態からスタートした場合 出題問題(赤下げて, 白上げて)
@@ -206,7 +209,7 @@ function RedRisewhiteDownFlag() {
         CorrectAnswer = "右手あげてる";
         TimetoJudg = 3000;//判定が開始されるまでの時間
     };
-    setTimeout(LOOPFLAG, TimetoJudg);//設定した秒数後にLOOPFLAG(判定の開始)の処理に移動する
+    Loop3 = setInterval(LOOPFLAG, TimetoJudg);//設定した秒数後にLOOPFLAG(判定の開始)の処理に移動する
 };
 
 //両方上がっている状態からスタートした場合 出題問題(赤下げて, 白下げて)
@@ -244,7 +247,7 @@ function WhiteRiseredRiseFlag() {
         CorrectAnswer = "右手あげてる";
         TimetoJudg = 3000;//判定が開始されるまでの時間
     };
-    setTimeout(LOOPFLAG, TimetoJudg);//設定した秒数後にLOOPFLAG(判定の開始)の処理に移動する
+    Loop4 = setInterval(LOOPFLAG, TimetoJudg);//設定した秒数後にLOOPFLAG(判定の開始)の処理に移動する
 };
 
 //モデルの判定を繰り返し実行
@@ -253,6 +256,11 @@ function LOOPFLAG() {
     ProgressBar();//ProgressBar(カウントダウンの開始)の処理に移動する
     FlagRise = true;//判定が出来るようにFlagRiseをtrueにする
     MovementjudgmentStop = true;//最頻値の判定の繰り返しを動かす
+    //setIntervalの繰り返しを止める
+    clearInterval(Loop1);
+    clearInterval(Loop2);
+    clearInterval(Loop3);
+    clearInterval(Loop4);
 }
 
 //モデルの判定をし続ける
@@ -274,7 +282,7 @@ async function PREDICT() {
         //FlagRiseがtrueの間判定をする
         if (FlagRise == true) {
             if (MovementjudgmentStop == true) {
-                setTimeout(Movementjudgment, 3000);//3秒後にMovementjudgment(最頻値を求めての処理)に移動する
+                Move = setInterval(Movementjudgment, 3000);//3秒後にMovementjudgment(最頻値を求めての処理)に移動する
                 MovementjudgmentStop = false;//最頻値の判定の繰り返しを止める
             }
             //右手が上げられた場合
@@ -319,6 +327,7 @@ async function PREDICT() {
 
 //格納された判定した内容から最頻値を求めて回答をする
 function Movementjudgment() {
+    clearInterval(Move);//setIntervalの繰り返しを止める
     console.log(AnswerArray);
     const c = (x, i, v) => (x[i] ? x[i].add(v) : x[i] = new Set(v), i);
     //回答が格納された配列の後ろ2つからデータを取得する
@@ -406,7 +415,7 @@ function CHECKANSWER() {
     }
     Answers = "";//Answersの初期化
     document.getElementById('Qcountdown').value = 0;//プログレスバーの初期化
-    setTimeout(judgeQuestion, 2000);//judgeQuestion(問題の振り分けの処理)に行く
+    judge = setInterval(judgeQuestion, 2000);//judgeQuestion(問題の振り分けの処理)に行く
     //スコアと残りのライフを表示
     document.getElementById("score").innerHTML = CurrentScore;
     document.getElementById("Life").innerHTML = Life;
@@ -428,7 +437,8 @@ function ADJUSTSCORE() {
 
 //現在のプレイヤーの状態から問題の振り分け
 function judgeQuestion() {
-    GameNav.src = null;
+    clearInterval(judge);//setIntervalの繰り返しを止める
+    GameNav.src = "./img/Path.png";
     if ((op.WhiteOP === true) && (op.RedOP === true)) {//赤い旗と白い旗の両方が上がっている
         console.log("両手が上がっているときの問題");
         WhiteRiseredRiseFlag();//WhiteRiseredRiseFlag(両手が上がっているときの問題)に行く
