@@ -78,7 +78,7 @@ async function WEBCAMERA() {
 function GAMESTART() {
     FlagNo = false;//無を判定しないようにする
     Ratetime = 0.5;//読み上げの速度を0.5に設定
-    ProgressTime = 19;//プログレスバーが19で最大に行く
+    ProgressTime = 38;//プログレスバーが19で最大に行く
     //カウントダウンの開始 1秒ごとにCOUNTDOWNに移動する
     setInterval(COUNTDOWN, 1000);//setInterval…一定時間ごとに特定の処理を繰り返す
     //旗が上がっていない状態からのスタート 5秒後にNOFLAGに移動する
@@ -99,7 +99,7 @@ function COUNTDOWN() {
 //プログレスバーで判定までのカウントダウン
 function ProgressBar() {
     if (document.getElementById('Qcountdown').value < 100) {
-        document.getElementById('Qcountdown').value++;
+        document.getElementById('Qcountdown').value += 2;
         setTimeout(ProgressBar, ProgressTime);//時間を設定したらバーが最大までいく
     }
 }
@@ -382,53 +382,53 @@ function AllTimeSet() {
     if (TimeSetNum == 0) {//TimeSetNumが0の場合の処理
         if (Ratetime == 0.5) {
             TimetoJudg = 500;//判定が開始されるまでの時間
-            ProgressTime = 19;//プログレスバーの進む速度
+            ProgressTime = 38;//プログレスバーの進む速度
             HanteiTime = 3000;//判定がされている時間を設定
         } else if (Ratetime == 0.6) {
             TimetoJudg = 450;
-            ProgressTime = 15.5;
+            ProgressTime = 31;
             HanteiTime = 2500;
         } else if (Ratetime == 0.7) {
             TimetoJudg = 400;
-            ProgressTime = 10;
+            ProgressTime = 20;
             HanteiTime = 2000;
         } else if (Ratetime == 0.8) {
             TimetoJudg = 350;
-            ProgressTime = 8.5;
+            ProgressTime = 17;
             HanteiTime = 1500;
         } else if (Ratetime == 0.9) {
             TimetoJudg = 300;
-            ProgressTime = 4.5;
+            ProgressTime = 18
             HanteiTime = 1000;
         } else if (Ratetime == 1.0) {
             TimetoJudg = 250;
-            ProgressTime = 1.5;
+            ProgressTime = 3;
             HanteiTime = 1000;
         };
     } else if (TimeSetNum == 1) {//TimeSetNumが1の場合の処理
         if (Ratetime == 0.5) {
             TimetoJudg = 3000;//判定が開始されるまでの時間
-            ProgressTime = 20;//プログレスバーの進む速度
+            ProgressTime = 40;//プログレスバーの進む速度
             HanteiTime = 3000;//判定がされている時間を設定
         } else if (Ratetime == 0.6) {
             TimetoJudg = 2500;
-            ProgressTime = 15;
+            ProgressTime = 30;
             HanteiTime = 2500;
         } else if (Ratetime == 0.7) {
             TimetoJudg = 2000;
-            ProgressTime = 13;
+            ProgressTime = 26;
             HanteiTime = 2000;
         } else if (Ratetime == 0.8) {
             TimetoJudg = 2000;
-            ProgressTime = 8;
+            ProgressTime = 16;
             HanteiTime = 1500;
         } else if (Ratetime == 0.9) {
             TimetoJudg = 2000;
-            ProgressTime = 4.5;
+            ProgressTime = 18
             HanteiTime = 1000;
         } else if (Ratetime == 1.0) {
             TimetoJudg = 2000;
-            ProgressTime = 2.5;
+            ProgressTime = 5;
             HanteiTime = 1000;
         };
     }

@@ -92,8 +92,8 @@ function COUNTDOWN() {
 //プログレスバーで判定までのカウントダウン
 function ProgressBar() {
     if (document.getElementById('Qcountdown').value < 100) {
-        document.getElementById('Qcountdown').value++;
-        setTimeout(ProgressBar, 19);//バーが最大までいく
+        document.getElementById('Qcountdown').value+=2;
+        setTimeout(ProgressBar, 38);//バーが最大までいく
     }
 }
 
