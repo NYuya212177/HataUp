@@ -5,7 +5,7 @@
     "start_url": "GameStart.html",
     "icons": [
         {
-            "src": "img/icon.jpg",
+            "src": "img/iconi.png",
             "sizes": "192x192",
             "type": "image/png"
         }
