@@ -755,7 +755,7 @@ function ADJUSTSCORE() {
 //現在のプレイヤーの状態から問題の振り分け
 function judgeQuestion() {
     clearInterval(judge);//setIntervalの繰り返しを止める
-    GameNav.src = "./img/Path.png";
+    GameNav.src = "./img/Path.png";//透明の画像を入れる
     if ((op.WhiteOP === true) && (op.RedOP === true)) {//赤い旗と白い旗の両方が上がっている
         console.log("両手が上がっているときの問題");
         WhiteRiseredRiseFlag();//WhiteRiseredRiseFlag(両手が上がっているときの問題)に行く
