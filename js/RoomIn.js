@@ -290,56 +290,9 @@ document.getElementById("GameStart").addEventListener("click", function () {
         db.get().then((doc) => {
             //取得してきたfirebaseのデータからホストが作成したcraftpasswordのを取得
             craftpassword = doc.data().password;
-            //取得してきたfirebaseのデータからplayer2,3,4の名前を取得
-            player2 = doc.data().player2;
-            player3 = doc.data().player3;
-            player4 = doc.data().player4;
             //firebaseから値を取得を完了した際の処理
             if (doc.exists) {
-                //GameStartで設定した難易度とRoomCreateかRoomInで設定したsetpasswordでfirebaseのリファレンス指定
-                const docRef = firestore.collection("Craft" + level).doc(craftpassword);
-                //ホストがaddセットで作成したcraftpasswordをlocalStorageに保存
-                localStorage.setItem('craftpassword', craftpassword);
-                if (player2 == null) {//player2がいなかった際の処理
-                    console.log(setname);
-                    docRef.update({//指定したfirebaseにuppdate
-                        //setnameに格納した名前の変数をplayer2とする
-                        player2: setname
-                    })
-                        .then(() => {//player2のupdateが成功した際の処理
-                            //player2(ゲスト)であるということでlocalStorageにplayer2を保存
-                            localStorage.setItem('playernumber', "player2");
-                            //StandPage.htmlに画面遷移
-                            location.href = 'StandPage.html';
-                        })
-                } else if (player3 == null) { //player3がいなかった際の処理
-                    console.log(setname);
-                    docRef.update({//指定したfirebaseにuppdate
-                        //setnameに格納した名前の変数をplayer3とする
-                        player3: setname
-                    })
-                        .then(() => {//player3のupdateが成功した際の処理
-                            //player3(ゲスト)であるということでlocalStorageにplayer3を保存
-                            localStorage.setItem('playernumber', "player3");
-                            //StandPage.htmlに画面遷移
-                            location.href = 'StandPage.html';
-                        })
-                    //player4がいなかった際の処理
-                } else if (player4 == null) {
-                    console.log(setname);
-                    docRef.update({//指定したfirebaseにuppdate
-                        //setnameに格納した名前の変数をplayer4とする
-                        player4: setname
-                    })
-                        .then(() => {//player4のupdateが成功した際の処理
-                            //player4(ゲスト)であるということでlocalStorageにplayer4を保存
-                            localStorage.setItem('playernumber', "player4");
-                            //StandPage.htmlに画面遷移
-                            location.href = 'StandPage.html';
-                        })
-                } else {//player4がいた際の処理
-                    console.log("人がいっぱいでルームに入れません");
-                }
+                RoomCreate();
             } else {//documentがなかったなどエラーが起こった際の処理
                 console.log("documentがなし");
             }
@@ -347,4 +300,60 @@ document.getElementById("GameStart").addEventListener("click", function () {
             console.log("ルームがありません", error);
         });
     }
-})
+});
+
+function RoomCreate() {
+//GameStartで設定した難易度とRoomCreateかRoomInで設定したsetpasswordでfirebaseのリファレンス指定
+const docRef = firestore.collection("Craft" + level).doc(craftpassword);
+docRef.get().then((doc) => {
+    //取得してきたfirebaseのデータからplayer2,3,4の名前を取得
+    player2 = doc.data().player2;
+    player3 = doc.data().player3;
+    player4 = doc.data().player4;
+    //firebaseから値を取得を完了した際の処理
+    if (doc.exists) {
+        //ホストがaddセットで作成したcraftpasswordをlocalStorageに保存
+        localStorage.setItem('craftpassword', craftpassword);
+        if (player2 == null) {//player2がいなかった際の処理
+            console.log(setname);
+            docRef.update({//指定したfirebaseにuppdate
+                //setnameに格納した名前の変数をplayer2とする
+                player2: setname
+            })
+                .then(() => {//player2のupdateが成功した際の処理
+                    //player2(ゲスト)であるということでlocalStorageにplayer2を保存
+                    localStorage.setItem('playernumber', "player2");
+                    //StandPage.htmlに画面遷移
+                    location.href = 'StandPage.html';
+                })
+        } else if (player3 == null) { //player3がいなかった際の処理
+            console.log(setname);
+            docRef.update({//指定したfirebaseにuppdate
+                //setnameに格納した名前の変数をplayer3とする
+                player3: setname
+            })
+                .then(() => {//player3のupdateが成功した際の処理
+                    //player3(ゲスト)であるということでlocalStorageにplayer3を保存
+                    localStorage.setItem('playernumber', "player3");
+                    //StandPage.htmlに画面遷移
+                    location.href = 'StandPage.html';
+                })
+            //player4がいなかった際の処理
+        } else if (player4 == null) {
+            console.log(setname);
+            docRef.update({//指定したfirebaseにuppdate
+                //setnameに格納した名前の変数をplayer4とする
+                player4: setname
+            })
+                .then(() => {//player4のupdateが成功した際の処理
+                    //player4(ゲスト)であるということでlocalStorageにplayer4を保存
+                    localStorage.setItem('playernumber', "player4");
+                    //StandPage.htmlに画面遷移
+                    location.href = 'StandPage.html';
+                })
+        } else {//player4がいた際の処理
+            console.log("人がいっぱいでルームに入れません");
+        }
+    }
+});
+}
