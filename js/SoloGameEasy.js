@@ -33,7 +33,7 @@ var op = {//旗が上がっている状態をtrue,下がっている状態をfal
     RedOP: false,
 };
 //setIntervalをいれる
-var First, Progress, Loop1, Loop2, Loop3, Loop4, Move, judge;
+var First, Progress, Loop1, Loop2, Loop3, Loop4, Move, Judge, Count;
 var FeintON = true; //問題の難易度上げを1度だけするコード
 // 回答結果の画像を貼るdocument
 let GameNav = document.getElementById("GameNav");
@@ -73,7 +73,7 @@ async function WEBCAMERA() {
 function GAMESTART() {
     FlagNo = false;//無を判定しないようにする
     //カウントダウンの開始 1秒ごとにCOUNTDOWNに移動する
-    setInterval(COUNTDOWN, 1000);//setInterval…一定時間ごとに特定の処理を繰り返す
+    Count = setInterval(COUNTDOWN, 1000);//setInterval…一定時間ごとに特定の処理を繰り返す
     //旗が上がっていない状態からのスタート 5秒後にNOFLAGに移動する
     First = setInterval(NOFLAG, 5000);//setTimeout…一定時間後に一度だけ特定の処理をおこなう
 };
@@ -85,6 +85,7 @@ function COUNTDOWN() {
         CountStart.innerText = CountTime;
         CountTime--;
     } else if (CountTime === 0) {
+        clearInterval(Count);//setIntervalの繰り返しを止める
         CountStart.style.opacity = 0;
     };
 };
@@ -92,7 +93,7 @@ function COUNTDOWN() {
 //プログレスバーで判定までのカウントダウン
 function ProgressBar() {
     if (document.getElementById('Qcountdown').value < 100) {
-        document.getElementById('Qcountdown').value+=2;
+        document.getElementById('Qcountdown').value += 2;
         setTimeout(ProgressBar, 38);//バーが最大までいく
     }
 }
@@ -164,10 +165,10 @@ function WhiteRiseredDownFlag() {
         TimetoJudg = 1000;//判定が開始されるまでの時間
     } else if ('赤上げないで白下げて' == QuestionWhiteON) {//白を下げる問題だった場合 A.両手が下がっている
         FlagNo = true;//両手が下がっている判定が出来るようにする
-        CorrectAnswer = "両手下てる";
+        CorrectAnswer = "両手下げてる";
         TimetoJudg = 3000;//判定が開始されるまでの時間
     } else if ('白下げないで赤上げて' == QuestionWhiteON) {//赤をあげる問題だった場合 A.両手が上がっている
-        CorrectAnswer = "両手あげてる";
+        CorrectAnswer = "両手上げてる";
         TimetoJudg = 3000;//判定が開始されるまでの時間
     };
     Loop2 = setInterval(LOOPFLAG, TimetoJudg);//設定した秒数後にLOOPFLAG(判定の開始)の処理に移動する
@@ -203,7 +204,7 @@ function RedRisewhiteDownFlag() {
         TimetoJudg = 1000;//判定が開始されるまでの時間
     } else if ('白上げないで赤下げて' == QuestionRedON) {//赤を下げる問題だった場合 A.両手が下がっている
         FlagNo = true;//両手が下がっている判定が出来るようにする
-        CorrectAnswer = "両手下てる";
+        CorrectAnswer = "両手下げてる";
         TimetoJudg = 3000;//判定が開始されるまでの時間
     } else if ('赤下げないで白上げて' == QuestionRedON) {//白をあげる問題だった場合 A.両手が上がっている
         CorrectAnswer = "右手あげてる";
@@ -241,7 +242,7 @@ function WhiteRiseredRiseFlag() {
         TimetoJudg = 1000;//判定が開始されるまでの時間
     } else if ('白下げないで赤下げて' == QuestionONON) {//赤を下げる問題だった場合 A.左手が下がっている
         FlagNo = true;//両手が下がっている判定が出来るようにする
-        CorrectAnswer = "両手下てる";
+        CorrectAnswer = "両手下げてる";
         TimetoJudg = 3000;//判定が開始されるまでの時間
     } else if ('赤下げないで白下げて' == QuestionONON) {//白を下げる問題だった場合 A.右手が上がっている
         CorrectAnswer = "右手あげてる";
@@ -406,6 +407,7 @@ function CHECKANSWER() {
                 RiseRise.push("白下げないで赤下げて", "白下げないで赤下げて", "白下げないで赤下げて", "赤下げないで白下げて", "赤下げないで白下げて", "赤下げないで白下げて");
             }
         }
+        judge = setInterval(judgeQuestion, 2000);//judgeQuestion(問題の振り分けの処理)に行く
     } else {
         FalseSound.play();//不正解の音声を再生
         console.log("残念");
@@ -414,11 +416,13 @@ function CHECKANSWER() {
         //上げている旗のリセット
         op.RedOP = false;//falseにして赤の旗を下がっている状態にする
         op.WhiteOP = false;//falseにして白の旗を下がっている状態にする
+        CountStart.style.opacity = 1;//CountStartを表示させる
+        CountStart.innerText = "はたをさげてね";//ユーザーに初期状態になってもらう
         ADJUSTSCORE();///ADJUSTSCORE(ミスした時の処理)移動する
+        judge = setInterval(judgeQuestion, 3000);//judgeQuestion(問題の振り分けの処理)に行く
     }
     Answers = "";//Answersの初期化
     document.getElementById('Qcountdown').value = 0;//プログレスバーの初期化
-    judge = setInterval(judgeQuestion, 2000);//judgeQuestion(問題の振り分けの処理)に行く
     //スコアと残りのライフを表示
     document.getElementById("score").innerHTML = CurrentScore;
     document.getElementById("Life").innerHTML = Life;
@@ -440,6 +444,7 @@ function ADJUSTSCORE() {
 //現在のプレイヤーの状態から問題の振り分け
 function judgeQuestion() {
     clearInterval(judge);//setIntervalの繰り返しを止める
+    CountStart.style.opacity = 0;//CountStartを非表示にさせる
     GameNav.src = "./img/Path.png";//透明の画像を入れる
     if ((op.WhiteOP === true) && (op.RedOP === true)) {//赤い旗と白い旗の両方が上がっている
         console.log("両手が上がっているときの問題");
