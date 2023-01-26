@@ -305,7 +305,7 @@ function WhiteRiseredDownFlag() {
         }
     } else {
         //問題を表示
-        Question.innerText = QuestionFirst;
+        Question.innerText = QuestionWhiteON;
     }
     console.log("問題は", QuestionWhiteON);
     //問題の読み上げ
@@ -374,7 +374,7 @@ function RedRisewhiteDownFlag() {
         }
     } else {
         //問題を表示
-        Question.innerText = QuestionFirst;
+        Question.innerText = QuestionRedON;
     }
     console.log("問題は", QuestionRedON);
     //問題の読み上げ
@@ -443,7 +443,7 @@ function WhiteRiseredRiseFlag() {
         }
     } else {
         //問題を表示
-        Question.innerText = QuestionFirst;
+        Question.innerText = QuestionONON;
     }
     console.log("問題は", QuestionONON);
     //問題の読み上げ
