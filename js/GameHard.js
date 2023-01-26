@@ -62,7 +62,7 @@ var op = {//旗が上がっている状態をtrue,下がっている状態をfal
     RedOP: false,
 };
 //setIntervalをいれる
-var First, Progress, Loop1, Loop2, Loop3, Loop4, Move, judge;
+var First, Progress, Loop1, Loop2, Loop3, Loop4, Move, Judge,Count;
 var FeintON = true; //問題の難易度上げを1度だけするコード
 //参加者登録
 var player1 = null;
@@ -182,7 +182,7 @@ function GAMESTART() {
     Ratetime = 0.5;//読み上げの速度を0.5に設定
     ProgressTime = 38;//プログレスバーが19で最大に行く
     //カウントダウンの開始 1秒ごとにCOUNTDOWNに移動する
-    setInterval(COUNTDOWN, 1000);//setInterval…一定時間ごとに特定の処理を繰り返す
+    Count = setInterval(COUNTDOWN, 1000);//setInterval…一定時間ごとに特定の処理を繰り返す
     //旗が上がっていない状態からのスタート 5秒後にNOFLAGに移動する
     First = setInterval(NOFLAG, 5000);
 };
@@ -194,6 +194,7 @@ function COUNTDOWN() {
         CountStart.innerText = CountTime;
         CountTime--;
     } else if (CountTime === 0) {
+        clearInterval(Count);//setIntervalの繰り返しを止める
         CountStart.style.opacity = 0;
     };
 };
@@ -331,11 +332,11 @@ function WhiteRiseredDownFlag() {
         AllTimeSet();//AllTimeSet(時間設定)の処理に移動する
     } else if ('赤上げないで白下げて' == QuestionWhiteON) {//白を下げる問題だった場合 A.両手が下がっている
         FlagNo = true;//両手が下がっている判定が出来るようにする
-        CorrectAnswer = "両手下てる";
+        CorrectAnswer = "両手下げてる";
         TimeSetNum = 1;//時間設定の区分1を入れる
         AllTimeSet();//AllTimeSet(時間設定)の処理に移動する
     } else if ('白下げないで赤上げて' == QuestionWhiteON) {//赤をあげる問題だった場合 A.両手が上がっている
-        CorrectAnswer = "両手あげてる";
+        CorrectAnswer = "両手上げてる";
         TimeSetNum = 1;//時間設定の区分1を入れる
         AllTimeSet();//AllTimeSet(時間設定)の処理に移動する
     };
@@ -400,7 +401,7 @@ function RedRisewhiteDownFlag() {
         AllTimeSet();//AllTimeSet(時間設定)の処理に移動する
     } else if ('白上げないで赤下げて' == QuestionRedON) {//赤を下げる問題だった場合 A.両手が下がっている
         FlagNo = true;//両手が下がっている判定が出来るようにする
-        CorrectAnswer = "両手下てる";
+        CorrectAnswer = "両手下げてる";
         TimeSetNum = 1;//時間設定の区分1を入れる
         AllTimeSet();//AllTimeSet(時間設定)の処理に移動する
     } else if ('赤下げないで白上げて' == QuestionRedON) {//白をあげる問題だった場合 A.両手が上がっている
@@ -468,7 +469,7 @@ function WhiteRiseredRiseFlag() {
         AllTimeSet();//AllTimeSet(時間設定)の処理に移動する
     } else if ('白下げないで赤下げて' == QuestionONON) {//赤を下げる問題だった場合 A.左手が下がっている
         FlagNo = true;//両手が下がっている判定が出来るようにする
-        CorrectAnswer = "両手下てる";
+        CorrectAnswer = "両手下げてる";
         TimeSetNum = 1;//時間設定の区分1を入れる
         AllTimeSet();//AllTimeSet(時間設定)の処理に移動する
     } else if ('赤下げないで白下げて' == QuestionONON) {//白を下げる問題だった場合 A.右手が上がっている
@@ -710,12 +711,19 @@ function CHECKANSWER() {
                 Score4: CurrentScore
             })
         }
+        judge = setInterval(judgeQuestion, 2000);//judgeQuestion(問題の振り分けの処理)に行く
     } else {
         FalseSound.play();//不正解の音声を再生
         console.log("残念");
         //不正解と表示する
         GameNav.src = "./img/batu.png";
+        //上げている旗のリセット
+        op.RedOP = false;//falseにして赤の旗を下がっている状態にする
+        op.WhiteOP = false;//falseにして白の旗を下がっている状態にする
+        CountStart.style.opacity = 1;//CountStartを表示させる
+        CountStart.innerText = "はたをさげてね";//ユーザーに初期状態になってもらう
         ADJUSTSCORE();///ADJUSTSCORE(ミスした時の処理)移動する
+        judge = setInterval(judgeQuestion, 3000);//judgeQuestion(問題の振り分けの処理)に行く
     }
     Answers = "";//Answersの初期化
     document.getElementById('Qcountdown').value = 0;//プログレスバーの初期化
@@ -755,6 +763,7 @@ function ADJUSTSCORE() {
 //現在のプレイヤーの状態から問題の振り分け
 function judgeQuestion() {
     clearInterval(judge);//setIntervalの繰り返しを止める
+    CountStart.style.opacity = 0;//CountStartを非表示にさせる
     GameNav.src = "./img/Path.png";//透明の画像を入れる
     if ((op.WhiteOP === true) && (op.RedOP === true)) {//赤い旗と白い旗の両方が上がっている
         console.log("両手が上がっているときの問題");
