@@ -611,8 +611,8 @@ function ADJUSTSCORE() {
         Life--;//ライフから1を引く
         console.log(Life);
         if (Life === 0) {//ライフが0ならゲームオーバー
-            GameNav.innerText = ('残念！ゲームオーバー');//残念！ゲームオーバーと表示する
-            localStorage.setItem('Score', CurrentScore);
+            
+            localStorage.setItem('Score', CurrentScore);//ローカルストレージにスコアを格納
             location.href = "SoloResult.html";//間違えたりタイムオーバー時にゲームオーバー画面に移動
             console.log(Life);
         }

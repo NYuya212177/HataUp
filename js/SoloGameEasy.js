@@ -411,6 +411,9 @@ function CHECKANSWER() {
         console.log("残念");
         //不正解と表示する
         GameNav.src = "img/batu.png";
+        //上げている旗のリセット
+        op.RedOP = false;//falseにして赤の旗を下がっている状態にする
+        op.WhiteOP = false;//falseにして白の旗を下がっている状態にする
         ADJUSTSCORE();///ADJUSTSCORE(ミスした時の処理)移動する
     }
     Answers = "";//Answersの初期化
@@ -427,8 +430,7 @@ function ADJUSTSCORE() {
         Life--;//ライフから1を引く
         console.log(Life);
         if (Life === 0) {//ライフが0ならゲームオーバー
-            GameNav.innerText = ('残念！ゲームオーバー');//残念！ゲームオーバーと表示する
-            localStorage.setItem('Score', CurrentScore);
+            localStorage.setItem('Score', CurrentScore);//ローカルストレージにスコアを格納
             location.href = "SoloResult.html";//間違えたりタイムオーバー時にゲームオーバー画面に移動
             console.log(Life);
         }
