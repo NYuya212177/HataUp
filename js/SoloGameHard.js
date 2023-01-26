@@ -119,7 +119,7 @@ function NOFLAG() {
                 Question.innerHTML = '<span style="color:red;">' + QuestionFirstCharacter + '</span>' + QuestionFirst.slice(-3);
             } else if ('赤上げないで白上げて' == QuestionFirst) {
                 var QuestionFirstCharacter = QuestionFirst.slice(0, 7);//問題の1番目の文字を取得
-                //取得した1番目の文字の色を変えて後ろに通常色の問題の続きを入れる
+                //取得した77番目の文字の色を変えて後ろに通常色の問題の続きを入れる
                 Question.innerHTML = QuestionFirst.slice(6) + '<span style="color:red;">' + QuestionFirstCharacter + '</span>' + QuestionFirst.slice(-3);
             } else if ('赤上げて' == QuestionFirst) {
                 var QuestionFirstCharacter = QuestionFirst.slice(0, 1);//問題の1番目の文字を取得
@@ -127,7 +127,7 @@ function NOFLAG() {
                 Question.innerHTML = '<span style="color:white;">' + QuestionFirstCharacter + '</span>' + QuestionFirst.slice(-3);
             } else if ('白上げないで赤上げて' == QuestionFirst) {
                 var QuestionFirstCharacter = QuestionFirst.slice(0, 7);//問題の1番目の文字を取得
-                //取得した1番目の文字の色を変えて後ろに通常色の問題の続きを入れる
+                //取得した7番目の文字の色を変えて後ろに通常色の問題の続きを入れる
                 Question.innerHTML = QuestionFirst.slice(6) + '<span style="color:white;">' + QuestionFirstCharacter + '</span>' + QuestionFirst.slice(-3);
             }
         } else if (QuestionColor == 2) {
@@ -186,7 +186,7 @@ function WhiteRiseredDownFlag() {
                 Question.innerHTML = '<span style="color:red;">' + QuestionFirstCharacter + '</span>' + QuestionWhiteON.slice(-3);
             } else if ('赤上げないで白下げて' == QuestionWhiteON) {
                 var QuestionFirstCharacter = QuestionWhiteON.slice(0, 7);//問題の1番目の文字を取得
-                //取得した1番目の文字の色を変えて後ろに通常色の問題の続きを入れる
+                //取得した7番目の文字の色を変えて後ろに通常色の問題の続きを入れる
                 Question.innerHTML = QuestionWhiteON.slice(6) + '<span style="color:red;">' + QuestionFirstCharacter + '</span>' + QuestionWhiteON.slice(-3);
             } else if ('赤上げて' == QuestionWhiteON) {
                 var QuestionFirstCharacter = QuestionFirst.slice(0, 1);//問題の1番目の文字を取得
@@ -194,7 +194,7 @@ function WhiteRiseredDownFlag() {
                 Question.innerHTML = '<span style="color:white;">' + QuestionFirstCharacter + '</span>' + QuestionWhiteON.slice(-3);
             } else if ('白下げないで赤上げて' == QuestionWhiteON) {
                 var QuestionFirstCharacter = QuestionWhiteON.slice(0, 7);//問題の1番目の文字を取得
-                //取得した1番目の文字の色を変えて後ろに通常色の問題の続きを入れる
+                //取得した7番目の文字の色を変えて後ろに通常色の問題の続きを入れる
                 Question.innerHTML = QuestionWhiteON.slice(6) + '<span style="color:white;">' + QuestionFirstCharacter + '</span>' + QuestionWhiteON.slice(-3);
             }
         } else if (QuestionColor == 2) {
@@ -255,7 +255,7 @@ function RedRisewhiteDownFlag() {
                 Question.innerHTML = '<span style="color:red;">' + QuestionFirstCharacter + '</span>' + QuestionRedON.slice(-3);
             } else if ('赤下げないで白上げて' == QuestionRedON) {
                 var QuestionFirstCharacter = QuestionRedON.slice(0, 7);//問題の1番目の文字を取得
-                //取得した1番目の文字の色を変えて後ろに通常色の問題の続きを入れる
+                //取得した7番目の文字の色を変えて後ろに通常色の問題の続きを入れる
                 Question.innerHTML = QuestionRedON.slice(6) + '<span style="color:red;">' + QuestionFirstCharacter + '</span>' + QuestionRedON.slice(-3);
             } else if ('赤下げて' == QuestionRedON) {
                 var QuestionFirstCharacter = QuestionFirst.slice(0, 1);//問題の1番目の文字を取得
@@ -263,7 +263,7 @@ function RedRisewhiteDownFlag() {
                 Question.innerHTML = '<span style="color:white;">' + QuestionFirstCharacter + '</span>' + QuestionRedON.slice(-3);
             } else if ('白上げないで赤下げて' == QuestionRedON) {
                 var QuestionFirstCharacter = QuestionRedON.slice(0, 7);//問題の1番目の文字を取得
-                //取得した1番目の文字の色を変えて後ろに通常色の問題の続きを入れる
+                //取得した7番目の文字の色を変えて後ろに通常色の問題の続きを入れる
                 Question.innerHTML = QuestionRedON.slice(6) + '<span style="color:white;">' + QuestionFirstCharacter + '</span>' + QuestionRedON.slice(-3);
             }
         } else if (QuestionColor == 2) {
@@ -324,7 +324,7 @@ function WhiteRiseredRiseFlag() {
                 Question.innerHTML = '<span style="color:red;">' + QuestionFirstCharacter + '</span>' + QuestionONON.slice(-3);
             } else if ('赤下げないで白下げて' == QuestionONON) {
                 var QuestionFirstCharacter = QuestionONON.slice(0, 7);//問題の1番目の文字を取得
-                //取得した1番目の文字の色を変えて後ろに通常色の問題の続きを入れる
+                //取得した7番目の文字の色を変えて後ろに通常色の問題の続きを入れる
                 Question.innerHTML = QuestionONON.slice(6) + '<span style="color:red;">' + QuestionFirstCharacter + '</span>' + QuestionONON.slice(-3);
             } else if ('赤下げて' == QuestionONON) {
                 var QuestionFirstCharacter = QuestionFirst.slice(0, 1);//問題の1番目の文字を取得
@@ -332,7 +332,7 @@ function WhiteRiseredRiseFlag() {
                 Question.innerHTML = '<span style="color:white;">' + QuestionFirstCharacter + '</span>' + QuestionONON.slice(-3);
             } else if ('白下げないで赤下げて' == QuestionONON) {
                 var QuestionFirstCharacter = QuestionONON.slice(0, 7);//問題の1番目の文字を取得
-                //取得した1番目の文字の色を変えて後ろに通常色の問題の続きを入れる
+                //取得した7番目の文字の色を変えて後ろに通常色の問題の続きを入れる
                 Question.innerHTML = QuestionONON.slice(6) + '<span style="color:white;">' + QuestionFirstCharacter + '</span>' + QuestionONON.slice(-3);
             }
         } else if (QuestionColor == 2) {
