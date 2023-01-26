@@ -258,7 +258,7 @@ document.getElementById("DELETE").addEventListener("click", function () {
 //ゲームスタートボタンを押した際の処理
 document.getElementById("GameStart").addEventListener("click", function () {
     //設定した名前をsetnameとする
-    var setname = document.getElementById("name").value;
+    setname = document.getElementById("name").value;
     //NameCountに名前の文字数を出力
     var NameCount = setname.length;
     if (NameCount < 1) {//名前が無いと"なまえをいれてね"とアラートを出す
@@ -312,6 +312,7 @@ docRef.get().then((doc) => {
     player4 = doc.data().player4;
     //firebaseから値を取得を完了した際の処理
     if (doc.exists) {
+        console.log("コールバックしてきたよー");
         //ホストがaddセットで作成したcraftpasswordをlocalStorageに保存
         localStorage.setItem('craftpassword', craftpassword);
         if (player2 == null) {//player2がいなかった際の処理

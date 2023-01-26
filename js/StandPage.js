@@ -44,39 +44,39 @@ var player2 = null;
 var player3 = null;
 var player4 = null;
 
-docRef.get().then((doc) => {
-    //player1,2,3,4の名前を取得
-    player1 = doc.data().player1;
-    player2 = doc.data().player2;
-    player3 = doc.data().player3;
-    player4 = doc.data().player4;
-    //player1テキストレイアウトがnullかつfirebaseのフィールドのplayer1がnull出ない場合の処理
-    if (setplayer1 == null && player1 != null) {
-        document.getElementById("player1").textContent = player1;
-    }
-    //player2テキストレイアウトがnullかつfirebaseのフィールドのplayer2がnull出ない場合の処理
-    if (setplayer2 == null && player2 != null) {
-        document.getElementById("player2").textContent = player2;
-    }
-    //player3テキストレイアウトがnullかつfirebaseのフィールドのplayer3がnull出ない場合の処理
-    if (setplayer3 == null && player3 != null) {
-        document.getElementById("player3").textContent = player3;
-    }
-    //player4テキストレイアウトがnullかつfirebaseのフィールドのplayer4がnull出ない場合の処理
-    if (setplayer4 == null && player4 != null) {
-        document.getElementById("player4").textContent = player4;
-    }
-    //player1(ホスト)がこの画面を操作する際の処理
-    if (playernumber === "player1") {
-        if (player2 != null) {// player2(二人目)以降が入ってきた際の処理
-            //GameStartボタンの表示
-            document.getElementById("GameStart").style.display = 'inline'
-            console.log("表示");
-        }
-    }
-}).catch((error) => {
-    console.log("ルームがありません", error);
-});
+// docRef.get().then((doc) => {
+//     //player1,2,3,4の名前を取得
+//     player1 = doc.data().player1;
+//     player2 = doc.data().player2;
+//     player3 = doc.data().player3;
+//     player4 = doc.data().player4;
+//     //player1テキストレイアウトがnullかつfirebaseのフィールドのplayer1がnull出ない場合の処理
+//     if (setplayer1 == null && player1 != null) {
+//         document.getElementById("player1").textContent = player1;
+//     }
+//     //player2テキストレイアウトがnullかつfirebaseのフィールドのplayer2がnull出ない場合の処理
+//     if (setplayer2 == null && player2 != null) {
+//         document.getElementById("player2").textContent = player2;
+//     }
+//     //player3テキストレイアウトがnullかつfirebaseのフィールドのplayer3がnull出ない場合の処理
+//     if (setplayer3 == null && player3 != null) {
+//         document.getElementById("player3").textContent = player3;
+//     }
+//     //player4テキストレイアウトがnullかつfirebaseのフィールドのplayer4がnull出ない場合の処理
+//     if (setplayer4 == null && player4 != null) {
+//         document.getElementById("player4").textContent = player4;
+//     }
+//     //player1(ホスト)がこの画面を操作する際の処理
+//     if (playernumber === "player1") {
+//         if (player2 != null) {// player2(二人目)以降が入ってきた際の処理
+//             //GameStartボタンの表示
+//             document.getElementById("GameStart").style.display = 'inline'
+//             console.log("表示");
+//         }
+//     }
+// }).catch((error) => {
+//     console.log("ルームがありません", error);
+// });
 
 //プレイヤーの待機画面に映す干支画像のパスワードの処理
 for (var i = 1; i <= 4; i++) {
