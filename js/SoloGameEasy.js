@@ -33,7 +33,6 @@ var op = {//旗が上がっている状態をtrue,下がっている状態をfal
     RedOP: false,
 };
 //setIntervalをいれる
-
 var First, Progress, Loop1, Loop2, Loop3, Loop4, Move, Judge, Count;
 var FeintON = true; //問題の難易度上げを1度だけするコード
 // 回答結果の画像を貼るdocument
