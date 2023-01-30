@@ -36,7 +36,7 @@ var DownDown = ['赤上げて', '赤上げて', '赤上げて', '白上げて', 
 var WhiteRise = ['赤上げて', '赤上げて', '赤上げて', '白下げて', '白下げて', '白下げて'];
 var RedRise = ['白上げて', '白上げて', '白上げて', '白上げて', '赤下げて', '赤下げて', '赤下げて', '赤下げて'];
 var RiseRise = ['赤下げて', '赤下げて', '赤下げて', '赤下げて', '白下げて', '白下げて', '白下げて', '白下げて'];
-var QuestionFirst, QuestionWhiteON, QuestionRedON, QuestionONON;//NOFLAG(旗が上がっていない)問題,WhiteRiseredDownFlag(白い旗が上がっている)の問題,redRisewhiteDownFlag(赤い旗が上がっている)の問題,WhiteRiseredRiseFlag(両方上がっている)の問題を格納
+var QuestionFirst, QuestionWhiteON, QuestionRedON, QuestionONON, QuestionWrong;//NOFLAG(旗が上がっていない)問題,WhiteRiseredDownFlag(白い旗が上がっている)の問題,redRisewhiteDownFlag(赤い旗が上がっている)の問題,WhiteRiseredRiseFlag(両方上がっている)の問題,QuestionWrong(最初に間違えた場合)の問題を格納
 var Answers, CorrectAnswer;//回答と正解を格納
 var AnswerArray = ['無'];//判定した回答を配列に格納(空だと何もしていないときに最頻値を計算するとNullになるので無を入れておく)
 var TimetoJudg = null;//判定までの時間
@@ -55,7 +55,7 @@ var op = {//旗が上がっている状態をtrue,下がっている状態をfal
     RedOP: false,
 };
 //setIntervalをいれる
-var First, Progress, Loop1, Loop2, Loop3, Loop4, Move, Judge,Count;
+var First, Progress, Loop1, Loop2, Loop3, Loop4, Move, Judge, Count;
 var FeintON = true;//問題の難易度上げを1度だけするコード
 //参加者登録
 var player1 = null;
@@ -71,6 +71,8 @@ var hp = null;
 var HP = hp;
 var Heartpoint = null;
 var point = 0;
+
+var Quiz, NextQuiz, MissQuiz;
 
 // 回答結果の画像を貼るdocument
 let GameNav = document.getElementById("GameNav");
@@ -148,7 +150,14 @@ if (GameStart == true) {
         }
     });
 }
+//参加者全体の正解数を求める
+docRef.onSnapshot((doc) => {
+    Quiz = doc.data().Quiz;
+    NextQuiz = doc.data().NextQuiz;
+    MissQuiz = doc.data().MissQuiz;
 
+
+});
 //参加者全体の正解数を求める
 docRef.onSnapshot((doc) => {
     var point1 = doc.data().Score1;
@@ -213,6 +222,28 @@ async function WEBCAMERA() {
     await Webcam.setup();//ウェブカメラへのアクセスをリクエストする
     Webcam.webcam.playsInline = true;//iphoneで動かすコード
     await Webcam.play();//カメラの起動
+    //1番最初の問題をランダムでfirebaseに送る
+    var QuestionFirst = DownDown[Math.floor(Math.random() * DownDown.length)];//DownDownの中から問題をシャッフル
+    docRef.update({
+        FirstQuiz: QuestionFirst
+    })
+    //正解した時の問題を最初の問題から判断してランダムでfirebaseに送る
+    if ('白上げて' == QuestionFirst) {
+        QuestionWhiteON = WhiteRise[Math.floor(Math.random() * WhiteRise.length)];//WhiteRiseの中から問題をシャッフル
+        docRef.update({
+            NextQuiz: QuestionWhiteON
+        })
+    } else {
+        QuestionRedON = RedRise[Math.floor(Math.random() * RedRise.length)];//RedRiseの中からランダムで問題を表示
+        docRef.update({
+            NextQuiz: QuestionRedON
+        })
+    }
+    //非正解の時の問題をランダムでfirebaseに送る
+    QuestionWrong = DownDown[Math.floor(Math.random() * DownDown.length)];//DownDownの中から問題をシャッフル
+    docRef.update({
+        MissQuiz: QuestionWrong
+    })
     //アクセス許可されたら準備okにする
     var StandbyName = setname + "準備OK";
     if (playernumber == "player1") {
@@ -252,7 +283,8 @@ function GAMESTART() {
     //カウントダウンの開始 1秒ごとにCOUNTDOWNに移動する
     Count = setInterval(COUNTDOWN, 1000);//setInterval…一定時間ごとに特定の処理を繰り返す
     //旗が上がっていない状態からのスタート 5秒後にNOFLAGに移動する
-    First = setInterval(NOFLAG, 5000);//setTimeout…一定時間後に一度だけ特定の処理をおこなう
+    First = setInterval(NOFLAG, 5000);
+    QuestionFirst = Quiz;
 };
 
 //ゲーム開始までのカウントダウン
@@ -270,7 +302,7 @@ function COUNTDOWN() {
 //プログレスバーで判定までのカウントダウン
 function ProgressBar() {
     if (document.getElementById('Qcountdown').value < 100) {
-        document.getElementById('Qcountdown').value+=2;
+        document.getElementById('Qcountdown').value += 2;
         setTimeout(ProgressBar, 38);//バーが最大までいく
     }
 }
@@ -280,7 +312,6 @@ function NOFLAG() {
     clearInterval(First);//setIntervalの繰り返しを止める
     FlagRight = true;//右手が上がっていると判定するようにする
     FlagLeft = true;//左手が上がっていると判定するようにする
-    QuestionFirst = DownDown[Math.floor(Math.random() * DownDown.length)];//DownDownの中から問題をシャッフル
     //問題を表示
     Question.innerText = QuestionFirst;
     console.log("問題は", QuestionFirst);
@@ -356,7 +387,7 @@ function RedRisewhiteDownFlag() {
     FlagRight = false;//右手が上がっていると判定しないようにする
     FlagLeft = true;//左手が上がっていると判定するようにする
     FlagAll = true;//両手が上がっていると判定するようにする
-    QuestionRedON = RedRise[Math.floor(Math.random() * RedRise.length)];//RedRiseの中からランダムで問題を表示
+
     //問題を表示
     Question.innerText = QuestionRedON;
     console.log("問題は", QuestionRedON);
@@ -393,7 +424,6 @@ function RedRisewhiteDownFlag() {
 //両方上がっている状態からスタートした場合 出題問題(赤下げて, 白下げて)
 function WhiteRiseredRiseFlag() {
     FlagAll = false;//両手が上がっていると判定しないようにする
-    QuestionONON = RiseRise[Math.floor(Math.random() * RiseRise.length)];//RiseRiseの中からランダムで問題を表示
     //問題を表示
     Question.innerText = QuestionONON;
     console.log("問題は", QuestionONON);
@@ -570,11 +600,12 @@ function CHECKANSWER() {
     console.log("CorrectAnswer", CorrectAnswer);
     if (Answers === CorrectAnswer) {//回答が正解だった場合の処理
         TrueSound.play();//正解の音声を再生
-
         console.log("正解");
         //マルを表示する
         GameNav.src = "./img/maru.png";
         CurrentScore++;//正解数に1を足す
+        //firebaseから正解だった場合の問題を取得する
+        QuestionFirst = NextQuiz;
         //firebaseの正解数を更新
         if (playernumber == "player1") {
             docRef.update({
@@ -602,7 +633,7 @@ function CHECKANSWER() {
                 RiseRise.push("白下げないで赤下げて", "白下げないで赤下げて", "白下げないで赤下げて", "赤下げないで白下げて", "赤下げないで白下げて", "赤下げないで白下げて");
             }
         }
-        judge = setInterval(judgeQuestion, 2000);//judgeQuestion(問題の振り分けの処理)に行く
+        Judge = setInterval(JudgeQuestion, 2000);//JudgeQuestion(問題の振り分けの処理)に行く
     } else {
         FalseSound.play();
         console.log("残念");
@@ -614,7 +645,7 @@ function CHECKANSWER() {
         CountStart.style.opacity = 1;//CountStartを表示させる
         CountStart.innerText = "はたをさげてね";//ユーザーに初期状態になってもらう
         ADJUSTSCORE();///ADJUSTSCORE(ミスした時の処理)移動する
-        judge = setInterval(judgeQuestion, 3000);//judgeQuestion(問題の振り分けの処理)に行く
+        Judge = setInterval(JudgeQuestion, 3000);//JudgeQuestion(問題の振り分けの処理)に行く
     }
     Answers = "";//Answersの初期化
     document.getElementById('Qcountdown').value = 0;//プログレスバーの初期化
@@ -650,8 +681,8 @@ function ADJUSTSCORE() {
 }
 
 //現在のプレイヤーの状態から問題の振り分け
-function judgeQuestion() {
-    clearInterval(judge);//setIntervalの繰り返しを止める
+function JudgeQuestion() {
+    clearInterval(Judge);//setIntervalの繰り返しを止める
     CountStart.style.opacity = 0;//CountStartを非表示にさせる
     GameNav.src = "./img/Path.png";//透明の画像を入れる
     if ((op.WhiteOP === true) && (op.RedOP === true)) {//赤い旗と白い旗の両方が上がっている
@@ -659,12 +690,30 @@ function judgeQuestion() {
         WhiteRiseredRiseFlag();//WhiteRiseredRiseFlag(両手が上がっているときの問題)に行く
     } else if ((op.WhiteOP === true) && (op.RedOP === false)) {//白い旗だけ上がっている
         console.log("白だけが上がっているときの問題");
+        //両手を上げて正解だった場合の問題をfirebaseに送る
+        QuestionONON = RiseRise[Math.floor(Math.random() * RiseRise.length)];//RiseRiseの中からランダムで問題を表示
+        //手を下げた時の問題か間違えた時の問題をfirebaseに送る
+        QuestionFirst = DownDown[Math.floor(Math.random() * DownDown.length)];//DownDownの中から問題をシャッフル
         WhiteRiseredDownFlag();//WhiteRiseredDownFlag(白だけが上がっているときの問題)に行く
     } else if ((op.WhiteOP === false) && (op.RedOP === true)) {//赤い旗だけ上がっている
-        console.log("赤だけが上がっているときの問題");
+        console.log("赤だけが上がっているときの問題")
+        //両手を上げて正解だった場合の問題をfirebaseに送る
+        QuestionONON = RiseRise[Math.floor(Math.random() * RiseRise.length)];//RiseRiseの中からランダムで問題を表示
+        //手を下げた時の問題か間違えた時の問題をfirebaseに送る
+        QuestionFirst = DownDown[Math.floor(Math.random() * DownDown.length)];//DownDownの中から問題をシャッフル
         RedRisewhiteDownFlag();//RedRisewhiteDownFlag(赤だけが上がっているときの問題)に行く
     } else {//旗が上がっていない
         console.log("なにも上がっていない時の問題");
+        //なにも上がっていない時の問題をランダムでfirebaseに送る
+        QuestionFirst = DownDown[Math.floor(Math.random() * DownDown.length)];//DownDownの中から問題をシャッフル
+        //正解した時の問題を最初の問題から判断してランダムでfirebaseに送る
+        if ('白上げて' == QuestionFirst) {
+            QuestionWhiteON = WhiteRise[Math.floor(Math.random() * WhiteRise.length)];//WhiteRiseの中から問題をシャッフル
+        } else {
+            QuestionRedON = RedRise[Math.floor(Math.random() * RedRise.length)];//RedRiseの中からランダムで問題を表示
+        }
+        //不正解の時の問題をランダムでfirebaseに送る
+        QuestionWrong = DownDown[Math.floor(Math.random() * DownDown.length)];//DownDownの中から問題をシャッフル
         NOFLAG();//NOFLAG(なにも上がっていない時の問題)に行く
     };
 };

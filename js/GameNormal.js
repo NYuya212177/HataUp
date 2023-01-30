@@ -606,7 +606,7 @@ function CHECKANSWER() {
                 Score4: CurrentScore
             })
         }
-        judge = setInterval(judgeQuestion, 2000);//judgeQuestion(問題の振り分けの処理)に行く
+        Judge = setInterval(JudgeQuestion, 2000);//JudgeQuestion(問題の振り分けの処理)に行く
     } else {
         FalseSound.play();//不正解の音声を再生
         console.log("残念");
@@ -618,7 +618,7 @@ function CHECKANSWER() {
        CountStart.style.opacity = 1;//CountStartを表示させる
        CountStart.innerText = "はたをさげてね";//ユーザーに初期状態になってもらう
        ADJUSTSCORE();///ADJUSTSCORE(ミスした時の処理)移動する
-       judge = setInterval(judgeQuestion, 3000);//judgeQuestion(問題の振り分けの処理)に行く
+       Judge = setInterval(JudgeQuestion, 3000);//JudgeQuestion(問題の振り分けの処理)に行く
     }
     Answers = "";//Answersの初期化
     document.getElementById('Qcountdown').value = 0;//プログレスバーの初期化
@@ -655,8 +655,8 @@ function ADJUSTSCORE() {
 }
 
 //現在のプレイヤーの状態から問題の振り分け
-function judgeQuestion() {
-    clearInterval(judge);//setIntervalの繰り返しを止める
+function JudgeQuestion() {
+    clearInterval(Judge);//setIntervalの繰り返しを止める
     CountStart.style.opacity = 0;//CountStartを非表示にさせる
     GameNav.src = "./img/Path.png";//透明の画像を入れる
     if ((op.WhiteOP === true) && (op.RedOP === true)) {//赤い旗と白い旗の両方が上がっている
