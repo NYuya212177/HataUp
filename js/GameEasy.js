@@ -71,11 +71,11 @@ var hp = null;
 var HP = hp;
 var Heartpoint = null;
 var point = 0;
-
+//firebaseの問題
 var Quiz, NextQuiz, MissQuiz;
-
-// 回答結果の画像を貼るdocument
+//回答結果の画像を貼るdocument
 let GameNav = document.getElementById("GameNav");
+
 //指定したfirebaseから値を取得
 docRef.get().then((doc) => {
     //firebaseに上がっているそれぞれのプレイヤー名をプレイヤーナンバーの変数に格納
@@ -102,6 +102,7 @@ docRef.get().then((doc) => {
     console.error("Error removing document: ", error);
 });
 
+//GameStart(ゲームの開始)がtrueになったとき
 if (GameStart == true) {
     docRef.onSnapshot((doc) => {
         //firebaseに上がっているそれぞれのプレイヤー名をプレイヤーナンバーの変数に格納
@@ -150,14 +151,14 @@ if (GameStart == true) {
         }
     });
 }
-//参加者全体の正解数を求める
+
+//次に出る問題を取得する
 docRef.onSnapshot((doc) => {
     Quiz = doc.data().Quiz;
     NextQuiz = doc.data().NextQuiz;
     MissQuiz = doc.data().MissQuiz;
-
-
 });
+
 //参加者全体の正解数を求める
 docRef.onSnapshot((doc) => {
     var point1 = doc.data().Score1;
