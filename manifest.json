@@ -1,13 +1,17 @@
 {
     "short_name": "はたあげ",
-    "name": "はたあげ",
+    "name": "  ",
+    
     "display": "standalone",
+    "orientation": "any",
     "start_url": "GameStart.html",
     "icons": [
         {
-            "src": "img/iconi.png",
-            "sizes": "192x192",
+            "src": "img/512icon.png",
+            "sizes": "512x512",
             "type": "image/png"
         }
-    ]
+    ],
+    "theme_color": "#fff",
+    "background_color": "#fff"
 }

@@ -25,7 +25,7 @@ console.log(level);
 //GameStartで設定した難易度とRoomCreateかRoomInで設定したsetpasswordでfirebaseのリファレンス指定
 const docRef = firestore.collection("Craft" + level).doc(craftpassword);
 //Teachable Machineエクスポートパネルによって提供されるモデルへのリンク(Teachable Machineのアップロードされたリンク)
-const URL = "https://teachablemachine.withgoogle.com/models/uK58cUWio/";
+const URL = "https://teachablemachine.withgoogle.com/models/XmYZLicmq/";
 let Model, Webcam, Ctx, LabelContainer, MaxPredictions;
 //getElementById...HTML要素の取得を行う
 const CountStart = document.getElementById("countdown");
@@ -36,7 +36,7 @@ var DownDown = ['赤上げて', '赤上げて', '赤上げて', '白上げて', 
 var WhiteRise = ['赤上げて', '赤上げて', '赤上げて', '白下げて', '白下げて', '白下げて'];
 var RedRise = ['白上げて', '白上げて', '白上げて', '白上げて', '赤下げて', '赤下げて', '赤下げて', '赤下げて'];
 var RiseRise = ['赤下げて', '赤下げて', '赤下げて', '赤下げて', '白下げて', '白下げて', '白下げて', '白下げて'];
-var QuestionFirst, QuestionWhiteON, QuestionRedON, QuestionONON, QuestionWrong;//NOFLAG(旗が上がっていない)問題,WhiteRiseredDownFlag(白い旗が上がっている)の問題,redRisewhiteDownFlag(赤い旗が上がっている)の問題,WhiteRiseredRiseFlag(両方上がっている)の問題,QuestionWrong(最初に間違えた場合)の問題を格納
+var QuestionFirst, QuestionWhiteON, QuestionRedON, QuestionONON, QuestionOne;//NOFLAG(旗が上がっていない)問題,WhiteRiseredDownFlag(白い旗が上がっている)の問題,redRisewhiteDownFlag(赤い旗が上がっている)の問題,WhiteRiseredRiseFlag(両方上がっている)の問題,QuestionWrong(最初に間違えた場合)の問題を格納
 var Answers, CorrectAnswer;//回答と正解を格納
 var AnswerArray = ['無'];//判定した回答を配列に格納(空だと何もしていないときに最頻値を計算するとNullになるので無を入れておく)
 var TimetoJudg = null;//判定までの時間
@@ -44,10 +44,6 @@ var CurrentScore = 0;//正解数を格納
 var TrueSound = new Audio('mp3/true_sound.mp3');//正解した時の音声を設定
 var FalseSound = new Audio('mp3/false_sound.mp3');//不正解した時の音声を設定
 var FlagRise = false;//判定のONOFF
-var FlagRight = true;//右が上がっている判定のONOFF
-var FlagLeft = true;//左が上がっている判定のONOFF
-var FlagNo = true;//何も上がっていない判定のONOFF
-var FlagAll = true;//両方上がっている判定のONOFF
 var MovementjudgmentStop = true;//最頻値の判定の繰り返しを止める
 var ModeStr;//最頻値で出された配列の文字を格納
 var op = {//旗が上がっている状態をtrue,下がっている状態をfalse
@@ -66,17 +62,17 @@ var player4 = null;
 var GameStart = true;
 //初期ライフ,正解数
 var Life = null;
-var miss = 0;
 var hp = null;
 var HP = hp;
+var miss = 0;
 var Heartpoint = null;
 var point = 0;
 //firebaseの問題
-var Quiz, NextQuiz, MissQuiz;
+var Quiz, NextQuiz;
 //回答結果の画像を貼るdocument
 let GameNav = document.getElementById("GameNav");
 
-//指定したfirebaseから値を取得
+//開始時の人数からライフの設定
 docRef.get().then((doc) => {
     //firebaseに上がっているそれぞれのプレイヤー名をプレイヤーナンバーの変数に格納
     player1 = doc.data().player1;
@@ -88,23 +84,137 @@ docRef.get().then((doc) => {
         if (player2 == null) {
             Life = "2";
         } else if (player3 == null) {
-            Life = "4";
+            Life = "5";
         } else if (player4 == null) {
-            Life = "6";
+            Life = "5";
         } else {
-            Life = "8";
+            Life = "5";
         }
         hp = Life;
-        //残り残機を表示
-        document.getElementById("life").innerHTML = Life;
     }
 }).catch((error) => {
     console.error("Error removing document: ", error);
 });
 
+//参加者全体の正解数を求める
+docRef.onSnapshot((doc) => {
+    var point1 = doc.data().Score1;
+    var point2 = doc.data().Score2;
+    var point3 = doc.data().Score3;
+    var point4 = doc.data().Score4;
+    if (player1 == null) {
+        console.log("error");
+    } else if (player2 == null) {
+        point = point1 + point2;
+    } else if (player3 == null) {
+        point = point1 + point2 + point3;
+    } else if (player4 == null) {
+        point = point1 + point2 + point3 + point4;
+    }
+    document.getElementById("score").innerHTML = point;
+});
+
+//全体のライフを計算
+docRef.onSnapshot((doc) => {
+    var life1 = doc.data().life1;
+    var life2 = doc.data().life2;
+    var life3 = doc.data().life3;
+    var life4 = doc.data().life4;
+    if (player1 == null) {
+        console.log("error");
+    } else if (player2 == null) {
+        Heartpoint = life1 + life2;
+    } else if (player3 == null) {
+        Heartpoint = life1 + life2 + life3;
+    } else if (player4 == null) {
+        Heartpoint = life1 + life2 + life3 + life4;
+    }
+    HP = hp - Heartpoint;
+    var hart = HP + 1;
+    console.log("HP", HP);
+    if (hart <= 5) {
+        let HartId = document.getElementById("pat" + hart);
+        HartId.src = "img/nohart.png";
+        CountStart.style.opacity = 1;//CountStartを表示させる
+        CountStart.innerText = "はたをさげてね";//ユーザーに初期状態になってもらう
+    }
+    if (HP === 0) { //ライフが0になったときにリザルト画面に行く
+        docRef.update({
+            GameStart: "false",
+        })
+        //間違えたりタイムオーバー時にライフが無い場合リザルト画面に移動
+        location.href = "./Result.html";
+    }
+});
+
+//DOM要素を読み込む
+document.addEventListener("DOMContentLoaded", function (event) {
+    WEBCAMERA();
+});
+
+//画像モデルを読み込み、ウェブカメラをセットアップする
+async function WEBCAMERA() {
+    const ModelURL = URL + "model.json";
+    const MetadataURL = URL + "metadata.json";
+    //学習モデルの読み込みと入力クラスの取得
+    Model = await tmPose.load(ModelURL, MetadataURL);
+    MaxPredictions = Model.getTotalClasses();
+    //Webカメラの起動準備
+    const Flip = true;//ウェブカメラを反転するかどうか
+    const Size = window.parent.screen.width / 2;//windowウェブカメラをセットアップするための機能
+    Webcam = new tmPose.Webcam(Size, Size, Flip);//幅、高さ、反転
+    await Webcam.setup();//ウェブカメラへのアクセスをリクエストする
+    Webcam.webcam.playsInline = true;//iphoneで動かすコード
+    await Webcam.play();//カメラの起動
+    //アクセス許可されたら準備okにする
+    var StandbyName = setname + "準備OK";
+    //1番最初の問題をランダムでfirebaseに送る
+    if (playernumber == "player1") {
+        SetQuestion();
+        docRef.update({
+            player1: StandbyName
+        })
+    } else if (playernumber == "player2") {
+        docRef.update({
+            player2: StandbyName
+        })
+    } else if (playernumber == "player3") {
+        docRef.update({
+            player3: StandbyName
+        })
+    } else if (playernumber == "player4") {
+        docRef.update({
+            player4: StandbyName
+        })
+    }
+    window.requestAnimationFrame(LOOP);//判定の処理を動かす
+    //DOMに要素を追加する
+    const Canvas = document.getElementById("Canvas");
+    Canvas.width = Size; Canvas.height = Size;
+    Ctx = Canvas.getContext("2d");
+    //モデルにあるすべてのクラス要素にdivタグをつける
+    LabelContainer = document.getElementById("label-container");
+    for (let i = 0; i < MaxPredictions; i++) {
+        LabelContainer.appendChild(document.createElement("div"));
+    }
+}
+
+//最初の問題を設定する
+function SetQuestion() {
+    QuestionOne = DownDown[Math.floor(Math.random() * DownDown.length)];//DownDownの中から問題をシャッフル
+    docRef.update({
+        Quiz: QuestionOne
+    })
+}
+
+//次に出る問題を取得する
+docRef.onSnapshot((doc) => {
+    Quiz = doc.data().Quiz;
+});
+
 //GameStart(ゲームの開始)がtrueになったとき
-if (GameStart == true) {
-    docRef.onSnapshot((doc) => {
+docRef.onSnapshot((doc) => {
+    if (GameStart == true) {
         //firebaseに上がっているそれぞれのプレイヤー名をプレイヤーナンバーの変数に格納
         player1 = doc.data().player1;
         player2 = doc.data().player2;
@@ -149,143 +259,17 @@ if (GameStart == true) {
                 }
             }
         }
-    });
-}
-
-//次に出る問題を取得する
-docRef.onSnapshot((doc) => {
-    Quiz = doc.data().Quiz;
-    NextQuiz = doc.data().NextQuiz;
-    MissQuiz = doc.data().MissQuiz;
-});
-
-//参加者全体の正解数を求める
-docRef.onSnapshot((doc) => {
-    var point1 = doc.data().Score1;
-    var point2 = doc.data().Score2;
-    var point3 = doc.data().Score3;
-    var point4 = doc.data().Score4;
-    if (player1 == null) {
-        console.log("error");
-    } else if (player2 == null) {
-        point = point1 + point2;
-    } else if (player3 == null) {
-        point = point1 + point2 + point3;
-    } else if (player4 == null) {
-        point = point1 + point2 + point3 + point4;
-    }
-    document.getElementById("score").innerHTML = point;
-});
-
-//全体のライフを計算
-docRef.onSnapshot((doc) => {
-    var life1 = doc.data().life1;
-    var life2 = doc.data().life2;
-    var life3 = doc.data().life3;
-    var life4 = doc.data().life4;
-    if (player1 == null) {
-        console.log("error");
-    } else if (player2 == null) {
-        Heartpoint = life1 + life2;
-    } else if (player3 == null) {
-        Heartpoint = life1 + life2 + life3;
-    } else if (player4 == null) {
-        Heartpoint = life1 + life2 + life3 + life4;
-    }
-    HP = hp - Heartpoint;
-    document.getElementById("life").innerHTML = HP;
-    //ライフが0になったときにリザルト画面に行く
-    if (HP === 0) {
-        docRef.update({
-            GameStart: "false",
-        })
-        //間違えたりタイムオーバー時にライフが無い場合リザルト画面に移動
-        location.href = "./Result.html";
     }
 });
-
-//DOM要素を読み込む
-document.addEventListener("DOMContentLoaded", function (event) {
-    WEBCAMERA();
-});
-
-//画像モデルを読み込み、ウェブカメラをセットアップする
-async function WEBCAMERA() {
-    const ModelURL = URL + "model.json";
-    const MetadataURL = URL + "metadata.json";
-    //学習モデルの読み込みと入力クラスの取得
-    Model = await tmPose.load(ModelURL, MetadataURL);
-    MaxPredictions = Model.getTotalClasses();
-    //Webカメラの起動準備
-    const Flip = true;//ウェブカメラを反転するかどうか
-    const Size = window.parent.screen.width / 2;//windowウェブカメラをセットアップするための機能
-    Webcam = new tmPose.Webcam(Size, Size, Flip);//幅、高さ、反転
-    await Webcam.setup();//ウェブカメラへのアクセスをリクエストする
-    Webcam.webcam.playsInline = true;//iphoneで動かすコード
-    await Webcam.play();//カメラの起動
-    //1番最初の問題をランダムでfirebaseに送る
-    var QuestionFirst = DownDown[Math.floor(Math.random() * DownDown.length)];//DownDownの中から問題をシャッフル
-    docRef.update({
-        FirstQuiz: QuestionFirst
-    })
-    //正解した時の問題を最初の問題から判断してランダムでfirebaseに送る
-    if ('白上げて' == QuestionFirst) {
-        QuestionWhiteON = WhiteRise[Math.floor(Math.random() * WhiteRise.length)];//WhiteRiseの中から問題をシャッフル
-        docRef.update({
-            NextQuiz: QuestionWhiteON
-        })
-    } else {
-        QuestionRedON = RedRise[Math.floor(Math.random() * RedRise.length)];//RedRiseの中からランダムで問題を表示
-        docRef.update({
-            NextQuiz: QuestionRedON
-        })
-    }
-    //非正解の時の問題をランダムでfirebaseに送る
-    QuestionWrong = DownDown[Math.floor(Math.random() * DownDown.length)];//DownDownの中から問題をシャッフル
-    docRef.update({
-        MissQuiz: QuestionWrong
-    })
-    //アクセス許可されたら準備okにする
-    var StandbyName = setname + "準備OK";
-    if (playernumber == "player1") {
-        docRef.update({
-            player1: StandbyName
-        })
-    } else if (playernumber == "player2") {
-        docRef.update({
-            player2: StandbyName
-        })
-    } else if (playernumber == "player3") {
-        docRef.update({
-            player3: StandbyName
-        })
-    } else if (playernumber == "player4") {
-        docRef.update({
-            player4: StandbyName
-        })
-    }
-    window.requestAnimationFrame(LOOP);//判定の処理を動かす
-    //DOMに要素を追加する
-    const Canvas = document.getElementById("Canvas");
-    Canvas.width = Size; Canvas.height = Size;
-    Ctx = Canvas.getContext("2d");
-    //モデルにあるすべてのクラス要素にdivタグをつける
-    LabelContainer = document.getElementById("label-container");
-    for (let i = 0; i < MaxPredictions; i++) {
-        LabelContainer.appendChild(document.createElement("div"));
-    }
-}
 
 //ゲームの開始
 function GAMESTART() {
     console.log("スタート")
     GameStart = false;
-    FlagNo = false;//無を判定しないようにする
     //カウントダウンの開始 1秒ごとにCOUNTDOWNに移動する
     Count = setInterval(COUNTDOWN, 1000);//setInterval…一定時間ごとに特定の処理を繰り返す
     //旗が上がっていない状態からのスタート 5秒後にNOFLAGに移動する
     First = setInterval(NOFLAG, 5000);
-    QuestionFirst = Quiz;
 };
 
 //ゲーム開始までのカウントダウン
@@ -311,10 +295,8 @@ function ProgressBar() {
 //旗が上がっていない状態からスタートした場合 出題問題(赤上げて, 白上げて)
 function NOFLAG() {
     clearInterval(First);//setIntervalの繰り返しを止める
-    FlagRight = true;//右手が上がっていると判定するようにする
-    FlagLeft = true;//左手が上がっていると判定するようにする
-    //問題を表示
-    Question.innerText = QuestionFirst;
+    QuestionFirst = Quiz;//firebaseに上がった問題を格納
+    Question.innerText = QuestionFirst;//問題を表示
     console.log("問題は", QuestionFirst);
     //問題の読み上げ
     if ('speechSynthesis' in window) {//ブラウザにWeb Speech API Speech Synthesis機能があるか判定
@@ -341,17 +323,14 @@ function NOFLAG() {
         CorrectAnswer = "右手あげてる";
         TimetoJudg = 3000;//判定が開始されるまでの時間
     };
+    QuestionFirst = "";//取得をしたら初期化する
     Loop1 = setInterval(LOOPFLAG, TimetoJudg);//設定した秒数後にLOOPFLAG(判定の開始)の処理に移動する
 };
 
 //白い旗だけ上がっている状態からスタートした場合 出題問題(赤上げて, 白下げて)
 function WhiteRiseredDownFlag() {
-    FlagLeft = false;//左手が上がっていると判定しないようにする
-    FlagRight = true;//右手が上がっていると判定するようにする
-    FlagAll = true;//両手が上がっていると判定するようにする
-    QuestionWhiteON = WhiteRise[Math.floor(Math.random() * WhiteRise.length)];//WhiteRiseの中から問題をシャッフル
-    //問題を表示
-    Question.innerText = QuestionWhiteON;
+    QuestionWhiteON = Quiz;//firebaseに上がった問題を格納
+    Question.innerText = QuestionWhiteON;//問題を表示
     console.log("問題は", QuestionWhiteON);
     //問題の読み上げ
     if ('speechSynthesis' in window) {//ブラウザにWeb Speech API Speech Synthesis機能があるか判定
@@ -369,28 +348,23 @@ function WhiteRiseredDownFlag() {
         CorrectAnswer = "両手上げてる";
         TimetoJudg = 1000;//判定が開始されるまでの時間
     } else if ('白下げて' == QuestionWhiteON) {//白を下げる問題だった場合 A.両手が下がっている
-        FlagNo = true;//両手が下がっている判定が出来るようにする
         CorrectAnswer = "両手下げてる";
         TimetoJudg = 1000;//判定が開始されるまでの時間
     } else if ('赤上げないで白下げて' == QuestionWhiteON) {//白を下げる問題だった場合 A.両手が下がっている
-        FlagNo = true;//両手が下がっている判定が出来るようにする
         CorrectAnswer = "両手下げてる";
         TimetoJudg = 3000;//判定が開始されるまでの時間
     } else if ('白下げないで赤上げて' == QuestionWhiteON) {//赤をあげる問題だった場合 A.両手が上がっている
         CorrectAnswer = "両手上げてる";
         TimetoJudg = 3000;//判定が開始されるまでの時間  
     };
-    Loop2 = setInterval(LOOPFLAG, TimetoJudg); //設定した秒数後にLOOPFLAG(判定の開始)の処理に移動する
+    QuestionWhiteON = "";//取得をしたら初期化する
+    Loop2 = setInterval(LOOPFLAG, TimetoJudg);//設定した秒数後にLOOPFLAG(判定の開始)の処理に移動する
 };
 
 //赤い旗だけ上がっている状態からスタートした場合 出題問題(赤下げて, 白上げて)
 function RedRisewhiteDownFlag() {
-    FlagRight = false;//右手が上がっていると判定しないようにする
-    FlagLeft = true;//左手が上がっていると判定するようにする
-    FlagAll = true;//両手が上がっていると判定するようにする
-
-    //問題を表示
-    Question.innerText = QuestionRedON;
+    QuestionRedON = Quiz;//firebaseに上がった問題を格納
+    Question.innerText = QuestionRedON;//問題を表示
     console.log("問題は", QuestionRedON);
     //問題の読み上げ
     if ('speechSynthesis' in window) {//ブラウザにWeb Speech API Speech Synthesis機能があるか判定
@@ -405,28 +379,26 @@ function RedRisewhiteDownFlag() {
     }
     //問題の正解を格納
     if ('赤下げて' == QuestionRedON) {//赤を下げる問題だった場合 A.両手が下がっている
-        FlagNo = true;//両手が下がっている判定が出来るようにする
         CorrectAnswer = "両手下げてる";
         TimetoJudg = 1000;//判定が開始されるまでの時間    
     } else if ('白上げて' == QuestionRedON) {//白をあげる問題だった場合 A.両手が上がっている
         CorrectAnswer = "両手上げてる";
         TimetoJudg = 1000;//判定が開始されるまでの時間        
     } else if ('白上げないで赤下げて' == QuestionRedON) {//赤を下げる問題だった場合 A.両手が下がっている
-        FlagNo = true;//両手が下がっている判定が出来るようにする
         CorrectAnswer = "両手下げてる";
         TimetoJudg = 3000;//判定が開始されるまでの時間      
     } else if ('赤下げないで白上げて' == QuestionRedON) {//白をあげる問題だった場合 A.両手が上がっている
         CorrectAnswer = "右手あげてる";
         TimetoJudg = 3000;//判定が開始されるまでの時間
     };
+    QuestionRedON = "";//取得をしたら初期化する
     Loop3 = setInterval(LOOPFLAG, TimetoJudg);//設定した秒数後にLOOPFLAG(判定の開始)の処理に移動する
 };
 
 //両方上がっている状態からスタートした場合 出題問題(赤下げて, 白下げて)
 function WhiteRiseredRiseFlag() {
-    FlagAll = false;//両手が上がっていると判定しないようにする
-    //問題を表示
-    Question.innerText = QuestionONON;
+    QuestionONON = Quiz;//firebaseに上がった問題を格納
+    Question.innerText = QuestionONON;//問題を表示
     console.log("問題は", QuestionONON);
     //問題の読み上げ
     if ('speechSynthesis' in window) {//ブラウザにWeb Speech API Speech Synthesis機能があるか判定
@@ -447,13 +419,13 @@ function WhiteRiseredRiseFlag() {
         CorrectAnswer = "右手あげてる";
         TimetoJudg = 1000;//判定が開始されるまでの時間
     } else if ('白下げないで赤下げて' == QuestionONON) {//赤を下げる問題だった場合 A.左手が下がっている
-        FlagNo = true;//両手が下がっている判定が出来るようにする
         CorrectAnswer = "両手下げてる";
         TimetoJudg = 3000;//判定が開始されるまでの時間 
     } else if ('赤下げないで白下げて' == QuestionONON) {//白を下げる問題だった場合 A.右手が上がっている
         CorrectAnswer = "右手あげてる";
         TimetoJudg = 3000;//判定が開始されるまでの時間 
     };
+    QuestionONON = "";//取得をしたら初期化する
     Loop4 = setInterval(LOOPFLAG, TimetoJudg);//設定した秒数後にLOOPFLAG(判定の開始)の処理に移動する
 };
 
@@ -493,40 +465,32 @@ async function PREDICT() {
                 MovementjudgmentStop = false;//最頻値の判定の繰り返しを止める
             }
             //右手が上げられた場合
-            if (Name == "右" && Value >= 0.9) {
+            if (Name == "右" && Value >= 1) {
                 //赤い旗の表示
                 let RedFlagImg = document.getElementById("Hatahuman");
                 RedFlagImg.src = "img/righthand.png";
-                if (FlagRight == true) {//FlagRightがtrueの間実行する
-                    AnswerArray.push("右");//配列AnswerArrayに"右"を格納する
-                }
+                AnswerArray.push("右");//配列AnswerArrayに"右"を格納する
             }
             //左手が上げられた場合
-            if (Name == "左" && Value >= 0.9) {
+            if (Name == "左" && Value >= 1) {
                 //白い旗の表示
                 let WhiteFlagImg = document.getElementById("Hatahuman");
                 WhiteFlagImg.src = "img/lefthand.png";
-                if (FlagLeft == true) {//FlagLeftがtrueの間実行する
-                    AnswerArray.push("左");//配列AnswerArrayに"左"を格納する
-                }
+                AnswerArray.push("左");//配列AnswerArrayに"左"を格納する
             }
             //何も上げていない場合
-            if (Name == "無" && Value >= 0.9) {
+            if (Name == "無" && Value >= 1) {
                 //何もないときの表示
                 let NoFlagImg = document.getElementById("Hatahuman");
                 NoFlagImg.src = "img/nohand.png";
-                if (FlagNo == true) {//FlagNoがtrueの間実行する
-                    AnswerArray.push("無");//配列AnswerArrayに"無"を格納する
-                }
+                AnswerArray.push("無");//配列AnswerArrayに"無"を格納する
             }
             //両手が上がっている場合
-            if (Name == "両手" && Value >= 0.9) {
+            if (Name == "両手" && Value >= 1) {
                 //両手の表示
                 let ALLFlagImg = document.getElementById("Hatahuman");
                 ALLFlagImg.src = "img/Allhand.png";
-                if (FlagAll == true) {//FlagAllがtrueの間実行する
-                    AnswerArray.push("両");//配列AnswerArrayに"両"を格納する
-                }
+                AnswerArray.push("両");//配列AnswerArrayに"両"を格納する
             }
         };
     }
@@ -605,8 +569,6 @@ function CHECKANSWER() {
         //マルを表示する
         GameNav.src = "./img/maru.png";
         CurrentScore++;//正解数に1を足す
-        //firebaseから正解だった場合の問題を取得する
-        QuestionFirst = NextQuiz;
         //firebaseの正解数を更新
         if (playernumber == "player1") {
             docRef.update({
@@ -643,15 +605,12 @@ function CHECKANSWER() {
         //上げている旗のリセット
         op.RedOP = false;//falseにして赤の旗を下がっている状態にする
         op.WhiteOP = false;//falseにして白の旗を下がっている状態にする
-        CountStart.style.opacity = 1;//CountStartを表示させる
-        CountStart.innerText = "はたをさげてね";//ユーザーに初期状態になってもらう
         ADJUSTSCORE();///ADJUSTSCORE(ミスした時の処理)移動する
-        Judge = setInterval(JudgeQuestion, 3000);//JudgeQuestion(問題の振り分けの処理)に行く
+        Judge = setInterval(JudgeQuestion, 4000);//JudgeQuestion(問題の振り分けの処理)に行く
     }
     Answers = "";//Answersの初期化
     document.getElementById('Qcountdown').value = 0;//プログレスバーの初期化
-    //スコアを表示
-    document.getElementById("score").innerHTML = CurrentScore;
+    document.getElementById("score").innerHTML = CurrentScore;//スコアを表示
 }
 
 //残り残機を表示する
@@ -688,33 +647,45 @@ function JudgeQuestion() {
     GameNav.src = "./img/Path.png";//透明の画像を入れる
     if ((op.WhiteOP === true) && (op.RedOP === true)) {//赤い旗と白い旗の両方が上がっている
         console.log("両手が上がっているときの問題");
-        WhiteRiseredRiseFlag();//WhiteRiseredRiseFlag(両手が上がっているときの問題)に行く
+        if (playernumber === "player1") {//問題をfirebaseに送る
+            QuestionONON = RiseRise[Math.floor(Math.random() * RiseRise.length)];//RiseRiseの中からランダムで問題を表示
+            FirebaseSetQuiz = QuestionONON;
+            docRef.update({
+                Quiz: FirebaseSetQuiz
+            })
+        }
+        setTimeout(WhiteRiseredRiseFlag, 1000);//WhiteRiseredRiseFlag(両手が上がっているときの問題)に行く
     } else if ((op.WhiteOP === true) && (op.RedOP === false)) {//白い旗だけ上がっている
         console.log("白だけが上がっているときの問題");
-        //両手を上げて正解だった場合の問題をfirebaseに送る
-        QuestionONON = RiseRise[Math.floor(Math.random() * RiseRise.length)];//RiseRiseの中からランダムで問題を表示
-        //手を下げた時の問題か間違えた時の問題をfirebaseに送る
-        QuestionFirst = DownDown[Math.floor(Math.random() * DownDown.length)];//DownDownの中から問題をシャッフル
-        WhiteRiseredDownFlag();//WhiteRiseredDownFlag(白だけが上がっているときの問題)に行く
+        if (playernumber === "player1") {//問題をfirebaseに送る
+            QuestionWhiteON = WhiteRise[Math.floor(Math.random() * WhiteRise.length)];//WhiteRiseの中から問題をシャッフル
+            FirebaseSetQuiz = QuestionWhiteON;
+            docRef.update({
+                Quiz: FirebaseSetQuiz
+            })
+        }
+        setTimeout(WhiteRiseredDownFlag, 1000);//WhiteRiseredDownFlag(白だけが上がっているときの問題)に行く
     } else if ((op.WhiteOP === false) && (op.RedOP === true)) {//赤い旗だけ上がっている
         console.log("赤だけが上がっているときの問題")
-        //両手を上げて正解だった場合の問題をfirebaseに送る
-        QuestionONON = RiseRise[Math.floor(Math.random() * RiseRise.length)];//RiseRiseの中からランダムで問題を表示
-        //手を下げた時の問題か間違えた時の問題をfirebaseに送る
-        QuestionFirst = DownDown[Math.floor(Math.random() * DownDown.length)];//DownDownの中から問題をシャッフル
-        RedRisewhiteDownFlag();//RedRisewhiteDownFlag(赤だけが上がっているときの問題)に行く
+        //問題をfirebaseに送る
+        if (playernumber === "player1") {
+            QuestionRedON = RedRise[Math.floor(Math.random() * RedRise.length)];//RedRiseの中からランダムで問題を表示
+            FirebaseSetQuiz = QuestionRedON;
+            docRef.update({
+                Quiz: FirebaseSetQuiz
+            })
+        }
+        setTimeout(RedRisewhiteDownFlag, 1000);//RedRisewhiteDownFlag(赤だけが上がっているときの問題)に行く
     } else {//旗が上がっていない
         console.log("なにも上がっていない時の問題");
-        //なにも上がっていない時の問題をランダムでfirebaseに送る
-        QuestionFirst = DownDown[Math.floor(Math.random() * DownDown.length)];//DownDownの中から問題をシャッフル
-        //正解した時の問題を最初の問題から判断してランダムでfirebaseに送る
-        if ('白上げて' == QuestionFirst) {
-            QuestionWhiteON = WhiteRise[Math.floor(Math.random() * WhiteRise.length)];//WhiteRiseの中から問題をシャッフル
-        } else {
-            QuestionRedON = RedRise[Math.floor(Math.random() * RedRise.length)];//RedRiseの中からランダムで問題を表示
+        //問題をfirebaseに送る
+        if (playernumber === "player1") {
+            QuestionFirst = DownDown[Math.floor(Math.random() * DownDown.length)];//DownDownの中から問題をシャッフル
+            FirebaseSetQuiz = QuestionFirst;
+            docRef.update({
+                Quiz: FirebaseSetQuiz
+            })
         }
-        //不正解の時の問題をランダムでfirebaseに送る
-        QuestionWrong = DownDown[Math.floor(Math.random() * DownDown.length)];//DownDownの中から問題をシャッフル
-        NOFLAG();//NOFLAG(なにも上がっていない時の問題)に行く
+        setTimeout(NOFLAG, 1000);//NOFLAG(なにも上がっていない時の問題)に行く
     };
 };

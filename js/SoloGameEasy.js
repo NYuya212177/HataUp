@@ -1,5 +1,5 @@
 //Teachable Machineエクスポートパネルによって提供されるモデルへのリンク(Teachable Machineのアップロードされたリンク)
-const URL = "https://teachablemachine.withgoogle.com/models/uK58cUWio/";
+const URL = "https://teachablemachine.withgoogle.com/models/XmYZLicmq/";
 let Model, Webcam, Ctx, LabelContainer, MaxPredictions;
 //getElementById...HTML要素の取得を行う
 const CountStart = document.getElementById("countdown");
@@ -22,10 +22,6 @@ var CurrentScore = 0;//正解数を格納
 const TrueSound = new Audio('mp3/true_sound.mp3');//正解した時の音声を設定
 const FalseSound = new Audio('mp3/false_sound.mp3');//不正解した時の音声を設定
 var FlagRise = false;//判定のONOFF
-var FlagRight = true;//右が上がっている判定のONOFF
-var FlagLeft = true;//左が上がっている判定のONOFF
-var FlagNo = true;//何も上がっていない判定のONOFF
-var FlagAll = true;//両方上がっている判定のONOFF
 var MovementjudgmentStop = true;//最頻値の判定の繰り返しを止める
 var ModeStr;//最頻値で出された配列の文字を格納
 var op = {//旗が上がっている状態をtrue,下がっている状態をfalse
@@ -71,7 +67,6 @@ async function WEBCAMERA() {
 
 //ゲームの開始
 function GAMESTART() {
-    FlagNo = false;//無を判定しないようにする
     //カウントダウンの開始 1秒ごとにCOUNTDOWNに移動する
     Count = setInterval(COUNTDOWN, 1000);//setInterval…一定時間ごとに特定の処理を繰り返す
     //旗が上がっていない状態からのスタート 5秒後にNOFLAGに移動する
@@ -101,8 +96,6 @@ function ProgressBar() {
 //旗が上がっていない状態からスタートした場合 出題問題(赤上げて, 白上げて)
 function NOFLAG() {
     clearInterval(First);//setIntervalの繰り返しを止める
-    FlagRight = true;//右手が上がっていると判定するようにする
-    FlagLeft = true;//左手が上がっていると判定するようにする
     QuestionFirst = DownDown[Math.floor(Math.random() * DownDown.length)];//DownDownの中から問題をシャッフル
     //問題を表示
     Question.innerText = QuestionFirst;
@@ -137,9 +130,6 @@ function NOFLAG() {
 
 //白い旗だけ上がっている状態からスタートした場合 出題問題(赤上げて, 白下げて)
 function WhiteRiseredDownFlag() {
-    FlagLeft = false;//左手が上がっていると判定しないようにする
-    FlagRight = true;//右手が上がっていると判定するようにする
-    FlagAll = true;//両手が上がっていると判定するようにする
     QuestionWhiteON = WhiteRise[Math.floor(Math.random() * WhiteRise.length)];//WhiteRiseの中から問題をシャッフル
     //問題を表示
     Question.innerText = QuestionWhiteON;
@@ -160,11 +150,9 @@ function WhiteRiseredDownFlag() {
         CorrectAnswer = "両手上げてる";
         TimetoJudg = 1000;//判定が開始されるまでの時間
     } else if ('白下げて' == QuestionWhiteON) {//白を下げる問題だった場合 A.両手が下がっている
-        FlagNo = true;//両手が下がっている判定が出来るようにする
         CorrectAnswer = "両手下げてる";
         TimetoJudg = 1000;//判定が開始されるまでの時間
     } else if ('赤上げないで白下げて' == QuestionWhiteON) {//白を下げる問題だった場合 A.両手が下がっている
-        FlagNo = true;//両手が下がっている判定が出来るようにする
         CorrectAnswer = "両手下げてる";
         TimetoJudg = 3000;//判定が開始されるまでの時間
     } else if ('白下げないで赤上げて' == QuestionWhiteON) {//赤をあげる問題だった場合 A.両手が上がっている
@@ -176,9 +164,6 @@ function WhiteRiseredDownFlag() {
 
 //赤い旗だけ上がっている状態からスタートした場合 出題問題(赤下げて, 白上げて)
 function RedRisewhiteDownFlag() {
-    FlagRight = false;//右手が上がっていると判定しないようにする
-    FlagLeft = true;//左手が上がっていると判定するようにする
-    FlagAll = true;//両手が上がっていると判定するようにする
     QuestionRedON = RedRise[Math.floor(Math.random() * RedRise.length)];//RedRiseの中からランダムで問題を表示
     //問題を表示
     Question.innerText = QuestionRedON;
@@ -196,14 +181,12 @@ function RedRisewhiteDownFlag() {
     }
     //問題の正解を格納
     if ('赤下げて' == QuestionRedON) {//赤を下げる問題だった場合 A.両手が下がっている
-        FlagNo = true;//両手が下がっている判定が出来るようにする
         CorrectAnswer = "両手下げてる";
         TimetoJudg = 1000;//判定が開始されるまでの時間
     } else if ('白上げて' == QuestionRedON) {//白をあげる問題だった場合 A.両手が上がっている
         CorrectAnswer = "両手上げてる";
         TimetoJudg = 1000;//判定が開始されるまでの時間
     } else if ('白上げないで赤下げて' == QuestionRedON) {//赤を下げる問題だった場合 A.両手が下がっている
-        FlagNo = true;//両手が下がっている判定が出来るようにする
         CorrectAnswer = "両手下げてる";
         TimetoJudg = 3000;//判定が開始されるまでの時間
     } else if ('赤下げないで白上げて' == QuestionRedON) {//白をあげる問題だった場合 A.両手が上がっている
@@ -215,9 +198,6 @@ function RedRisewhiteDownFlag() {
 
 //両方上がっている状態からスタートした場合 出題問題(赤下げて, 白下げて)
 function WhiteRiseredRiseFlag() {
-    FlagAll = false;//両手が上がっていると判定しないようにする
-    FlagRight = true;//右手が上がっていると判定するようにする
-    FlagLeft = true;//左手が上がっていると判定するようにする
     QuestionONON = RiseRise[Math.floor(Math.random() * RiseRise.length)];//RiseRiseの中からランダムで問題を表示
     //問題を表示
     Question.innerText = QuestionONON;
@@ -241,7 +221,6 @@ function WhiteRiseredRiseFlag() {
         CorrectAnswer = "右手あげてる";
         TimetoJudg = 1000;//判定が開始されるまでの時間
     } else if ('白下げないで赤下げて' == QuestionONON) {//赤を下げる問題だった場合 A.左手が下がっている
-        FlagNo = true;//両手が下がっている判定が出来るようにする
         CorrectAnswer = "両手下げてる";
         TimetoJudg = 3000;//判定が開始されるまでの時間
     } else if ('赤下げないで白下げて' == QuestionONON) {//白を下げる問題だった場合 A.右手が上がっている
@@ -287,40 +266,32 @@ async function PREDICT() {
                 MovementjudgmentStop = false;//最頻値の判定の繰り返しを止める
             }
             //右手が上げられた場合
-            if (Name == "右" && Value >= 0.9) {
+            if (Name == "右" && Value >= 1) {
                 //赤い旗の表示
                 let RedFlagImg = document.getElementById("Hatahuman");
                 RedFlagImg.src = "img/righthand.png";
-                if (FlagRight == true) {//FlagRightがtrueの間実行する
-                    AnswerArray.push("右");//配列AnswerArrayに"右"を格納する
-                }
+                AnswerArray.push("右");//配列AnswerArrayに"右"を格納する
             }
             //左手が上げられた場合
-            if (Name == "左" && Value >= 0.9) {
+            if (Name == "左" && Value >= 1) {
                 //白い旗の表示
                 let WhiteFlagImg = document.getElementById("Hatahuman");
                 WhiteFlagImg.src = "img/lefthand.png";
-                if (FlagLeft == true) {//FlagLeftがtrueの間実行する
-                    AnswerArray.push("左");//配列AnswerArrayに"左"を格納する
-                }
+                AnswerArray.push("左");//配列AnswerArrayに"左"を格納する
             }
             //何も上げていない場合
-            if (Name == "無" && Value >= 0.9) {
+            if (Name == "無" && Value >= 1) {
                 //何もないときの表示
                 let NoFlagImg = document.getElementById("Hatahuman");
                 NoFlagImg.src = "img/nohand.png";
-                if (FlagNo == true) {//FlagNoがtrueの間実行する
-                    AnswerArray.push("無");//配列AnswerArrayに"無"を格納する
-                }
+                AnswerArray.push("無");//配列AnswerArrayに"無"を格納する
             }
             //両手が上がっている場合
-            if (Name == "両手" && Value >= 0.9) {
+            if (Name == "両手" && Value >= 1) {
                 //両手の表示
                 let ALLFlagImg = document.getElementById("Hatahuman");
                 ALLFlagImg.src = "img/Allhand.png";
-                if (FlagAll == true) {//FlagAllがtrueの間実行する
-                    AnswerArray.push("両");//配列AnswerArrayに"両"を格納する
-                }
+                AnswerArray.push("両");//配列AnswerArrayに"両"を格納する
             }
         };
     }
@@ -423,9 +394,7 @@ function CHECKANSWER() {
     }
     Answers = "";//Answersの初期化
     document.getElementById('Qcountdown').value = 0;//プログレスバーの初期化
-    //スコアと残りのライフを表示
-    document.getElementById("score").innerHTML = CurrentScore;
-    document.getElementById("Life").innerHTML = Life;
+    document.getElementById("score").innerHTML = CurrentScore;//スコアを表示
 }
 
 //残り残機を表示する
@@ -433,6 +402,9 @@ function ADJUSTSCORE() {
     if (Life > 0) {
         Life--;//ライフから1を引く
         console.log(Life);
+        var hert = Life + 1;
+        let HartId = document.getElementById("pat" + hert);
+        HartId.src = "img/nohart.png";
         if (Life === 0) {//ライフが0ならゲームオーバー
             localStorage.setItem('Score', CurrentScore);//ローカルストレージにスコアを格納
             location.href = "SoloResult.html";//間違えたりタイムオーバー時にゲームオーバー画面に移動

@@ -1,11 +1,16 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
+    
 <head>
     <meta charset="UTF-8">
+
     <link rel="manifest" href="manifest.json">
+    <script async src="https://cdn.jsdelivr.net/npm/pwacompat" crossorigin="anonymous"></script>
+    <script async src="https://unpkg.com/pwacompat" crossorigin="anonymous"></script>
+
     <link rel="stylesheet" href="css/GameStart.css">
-    <title>はたあげゲーム</title>
+
+    <title></title>
     <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-messaging.js"></script>
@@ -73,7 +78,6 @@
                 console.log('ServiceWorker registration failed: ', err);
             });
         }
-
     </script>
 </body>
 

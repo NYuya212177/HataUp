@@ -10,8 +10,14 @@ body {
     touch-action: manipulation; /*画面二回タップで拡大を阻止*/
 }
 
+/*スクロール停止*/
+    html,body {
+    overflow: hidden
+}
+
 /* 名前を教えてのテキスト */
 .name {
+    margin-top: -50px;
     font-size: 30px;
     font-family: 'HGP行書体';
     color: red;
@@ -23,13 +29,6 @@ h1 {
     font-family: 'HGP行書体';
     color: red;
 }
-
-/*名前テキストボックスのデザイン*/
-/* .cp_iptxt {
-    margin: auto;
-    text-align: center;
-    position: relative;
-} */
 
 .cp_iptxt input[type='text'] {
     background: cadetblue;
@@ -60,9 +59,9 @@ input[type="text"]{
 
 /*透明なパスワード欄の画像のレイアウト*/
 .usepath {
-    width: 400px; /*ボタンの幅*/
-    border-radius: 30px; /*ボタンの角削除*/
-    margin: auto; /*中央配置*/
+    width: 400px; 
+    border-radius: 30px; 
+    margin: auto; 
     background: cadetblue;
     text-align: center;
 }
@@ -198,10 +197,11 @@ input[type="text"]{
         touch-action: manipulation; /*画面二回タップで拡大を阻止*/
     }
 
-    html,
+    
+    /* html,
     body {
         overflow: hidden
-    }
+    } */
 
     /* 名前を教えてのテキスト */
     .name {

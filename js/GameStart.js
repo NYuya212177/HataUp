@@ -83,7 +83,6 @@ document.getElementById("SoloGame").addEventListener("click", function () {
                 console.log(level);
             }
         }
-
         if (level === "easy") {//難易度がかんたんの時
             //SoloGameEasy.htmlに画面遷移
             window.location.href = 'SoloGameEasy.html';

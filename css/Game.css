@@ -2,47 +2,50 @@
 
 /*画面全体のレイアウト*/
 body {
-    background: url(background/siroHaikei.jpg) center;
-    /*背景画像指定*/
-    background-repeat: no-repeat;
-    /*画像複製阻止*/
-    background-size: cover;
-    /*画面領域*/
-    height: 100vh;
-    /*高さ設定*/
-    text-align: center;
-    /*中央配置*/
-    touch-action: manipulation;
-    /*画面二回タップで拡大を阻止*/
+    background: url(background/siroHaikei.jpg) center; /*背景画像指定*/
+    background-repeat: no-repeat; /*画像複製阻止*/
+    background-size: cover; /*画面領域*/
+    height: 100vh; /*高さ設定*/
+    touch-action: manipulation; /*画面二回タップで拡大を阻止*/
 }
 
 /*スクロール停止*/
-/* html,
-body {
+html,body {
     overflow: hidden
-} */
+}
 
+img {
+    text-align: center; /*中央配置*/
+    pointer-events: none;
+}
 .usagi {
+    text-align: center; /*中央配置*/
     margin-top: -15px;
+    pointer-events: none;
 }
 
 .human {
+    text-align: center; /*中央配置*/
+    margin-top: -12%;
     margin-right: 15%;
-    width: 10%;
+    width: 15%;
     position: absolute;
     top: 100%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
+.mannaka{
+    text-align: center;
+}
 .siro {
     background-color: cadetblue;
     color: black;
     font-size: 20px;
     font-weight: bold;
-    font-family: 'HGP行書体';
+    font-family: "HGP行書体";
     border-radius: 10px;
-    width: 300px;
+    width: 400px;
     display: inline-block;
     margin-bottom: 20px;
 }
@@ -51,9 +54,9 @@ body {
     background-color: cadetblue;
     font-size: 20px;
     font-weight: bold;
-    font-family: 'HGP行書体';
+    font-family: "HGP行書体";
     border-radius: 10px;
-    width: 300px;
+    width: 400px;
     display: inline-block;
 }
 
@@ -61,7 +64,7 @@ body {
     color: #fff;
     font-size: 30px;
     font-weight: bold;
-    font-family: 'HGP行書体';
+    font-family: "HGP行書体";
     display: inline-block;
 }
 
@@ -69,63 +72,65 @@ body {
     color: red;
     font-size: 30px;
     font-weight: bold;
-    font-family: 'HGP行書体';
+    font-family: "HGP行書体";
     display: inline-block;
 }
 
 /*スコア、ライフの文字*/
 .field {
+    text-align: center; /*中央配置*/
     color: red;
-    font-size: 30px;
+    font-size: 20px;
     font-weight: bold;
-    font-family: 'HGP行書体';
-    display: inline-block;
+    font-family: "HGP行書体";
 }
 
 .fieldc {
+    text-align: center; /*中央配置*/
     color: black;
     font-weight: bold;
-    font-size: 40px;
-    font-family: 'HGP行書体';
-    display: inline-block;
+    font-size: 50px;
+    font-family: "HGP行書体";
 }
 
 /*問題の文字*/
 .fieldx {
     color: black;
-    font-size: 50px;
+    font-size: 30px;
     font-weight: bold;
-    font-family: 'HGP行書体';
+    font-family: "HGP行書体";
     text-align: center;
 }
 
 /*正解不正解の表示*/
 .h1 {
+    text-align: center; /*中央配置*/
     font-size: 30px;
-    font-family: 'HGP行書体';
+    font-family: "HGP行書体";
 }
 
 /*最初のカウントダウン*/
 #countdown {
+    text-align: center; /*中央配置*/
     color: black;
     font-size: 30px;
-    font-family: 'HGP行書体';
+    font-family: "HGP行書体";
 }
 
 .boder {
+    text-align: center; /*中央配置*/
     position: relative;
-    /* padding: 1rem; */
-    border-radius: 10px;
+    border-radius: 100px;
     border: 3px solid #333;
-    /* transform: perspective(1000px) rotateX(20deg); */
     box-shadow: 0px 10px 0px #333;
-    background-color: #fff;
+    background-color: cadetblue;
     color: #333;
     font-weight: bold;
     font-size: 26px;
 }
 
 .boder:before {
+    text-align: center; /*中央配置*/
     position: absolute;
     top: 100%;
     left: 50px;
@@ -138,12 +143,16 @@ body {
 }
 
 .toi {
-    height: 300px;
-    margin-right: 210px;
+    text-align: center; /*中央配置*/
+    height: 250px;
+    margin-top: -15px;
+    margin-right: 240px;
+    /* pointer-events: none; */
 }
 
 .center {
-    margin-top: 50px;
+    text-align: center; /*中央配置*/
+    margin-top: 20px;
     text-align: center;
 }
 
@@ -153,36 +162,38 @@ body {
 
     /* 画面の横幅が1000px以下のときに適用されるCSSはすべてここに記述する */
     body {
-        background: url(background/siroHaikei.jpg) center;
-        /*背景画像指定*/
-        background-repeat: no-repeat;
-        /*画像複製阻止*/
-        background-size: cover;
-        /*画面領域*/
-        height: 100vh;
-        /*高さ設定*/
-        text-align: center;
-        /*中央配置*/
-        touch-action: manipulation;
-        /*画面二回タップで拡大を阻止*/
+        background: url(background/siroHaikei.jpg) center; /*背景画像指定*/
+        background-repeat: no-repeat; /*画像複製阻止*/
+        background-size: cover; /*画面領域*/
+        height: 100vh; /*高さ設定*/
+        touch-action: manipulation; /*画面二回タップで拡大を阻止*/
     }
 
     /*スクロール停止*/
-    html,
-    body {
+    html,body {
         overflow: hidden
+    }
+
+    img {
+        pointer-events: none;
+        text-align: center;
     }
 
     .usagi {
         margin-top: -30px;
+        pointer-events: none;
+        text-align: center;
     }
 
     .human {
-        margin-right: 15%;
-        width: 30%;
+        width: 50%;
         position: absolute;
-        margin-top: -70%;
+        top: 55%;
         left: 50%;
+        transform: translate(-50%, -50%);
+        background-attachment: fixed;
+        margin: auto;
+        text-align: center;
     }
 
     .siro {
@@ -190,54 +201,58 @@ body {
         color: black;
         font-size: 50px;
         font-weight: bold;
-        font-family: 'HGP行書体';
-        border-radius: 10px;
+        font-family: "HGP行書体";
+        border-radius: 30px;
         width: 300px;
         display: inline-block;
         margin-bottom: 20px;
+        text-align: center;
     }
 
     .aka {
+        text-align: center;
         background-color: cadetblue;
         font-size: 50px;
         font-weight: bold;
-        font-family: 'HGP行書体';
-        border-radius: 10px;
+        font-family: "HGP行書体";
+        border-radius: 30px;
         width: 300px;
         display: inline-block;
+        margin-bottom: 20px;
     }
 
     .siro span1 {
         color: #fff;
         font-size: 60px;
         font-weight: bold;
-        font-family: 'HGP行書体';
+        font-family: "HGP行書体";
         display: inline-block;
+        text-align: center;
     }
 
     .aka span2 {
         color: red;
         font-size: 60px;
         font-weight: bold;
-        font-family: 'HGP行書体';
+        font-family: "HGP行書体";
         display: inline-block;
     }
 
     /*スコア、ライフの文字*/
     .field {
+        text-align: center;
         color: red;
         font-size: 50px;
         font-weight: bold;
-        font-family: 'HGP行書体';
-        display: inline-block;
+        font-family: "HGP行書体";
     }
 
     .fieldc {
+        text-align: center;
         color: black;
         font-weight: bold;
-        font-size: 60px;
-        font-family: 'HGP行書体';
-        display: inline-block;
+        font-size: 100px;
+        font-family: "HGP行書体";
     }
 
     /*問題の文字*/
@@ -245,9 +260,10 @@ body {
         color: black;
         font-weight: bold;
         font-size: 70px;
-        font-family: 'HGP行書体';
+        font-family: "HGP行書体";
         text-align: center;
         background-repeat: no-repeat;
+        -webkit-appearance: none;
     }
 
     /*正解不正解の表示*/
@@ -255,29 +271,31 @@ body {
         text-align: center;
         padding-right: 200px;
         font-size: 70px;
-        font-family: 'HGP行書体';
+        font-family: "HGP行書体";
     }
 
     /*最初のカウントダウン*/
     #countdown {
+        text-align: center;
         font-size: 80px;
-        font-family: 'HGP行書体';
+        font-family: "HGP行書体";
     }
 
     .boder {
+        text-align: center;
         position: relative;
         padding: 1rem;
-        border-radius: 10px;
-        border: 3px solid #333;
-        /* transform: perspective(1000px) rotateX(20deg); */
+        border-radius: 100px;
+        border: 7px solid #333;
         box-shadow: 0px 10px 0px #333;
-        background-color: #fff;
+        background-color: cadetblue;
         color: #333;
         font-weight: bold;
         font-size: 26px;
     }
 
     .boder:before {
+        text-align: center;
         position: absolute;
         top: 100%;
         left: 50px;
@@ -290,11 +308,24 @@ body {
     }
 
     .center {
+        margin-top: 50px;
         text-align: center;
     }
 
     .toi {
-        height: 900px;
+        height: 800px;
+        margin-top: -20%;
+        margin-left: 9%;
         text-align: center;
+        background-attachment: fixed;
     }
+
+}
+
+/* ios */
+_::-webkit-full-page-media, _:future, :root .human{
+	position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

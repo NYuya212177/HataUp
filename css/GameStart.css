@@ -10,8 +10,25 @@ body {
     touch-action: manipulation; /*画面二回タップで拡大を阻止*/
 }
 
+html {
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}
+
+/*スクロール停止*/
+html,body {
+    overflow: hidden
+}
+
 .icon {
     height: 150px;
+    pointer-events: none;
+}
+
+.sakura_parts_box {
+    pointer-events: none;
 }
 
 /*ラジオボタン*/
@@ -65,34 +82,22 @@ h3 {
 .soro {
     font-size: 20px;
     font-family: 'HGP行書体';
-    padding: 20px 20px;/*幅、高さ*/
-    border-radius: 20px;/*角を丸くする*/
-    border: none;/* デフォルトで入るリンクの下線を消す */
+    padding: 20px 20px;
+    border-radius: 20px;
+    border: none;
     color: #fff;
     background-color: #f08080;
     box-shadow: 0 3px 0 #f08080;
     text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
 }
 
-.soro:hover {
-    background-color: #f08080;
-    box-shadow: 0 3px 0 #f08080;
-}
-
-/*ボタンアクション*/
-.soro:active {
-    box-shadow: none;
-    -webkit-transform: translateY(4px);
-    transform: translateY(4px);
-}
-
 /* 部屋に入る・作るボタンレイアウト */
 .room {
     font-size: 20px;
     font-family: 'HGP行書体';
-    padding: 20px 20px; /*幅、高さ*/
-    border-radius: 20px; /*角を丸くする*/
-    border: none; /* デフォルトで入るリンクの下線を消す */
+    padding: 20px 20px;
+    border-radius: 20px; 
+    border: none; 
     color: #fff;
     background-color: #f08080;
     box-shadow: 0 3px 0 #f08080;
@@ -228,7 +233,7 @@ img.parts_19 {
 }
 
 
-/* 舞い散るアニメーション回転しつつ上から下へ */
+/* 舞い散るアニメーション */
 @keyframes sakura {
     0% {
         opacity: 0;
@@ -323,16 +328,18 @@ img.parts_18 {
 
     /*画面全体のレイアウト*/
     body {
-        background: url(background/Haikei.jpg) center;
-        /*背景画像指定*/
-        background-repeat: no-repeat;
-        /*画像複製阻止*/
-        background-size: cover;
-        /*画面領域*/
-        text-align: center;
-        /*中央配置*/
-        touch-action: manipulation;
-        /*画面二回タップで拡大を阻止*/
+        background: url(background/Haikei.jpg) center; /*背景画像指定*/
+        background-repeat: no-repeat; /*画像複製阻止*/
+        background-size: cover; /*画面領域*/
+        text-align: center; /*中央配置*/
+        touch-action: manipulation; /*画面二回タップで拡大を阻止*/
+    }
+
+    html {
+        user-select: none;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
     }
 
     /*スクロール停止*/
@@ -344,6 +351,11 @@ img.parts_18 {
     /*title.png*/
     .icon {
         height: 500px;
+        pointer-events: none;
+    }
+
+    .sakura_parts_box {
+        pointer-events: none;
     }
 
     /*ラジオボタンデザイン*/
@@ -370,7 +382,6 @@ img.parts_18 {
         margin-bottom: 100px;
         font-size: 70px;
         font-family: 'HGP行書体';
-        /*書体*/
         color: red;
     }
 
@@ -399,7 +410,6 @@ img.parts_18 {
         padding: 30px 30px;
         border-radius: 20px;
         border: none;
-        /* デフォルトで入るリンクの下線を消す*/
         color: #fff;
         background-color: #f08080;
         box-shadow: 0 3px 0 #f08080;
@@ -425,7 +435,6 @@ img.parts_18 {
         padding: 30px 30px;
         border-radius: 20px;
         border: none;
-        /* デフォルトで入るリンクの下線を消す */
         color: #fff;
         background-color: #f08080;
         box-shadow: 0 3px 0 #f08080;
@@ -563,10 +572,7 @@ img.parts_18 {
     }
 
 
-    /*-----------------------------------
-      舞い散るアニメーション
-      回転しつつ上から下へ
-      -----------------------------------*/
+    /* 舞い散るアニメーション */
     @keyframes sakura {
         0% {
             opacity: 0;
@@ -601,8 +607,7 @@ img.parts_18 {
     }
 
     .sakura_parts_box img {
-        animation: sakura linear 6s infinite;
-        /*アニメーションが始まるまで画像を見えなくしておく*/
+        animation: sakura linear 6s infinite; /*アニメーションが始まるまで画像を見えなくしておく*/
         opacity: 0;
     }
 
@@ -655,3 +660,4 @@ img.parts_18 {
         animation-delay: 5s;
     }
 }
+
