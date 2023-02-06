@@ -188,7 +188,7 @@ img {
     .human {
         width: 50%;
         position: absolute;
-        top: 55%;
+        top: 70%;
         left: 50%;
         transform: translate(-50%, -50%);
         background-attachment: fixed;
@@ -328,4 +328,13 @@ _::-webkit-full-page-media, _:future, :root .human{
     top: 70%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    .human {
+        position: absolute;
+        top: 70%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
 }
