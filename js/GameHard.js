@@ -10,6 +10,14 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 const firestore = firebase.firestore();
+document.getElementById("pat1").style.visibility = "hidden";
+document.getElementById("pat2").style.visibility = "hidden";
+document.getElementById("pat3").style.visibility = "hidden";
+document.getElementById("pat4").style.visibility = "hidden";
+document.getElementById("pat5").style.visibility = "hidden";
+document.getElementById("pat6").style.visibility = "hidden";
+document.getElementById("pat7").style.visibility = "hidden";
+document.getElementById("pat8").style.visibility = "hidden";
 //RoomCreateかRoomInで設定したplayernumberをplayernumberとする
 const playernumber = localStorage.getItem("playernumber");
 console.log(playernumber);
@@ -89,13 +97,24 @@ docRef.get().then((doc) => {
     //指定したfirebaseから値を取得してこれた際の処理
     if (doc.exists) {
         if (player2 == null) {
-            Life = "2";
+            alert("エラーが発生しました");
+            //エラーが発生した時にホームに移動
+            location.href = "./GameStart.html";
         } else if (player3 == null) {
-            Life = "5";
+            Life = "4";
+            for (var i = 1; i <= 4; i++) {
+                document.getElementById("pat" + i).style.visibility = "visible";
+            }
         } else if (player4 == null) {
-            Life = "5";
+            Life = "6";
+            for (var i = 1; i <= 6; i++) {
+                document.getElementById("pat" + i).style.visibility = "visible";
+            }
         } else {
-            Life = "5";
+            Life = "8";
+            for (var i = 1; i <= 8; i++) {
+                document.getElementById("pat" + i).style.visibility = "visible";
+            }
         }
         hp = Life;
     }
