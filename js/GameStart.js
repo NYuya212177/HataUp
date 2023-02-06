@@ -74,15 +74,22 @@ document.getElementById("SoloGame").addEventListener("click", function () {
             checkValue = Level.item(i).value;
             if (checkValue === "easy") {
                 level = "easy";
-                console.log(level);
+                //ローカルストレージに選択した難易度を格納
+                localStorage.setItem('level', level);
+                console.log(localStorage);
             } else if (checkValue === "normal") {
                 level = "normal";
-                console.log(level);
+                //ローカルストレージに選択した難易度を格納
+                localStorage.setItem('level', level);
+                console.log(localStorage);
             } else if (checkValue === "hard") {
                 level = "hard";
-                console.log(level);
+                //ローカルストレージに選択した難易度を格納
+                localStorage.setItem('level', level);
+                console.log(localStorage);
             }
         }
+
         if (level === "easy") {//難易度がかんたんの時
             //SoloGameEasy.htmlに画面遷移
             window.location.href = 'SoloGameEasy.html';

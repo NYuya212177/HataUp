@@ -11,15 +11,15 @@ document.getElementById("point").innerHTML = Point;
 
 //もう一回が押されたときの処理
 document.getElementById("again").addEventListener("click", function () {
-    if (level == "easy") {
-       //SoloGameEasy.htmlに画面遷移
-       window.location.href = 'SoloGameEasy.html';
-    } else if (level == "normal") {
+    if (level === "easy") {//難易度がかんたんの時
+        //SoloGameEasy.htmlに画面遷移
+        window.location.href = 'SoloGameEasy.html';
+    } else if (level === "normal") {//難易度がふつうの時
         //SoloGameNormal.htmlに画面遷移
         window.location.href = 'SoloGameNormal.html';
-    } else if (level == "hard") {
-       //SoloGameHard.htmlに画面遷移
-       window.location.href = 'SoloGameHard.html';
+    } else if (level === "hard") {//難易度がむずかしいの時
+        //SoloGameHard.htmlに画面遷移
+        window.location.href = 'SoloGameHard.html';
     }
 });
 
